@@ -341,6 +341,7 @@ class WeatherPage(PageBase):
         else:
             badge_text = "SUMBER DATA"
         self.source_badge.setText(badge_text)
+        updated = summary.get("updated_at")
         self.updated_label.setText(
             f"Diperbarui {format_date(updated)} · {summary.get('daily_count', 0)} hari data harian"
             if updated

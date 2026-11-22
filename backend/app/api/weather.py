@@ -72,7 +72,7 @@ def fetch_bmkg_banjar() -> list[dict[str, Any]]:
         lambda: {"t": [], "hu": [], "tp": []}
     )
     for section in payload.get("data", []) or []:
-        forecasts = section.get("cuaca", [])
+        forecasts = section.get("cuaca") or []
         for day in forecasts:
             if not isinstance(day, list):
                 continue
