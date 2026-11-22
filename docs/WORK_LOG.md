@@ -8,6 +8,14 @@ Update terakhir: **2026-11-23 23.00 WIB**
 
 ## 2026-11-23
 
+### 0. Rebuild paket Windows 7 (source terbaru)
+- Rebuild `build_win7.ps1` dengan `APOTEK_PY38=...\win7venv\Scripts\python.exe`, `APOTEK_ISCC=...\InnoSetup\ISCC.exe`.
+- Artifacts di-update: `ApotekPahala.exe`, ZIP portabel, installer; `SHA256SUMS.txt` diperbarui.
+- New SHA:
+  - EXE: `7f3f4eea5b5df9c9316d9ab1fb3b34d49ed7b22d4816a08e592382cda5d2c03b` (2,041,532 byte)
+  - ZIP: `829dc20622b8b19c1370d90965eab30af0637817fa82fb8a4c8c8ff2fae70746` (128,963,631 byte)
+  - Installer: `82b4f7b05a6f95a99c6a049edc7bbe7807f1cd9698fe975f6ce21f146b16cb3e` (80,287,686 byte)
+
 ### 1. Deep review Desktop lanjutan
 - Review ulang keseluruhan `desktop/`: tidak ada bug High; Medium utama terselesaikan.
 - `ActivityDialog` Dashboard dialihkan ke `AsyncRunner` (`refresh` via worker).
