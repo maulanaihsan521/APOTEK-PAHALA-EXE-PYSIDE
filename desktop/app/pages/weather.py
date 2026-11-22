@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from PySide6.QtCore import QSize, Qt
+from PySide6.QtCore import QSize, Qt, QTimer
 from PySide6.QtWidgets import (
     QComboBox,
     QHBoxLayout,
@@ -49,6 +49,10 @@ class WeatherPage(PageBase):
         self.end = ""
         self.weeks = 12
         self._serial = 0
+        self._bmkg_busy = False
+        self._bmkg_timer = QTimer(self)
+        self._bmkg_timer.setInterval(30 * 60 * 1000)
+        self._bmkg_timer.timeout.connect(self._on_bmkg_auto_update)
 
         self.notice = PageNotice()
         self.body.addWidget(self.notice)
@@ -188,7 +192,18 @@ class WeatherPage(PageBase):
         self.body.addStretch(1)
 
     def on_show(self) -> None:
+        super().on_show()
         self.load()
+        self._bmkg_timer.start()
+
+    def hideEvent(self, event) -> None:
+        self._bmkg_timer.stop()
+        super().hideEvent(event)
+
+    def _on_bmkg_auto_update(self) -> None:
+        if not self.is_admin or self._bmkg_busy or not self._bmkg_timer.isActive():
+            return
+        self._update_from_bmkg()
 
     def _search_changed(self) -> None:
         self.page = 1
@@ -380,6 +395,7 @@ class WeatherPage(PageBase):
     def _update_from_bmkg(self) -> None:
         self._serial += 1
         serial = self._serial
+        self._bmkg_busy = True
         if self.is_admin and hasattr(self, "bmkg_button"):
             self.bmkg_button.setEnabled(False)
         self.notice.show_message("Memperbarui data cuaca BMKG Banjar...", "info")
@@ -390,6 +406,7 @@ class WeatherPage(PageBase):
         def done(result: dict) -> None:
             if serial != self._serial:
                 return
+            self._bmkg_busy = False
             if self.is_admin and hasattr(self, "bmkg_button"):
                 self.bmkg_button.setEnabled(True)
             self.toast(
@@ -400,6 +417,7 @@ class WeatherPage(PageBase):
 
         def failed(message: str, _status: int) -> None:
             if serial == self._serial:
+                self._bmkg_busy = False
                 if self.is_admin and hasattr(self, "bmkg_button"):
                     self.bmkg_button.setEnabled(True)
                 self.notice.show_message(message, "danger")

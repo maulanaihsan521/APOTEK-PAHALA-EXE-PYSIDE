@@ -138,6 +138,13 @@ Update terakhir: **2026-11-22 20.10 WIB**
 - PDF memakai font Segoe UI/Consolas, daftar isi otomatis, dan bookmark per
   bagian; tidak memuat token, secret, database produksi, atau data pasien.
 
+### 8. Auto-update data cuaca BMKG Banjar
+- Desktop `WeatherPage` menambahkan `QTimer` selama halaman Data Cuaca terbuka.
+- Interval auto-update: **30 menit**; hanya Admin, dan tidak boleh ganda.
+- Setiap timer tick memanggil **Backend → `POST /weather/bmkg/banjar`** untuk fetch+upsert BMKG Banjarnegara.
+- Flag `_bmkg_busy` mencegah sesi BMKG melakukan overstacking; timer berhenti saat halaman tersembunyi.
+- Terverifikasi: import Desktop OK, `compileall` OK, `pytest` 17 passed, relaunch Desktop berhasil.
+
 ## 2026-11-21
 
 ### 1. Dataset asli menggantikan data demo
