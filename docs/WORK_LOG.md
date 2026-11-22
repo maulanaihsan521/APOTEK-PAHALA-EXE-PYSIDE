@@ -14,6 +14,12 @@ Update terakhir: **2026-11-23 23.00 WIB**
 - Perbaikan lanjutan: guard `stock._adjust_selected`, async Save di dialog lain via runner, prevent stuck busy di weather.
 - Verifikasi: compileall, import modul desktop, `pytest backend/tests -q` -> 17 passed, health backend OK.
 
+### 2. Cleanup dead-code lanjutan
+- Menghapus `GroupedBarChart` & `DonutChart` di `desktop/app/components/charts.py` (tidak ada referensi).
+- Menghapus `Table.selected_data` di `desktop/app/components/widgets.py` (tidak dipanggil).
+- Menghapus `MainWindow._backend_ready_pending` yang tidak dipakai.
+- Verifikasi: no matches untuk dead-code; `compileall`, import modul Desktop, `pytest` 17 passed, health Backend 200.
+
 ## 2026-11-22
 
 ### 1. Tinjauan desktop menyeluruh

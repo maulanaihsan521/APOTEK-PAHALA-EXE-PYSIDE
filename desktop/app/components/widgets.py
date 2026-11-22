@@ -1028,14 +1028,6 @@ class Table(QTableWidget):
         self.setItem(row, column, item)
         return item
 
-    def selected_data(self) -> Any:
-        row = self.currentRow()
-        if row < 0:
-            return None
-        item = self.item(row, 0)
-        return item.data(Qt.ItemDataRole.UserRole) if item else None
-
-
 class Avatar(QLabel):
     def __init__(self, text: str = "", size: int = 36, parent: QWidget | None = None) -> None:
         super().__init__(parent)

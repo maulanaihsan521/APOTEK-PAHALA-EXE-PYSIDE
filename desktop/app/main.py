@@ -377,7 +377,6 @@ class MainWindow(QMainWindow):
     def _restart_backend(self) -> None:
         self.launcher.stop()
         self._backend_started = False
-        self._backend_ready_pending = False
         self._boot_backend()
 
     # ------------------------------------------------------------------
