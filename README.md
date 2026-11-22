@@ -349,6 +349,10 @@ deterministik dan tidak memuat data pasien.
   langkah untuk desktop dan mobile.
 - [`docs/PENGUJIAN.md`](docs/PENGUJIAN.md) — cakupan dan hasil pengujian.
 - [`docs/WINDOWS7.md`](docs/WINDOWS7.md) — paket dan instalasi Windows 7.
+- [`docs/PANDUAN_FRAMEWORK_DAN_METODE_DATA.pdf`](docs/PANDUAN_FRAMEWORK_DAN_METODE_DATA.pdf)
+  — penjelasan framework/library, fungsi tiap teknologi, serta metode input,
+  pembersihan, validasi, feature engineering, dan evaluasi model.
+  Sumber dokumen: [`scripts/generate_framework_pdf.py`](scripts/generate_framework_pdf.py).
 
 ---
 

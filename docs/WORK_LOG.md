@@ -4,7 +4,7 @@ Catatan pekerjaan yang dihubungkan ke graf kode Graphify. Setiap perubahan
 kode besar diikuti `graphify update .` agar peta di `graph.json` tetap sesuai
 dengan source terbaru. Log ini tidak memuat data pasien maupun kredensial.
 
-Update terakhir: **2026-11-22 19.21 WIB**
+Update terakhir: **2026-11-22 20.10 WIB**
 
 ## 2026-11-22
 
@@ -127,6 +127,16 @@ Update terakhir: **2026-11-22 19.21 WIB**
 - ZIP 1.297 berkas, installer 1.299 berkas; uninstall exit 0, folder aplikasi
   dan kunci registry terhapus, data pengguna tidak dihapus.
 - Ukuran dan hash SHA-256 final ada di `build/win7/SHA256SUMS.txt`.
+
+### 8. Dokumentasi PDF framework dan metode data
+- Menambahkan `docs/PANDUAN_FRAMEWORK_DAN_METODE_DATA.pdf` (16 halaman):
+  penjelasan framework/library per lapisan, alur input DBF dan import wizard,
+  aturan pembersihan/validasi, feature engineering, model, metrik, perintah
+  reproduksi, batasan, glosarium, dan bukti validasi.
+- Menambahkan generator `scripts/generate_framework_pdf.py` agar dokumen dapat
+  dibangun ulang dari kode dan data aktual.
+- PDF memakai font Segoe UI/Consolas, daftar isi otomatis, dan bookmark per
+  bagian; tidak memuat token, secret, database produksi, atau data pasien.
 
 ## 2026-11-21
 
