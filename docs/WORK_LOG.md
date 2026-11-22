@@ -4,7 +4,15 @@ Catatan pekerjaan yang dihubungkan ke graf kode Graphify. Setiap perubahan
 kode besar diikuti `graphify update .` agar peta di `graph.json` tetap sesuai
 dengan source terbaru. Log ini tidak memuat data pasien maupun kredensial.
 
-Update terakhir: **2026-11-22 20.10 WIB**
+Update terakhir: **2026-11-23 23.00 WIB**
+
+## 2026-11-23
+
+### 1. Deep review Desktop lanjutan
+- Review ulang keseluruhan `desktop/`: tidak ada bug High; Medium utama terselesaikan.
+- `ActivityDialog` Dashboard dialihkan ke `AsyncRunner` (`refresh` via worker).
+- Perbaikan lanjutan: guard `stock._adjust_selected`, async Save di dialog lain via runner, prevent stuck busy di weather.
+- Verifikasi: compileall, import modul desktop, `pytest backend/tests -q` -> 17 passed, health backend OK.
 
 ## 2026-11-22
 

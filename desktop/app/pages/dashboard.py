@@ -33,6 +33,7 @@ from app.components.widgets import (
     ThemedButton,
     refresh_style,
 )
+from app.core.async_worker import AsyncRunner
 from app.core.icons import icon
 from app.core.theme import theme
 from app.core.utils import compact_rupiah, format_date, format_datetime, number, percent, relative_time
@@ -43,6 +44,7 @@ class ActivityDialog(QDialog):
     def __init__(self, api, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.api = api
+        self._runner = AsyncRunner(self)
         self.setWindowTitle("Semua Aktivitas")
         self.setModal(True)
         self.resize(640, 600)
@@ -78,34 +80,38 @@ class ActivityDialog(QDialog):
         self._load()
 
     def _load(self) -> None:
-        try:
-            payload = self.api.get("/activities", params={"page_size": 60}, timeout=30)
-        except Exception as exc:  # noqa: BLE001
-            self.banner.set_message(str(exc), "danger")
-            return
-        items = payload.get("items", [])
-        self.banner.set_message(f"{payload.get('total', len(items))} aktivitas tercatat", "info")
-        clear_layout(self.rows)
-        for item in items:
-            icon_name, color_role, bg_role = activity_icon(item.get("type"))
-            row = QFrame()
-            row.setStyleSheet(f"QFrame {{ border-bottom: 1px solid {theme.tokens['border']}; }}")
-            item_layout = QHBoxLayout(row)
-            item_layout.setContentsMargins(2, 8, 2, 8)
-            item_layout.setSpacing(10)
-            item_layout.addWidget(IconBox(icon_name, color_role, bg_role, 30, 14))
-            text = QVBoxLayout()
-            text.setSpacing(1)
-            desc = QLabel(item.get("description", ""))
-            desc.setWordWrap(True)
-            desc.setStyleSheet("font-size: 12px;")
-            text.addWidget(desc)
-            meta = QLabel(f"{item.get('user', 'Sistem')} · {relative_time(item.get('created_at'))}")
-            meta.setObjectName("MutedSmall")
-            text.addWidget(meta)
-            item_layout.addLayout(text, 1)
-            self.rows.addWidget(row)
-        self.rows.addStretch(1)
+        def task() -> dict:
+            return self.api.get("/activities", params={"page_size": 60}, timeout=30)
+
+        def ok(payload: dict) -> None:
+            items = payload.get("items", [])
+            self.banner.set_message(f"{payload.get('total', len(items))} aktivitas tercatat", "info")
+            clear_layout(self.rows)
+            for item in items:
+                icon_name, color_role, bg_role = activity_icon(item.get("type"))
+                row = QFrame()
+                row.setStyleSheet(f"QFrame {{ border-bottom: 1px solid {theme.tokens['border']}; }}")
+                item_layout = QHBoxLayout(row)
+                item_layout.setContentsMargins(2, 8, 2, 8)
+                item_layout.setSpacing(10)
+                item_layout.addWidget(IconBox(icon_name, color_role, bg_role, 30, 14))
+                text = QVBoxLayout()
+                text.setSpacing(1)
+                desc = QLabel(item.get("description", ""))
+                desc.setWordWrap(True)
+                desc.setStyleSheet("font-size: 12px;")
+                text.addWidget(desc)
+                meta = QLabel(f"{item.get('user', 'Sistem')} · {relative_time(item.get('created_at'))}")
+                meta.setObjectName("MutedSmall")
+                text.addWidget(meta)
+                item_layout.addLayout(text, 1)
+                self.rows.addWidget(row)
+            self.rows.addStretch(1)
+
+        def bad(message: str, _status: int) -> None:
+            self.banner.set_message(message, "danger")
+
+        self._runner.submit(task, ok, bad)
 
 
 class PeriodDialog(QDialog):
