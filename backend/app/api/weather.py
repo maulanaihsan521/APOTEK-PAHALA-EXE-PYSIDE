@@ -2,8 +2,11 @@
 from __future__ import annotations
 
 import math
-from datetime import date, timedelta
+from collections import defaultdict
+from datetime import date, datetime, timedelta
+from typing import Any
 
+import httpx
 import pandas as pd
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import String, func, select
@@ -11,12 +14,96 @@ from sqlalchemy.orm import Session
 
 from app.core.deps import get_current_user, require_admin
 from app.database.database import get_db
-from app.models.models import User, WeatherData
+from app.models.models import User, WeatherData, utcnow
 from app.schemas.schemas import WeatherCreate, WeatherUpdate
 from app.services.activity_service import log_activity
 from app.services.export_service import csv_response, excel_response
 
 router = APIRouter(prefix="/weather", tags=["Cuaca"])
+
+# BMKG: Prakiraan Cuaca Terbuka (data.bmkg.go.id)
+BMKG_BANJAR_ADM4 = "33.04.06.1012"
+BMKG_BANJAR_URL = "https://api.bmkg.go.id/publik/prakiraan-cuaca"
+BMKG_SOURCE = "BMKG Banjarnegara (Krandegan, Banjarnegara)"
+
+
+def _bmkg_parse_date(raw: Any) -> date | None:
+    if not isinstance(raw, str) or not raw.strip():
+        return None
+    text = raw.strip().replace("T", " ")
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(text, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def fetch_bmkg_banjar() -> list[dict[str, Any]]:
+    """Fetch dan normalisasi data BMKG untuk Krandegan, Banjarnegara."""
+    try:
+        response = httpx.get(
+            BMKG_BANJAR_URL,
+            params={"adm4": BMKG_BANJAR_ADM4},
+            timeout=20,
+            follow_redirects=True,
+        )
+    except httpx.HTTPError as exc:
+        raise HTTPException(
+            status_code=502,
+            detail=f"Gagal mengambil data BMKG Banjar: {exc}",
+        ) from exc
+    if response.status_code >= 400:
+        raise HTTPException(
+            status_code=502,
+            detail=f"BMKG mengembalikan status {response.status_code}.",
+        )
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=502,
+            detail="Respons BMKG tidak dapat di-decode.",
+        ) from exc
+
+    # BMKG mengembalikan cuaca per bagian (maksudnya: berapa slot). Flatten agar
+    # semua periode disimpan dalam satu kubah per tanggal.
+    buckets: dict[date, dict[str, list[float]]] = defaultdict(
+        lambda: {"t": [], "hu": [], "tp": []}
+    )
+    for section in payload.get("data", []) or []:
+        forecasts = section.get("cuaca", [])
+        for day in forecasts:
+            if not isinstance(day, list):
+                continue
+            for entry in day:
+                if not isinstance(entry, dict):
+                    continue
+                entry_date = _bmkg_parse_date(
+                    entry.get("local_datetime")
+                    or entry.get("utc_datetime")
+                    or entry.get("datetime")
+                )
+                if entry_date is None:
+                    continue
+                bucket = buckets[entry_date]
+                for key in ("t", "hu", "tp"):
+                    value = entry.get(key)
+                    if isinstance(value, (int, float)):
+                        bucket[key].append(float(value))
+
+    rows: list[dict[str, Any]] = []
+    for entry_date in sorted(buckets):
+        bucket = buckets[entry_date]
+        rows.append(
+            {
+                "weather_date": entry_date,
+                "temperature": round(sum(bucket["t"]) / len(bucket["t"]), 1) if bucket["t"] else 0.0,
+                "rainfall": round(sum(bucket["tp"]), 1),
+                "humidity": round(sum(bucket["hu"]) / len(bucket["hu"]), 1) if bucket["hu"] else 0.0,
+            }
+        )
+    return rows
 
 
 @router.get("", summary="Data cuaca harian")
@@ -57,6 +144,54 @@ def list_weather(
         "page": page,
         "page_size": page_size,
         "pages": max(1, (total + page_size - 1) // page_size),
+    }
+
+
+@router.post("/bmkg/banjar", summary="Perbarui data cuaca BMKG Banjarnegara")
+def update_weather_from_bmkg_banjar(
+    admin: User = Depends(require_admin),
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    """Ambil prakiraan BMKG untuk Krandegan, Banjarnegara, lalu upsert per tanggal."""
+    rows = fetch_bmkg_banjar()
+    updated = 0
+    for row in rows:
+        existing = db.scalar(
+            select(WeatherData).where(WeatherData.weather_date == row["weather_date"])
+        )
+        if existing is None:
+            db.add(
+                WeatherData(
+                    weather_date=row["weather_date"],
+                    temperature=row["temperature"],
+                    rainfall=row["rainfall"],
+                    humidity=row["humidity"],
+                    source=BMKG_SOURCE,
+                )
+            )
+        else:
+            existing.temperature = row["temperature"]
+            existing.rainfall = row["rainfall"]
+            existing.humidity = row["humidity"]
+            existing.source = BMKG_SOURCE
+            existing.updated_at = utcnow()
+        updated += 1
+    if updated == 0:
+        raise HTTPException(status_code=404, detail="BMKG tidak mengembalikan hari data.")
+    db.commit()
+    log_activity(
+        db,
+        admin,
+        "weather",
+        f"Data cuaca diperbarui dari BMKG Banjarnegara: {updated} hari.",
+        "weather",
+        None,
+    )
+    db.commit()
+    return {
+        "message": f"{updated} hari data cuaca BMKG Banjar diperbarui.",
+        "count": updated,
+        "location": "Krandegan, Banjarnegara",
     }
 
 

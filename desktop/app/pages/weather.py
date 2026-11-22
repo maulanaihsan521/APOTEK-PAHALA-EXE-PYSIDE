@@ -75,6 +75,12 @@ class WeatherPage(PageBase):
         row.addWidget(self.reset_date, 0, Qt.AlignmentFlag.AlignBottom)
         row.addStretch(1)
         if self.is_admin:
+            self.bmkg_button = ThemedButton("BMKG Banjar", "outline", "plug-zap")
+            self.bmkg_button.setToolTip("Perbarui data cuaca dari BMKG (Krandegan, Banjarnegara)")
+            self.bmkg_button.setCursor(Qt.CursorShape.PointingHandCursor)
+            self.bmkg_button.setMaximumWidth(120)
+            self.bmkg_button.clicked.connect(self._update_from_bmkg)
+            row.addWidget(self.bmkg_button, 0, Qt.AlignmentFlag.AlignBottom)
             self.import_button = ThemedButton("Import", "outline", "upload")
             self.import_button.clicked.connect(self._open_import)
             row.addWidget(self.import_button, 0, Qt.AlignmentFlag.AlignBottom)
@@ -327,10 +333,14 @@ class WeatherPage(PageBase):
             summary.get("rainfall_series", []),
         )
         self.source_label.setText(f"Sumber data: {summary.get('source', '—')}")
-        updated = summary.get("updated_at")
-        self.source_badge.setText(
-            "NASA POWER" if "NASA" in str(summary.get("source", "")) else "SUMBER DATA"
-        )
+        source_text = str(summary.get("source", ""))
+        if "BMKG" in source_text:
+            badge_text = "BMKG"
+        elif "NASA" in source_text:
+            badge_text = "NASA POWER"
+        else:
+            badge_text = "SUMBER DATA"
+        self.source_badge.setText(badge_text)
         self.updated_label.setText(
             f"Diperbarui {format_date(updated)} · {summary.get('daily_count', 0)} hari data harian"
             if updated
@@ -365,6 +375,35 @@ class WeatherPage(PageBase):
             lambda _result: (self.toast("Data cuaca dihapus.", "success"), self.load()),
             lambda message, status: self.toast(message, "error"),
         )
+
+    def _update_from_bmkg(self) -> None:
+        self._serial += 1
+        serial = self._serial
+        if self.is_admin and hasattr(self, "bmkg_button"):
+            self.bmkg_button.setEnabled(False)
+        self.notice.show_message("Memperbarui data cuaca BMKG Banjar...", "info")
+
+        def task() -> dict:
+            return self.api.post("/weather/bmkg/banjar", timeout=90)
+
+        def done(result: dict) -> None:
+            if serial != self._serial:
+                return
+            if self.is_admin and hasattr(self, "bmkg_button"):
+                self.bmkg_button.setEnabled(True)
+            self.toast(
+                result.get("message") or "Data cuaca BMKG Banjar diperbarui.",
+                "success",
+            )
+            self.load()
+
+        def failed(message: str, _status: int) -> None:
+            if serial == self._serial:
+                if self.is_admin and hasattr(self, "bmkg_button"):
+                    self.bmkg_button.setEnabled(True)
+                self.notice.show_message(message, "danger")
+
+        self.runner.submit(task, done, failed)
 
     def _open_import(self) -> None:
         dialog = ImportWizardDialog(self.api, "weather", self, on_done=self.load)
