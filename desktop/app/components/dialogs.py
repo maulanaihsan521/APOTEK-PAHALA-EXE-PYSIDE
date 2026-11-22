@@ -43,6 +43,7 @@ from app.components.widgets import (
     set_variant,
 )
 from app.core.api import ApiError
+from app.core.async_worker import AsyncRunner
 from app.core.config import MONTHS_ID_LONG
 from app.core.theme import theme
 from app.core.utils import format_date, from_qdate, number, rupiah, to_qdate
@@ -82,6 +83,7 @@ class FormDialog(QDialog):
         self.setModal(True)
         self.setMinimumWidth(width)
         self._on_save: Callable[[], bool | None] | None = None
+        self._runner = AsyncRunner(self)
         self.setStyleSheet(
             f"QDialog {{ background: {theme.tokens['surface']}; }}"
             f"QLabel#DialogTitle {{ font-size: 17px; font-weight: 800; color: {theme.tokens['text']}; }}"
@@ -156,6 +158,26 @@ class FormDialog(QDialog):
 
     def bind_save(self, callback: Callable[[], bool | None]) -> None:
         self._on_save = callback
+
+    def _submit_async(
+        self,
+        task: Callable[[], Any],
+        on_success: Callable[[Any], None] | None = None,
+        on_error: Callable[[], None] | None = None,
+    ) -> None:
+        def ok(result: Any) -> None:
+            self.set_busy(False)
+            if on_success:
+                on_success(result)
+            self.accept()
+
+        def bad(message: str, _status: int) -> None:
+            self.set_busy(False)
+            self.show_error(message)
+            if on_error:
+                on_error()
+
+        self._runner.submit(task, ok, bad)
 
     def _save(self) -> None:
         self.error.hide()
@@ -459,6 +481,7 @@ class ImportWizardDialog(QDialog):
         footer.addWidget(self.commit)
         layout.addLayout(footer)
         self._mapping_widgets: dict[str, QComboBox] = {}
+        self._runner = AsyncRunner(self)
 
     def showEvent(self, event) -> None:
         super().showEvent(event)
@@ -478,24 +501,22 @@ class ImportWizardDialog(QDialog):
         if not self.path:
             return
         import_type = self.type_combo.currentData()
-        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
-        try:
-            self.preview = self.api.upload(
+
+        def task() -> Any:
+            return self.api.upload(
                 "/imports/preview", self.path, {"import_type": import_type}, timeout=120
             )
-        except ApiError as exc:
-            self.banner.set_message(exc.message, "danger")
+
+        def ok(preview: dict) -> None:
+            self.preview = preview
+            self._render_preview()
+
+        def bad(message: str, _status: int) -> None:
+            self.banner.set_message(message, "danger")
             self.preview = None
             self.commit.setEnabled(False)
-            return
-        except Exception as exc:  # noqa: BLE001
-            self.banner.set_message(str(exc), "danger")
-            self.preview = None
-            self.commit.setEnabled(False)
-            return
-        finally:
-            QApplication.restoreOverrideCursor()
-        self._render_preview()
+
+        self._runner.submit(task, ok, bad)
 
     def _clear_content(self) -> None:
         for index in reversed(range(self.content_layout.count())):
@@ -640,64 +661,63 @@ class ImportWizardDialog(QDialog):
             danger=False,
         ):
             return
-        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+        data = {
+            "file_token": self.preview.get("file_token", ""),
+            "import_type": self.preview.get("import_type", ""),
+            "mapping_json": json.dumps(mapping, ensure_ascii=False),
+            "skip_duplicates": "true",
+        }
         self.commit.setEnabled(False)
-        try:
-            result = self.api.post_form(
-                "/imports/commit",
-                data={
-                    "file_token": self.preview.get("file_token", ""),
-                    "import_type": self.preview.get("import_type", ""),
-                    "mapping_json": json.dumps(mapping, ensure_ascii=False),
-                    "skip_duplicates": "true",
-                },
-                timeout=300,
+
+        def task() -> Any:
+            return self.api.post_form("/imports/commit", data=data, timeout=300)
+
+        def ok(result: dict) -> None:
+            self.result.setText(
+                f"Import selesai: {result.get('inserted', 0):,} baris masuk, "
+                f"{result.get('skipped', 0):,} baris dilewati. Kode batch: {result.get('batch_code', '-')}."
+                .replace(",", ".")
             )
-        except ApiError as exc:
-            self.banner.set_message(exc.message, "danger")
+            self.result.setStyleSheet(
+                f"background: {theme.tokens['success_bg']}; color: {theme.tokens['success']};"
+                "border-radius: 9px; padding: 10px 12px; font-size: 12px; font-weight: 600;"
+            )
+            self.result.show()
+            self.commit.setEnabled(False)
+            self.commit.setText("Selesai")
+            try:
+                self.commit.clicked.disconnect()
+            except RuntimeError:
+                pass
+            self.commit.clicked.connect(self.accept)
+            self.completed.emit()
+            if self.on_done:
+                self.on_done()
+
+        def bad(message: str, _status: int) -> None:
+            self.banner.set_message(message, "danger")
             self.commit.setEnabled(True)
-            return
-        except Exception as exc:  # noqa: BLE001
-            self.banner.set_message(str(exc), "danger")
-            self.commit.setEnabled(True)
-            return
-        finally:
-            QApplication.restoreOverrideCursor()
-        self.result.setText(
-            f"Import selesai: {result.get('inserted', 0):,} baris masuk, "
-            f"{result.get('skipped', 0):,} baris dilewati. Kode batch: {result.get('batch_code', '-')}."
-            .replace(",", ".")
-        )
-        self.result.setStyleSheet(
-            f"background: {theme.tokens['success_bg']}; color: {theme.tokens['success']};"
-            "border-radius: 9px; padding: 10px 12px; font-size: 12px; font-weight: 600;"
-        )
-        self.result.show()
-        self.commit.setEnabled(False)
-        self.commit.setText("Selesai")
-        try:
-            self.commit.clicked.disconnect()
-        except RuntimeError:
-            pass
-        self.commit.clicked.connect(self.accept)
-        self.completed.emit()
-        if self.on_done:
-            self.on_done()
+
+        self._runner.submit(task, ok, bad)
 
     def _download_template(self) -> None:
         import_type = self.type_combo.currentData()
-        try:
-            content, name = self.api.download(
-                f"/imports/template/{import_type}", f"template_{import_type}.csv"
-            )
-        except ApiError as exc:
-            self.banner.set_message(exc.message, "danger")
-            return
-        path, _filter = QFileDialog.getSaveFileName(self, "Simpan template", name, "CSV (*.csv)")
-        if not path:
-            return
-        Path(path).write_bytes(content)
-        self.banner.set_message(f"Template disimpan ke {path}.", "success")
+
+        def task() -> Any:
+            return self.api.download(f"/imports/template/{import_type}", f"template_{import_type}.csv")
+
+        def ok(content_name: tuple[bytes, str]) -> None:
+            content, name = content_name
+            path, _filter = QFileDialog.getSaveFileName(self, "Simpan template", name, "CSV (*.csv)")
+            if not path:
+                return
+            Path(path).write_bytes(content)
+            self.banner.set_message(f"Template disimpan ke {path}.", "success")
+
+        def bad(message: str, _status: int) -> None:
+            self.banner.set_message(message, "danger")
+
+        self._runner.submit(task, ok, bad)
 
 
 class MedicineDialog(FormDialog):
@@ -791,15 +811,17 @@ class MedicineDialog(FormDialog):
         if not payload["code"] or len(payload["name"]) < 2:
             self.show_error("Kode dan nama obat wajib diisi.")
             return False
-        if self.medicine:
-            self.api.put(f"/medicines/{self.medicine['id']}", payload)
-        else:
+        self.set_busy(True)
+
+        def task() -> Any:
+            if self.medicine:
+                return self.api.put(f"/medicines/{self.medicine['id']}", payload)
             payload["system_stock"] = int(self.system_stock.value())
             payload["physical_stock"] = int(self.physical_stock.value())
-            self.api.post("/medicines", payload)
-        if self.on_saved:
-            self.on_saved()
-        return True
+            return self.api.post("/medicines", payload)
+
+        self._submit_async(task, lambda _result: self.on_saved() if self.on_saved else None)
+        return False
 
 
 class SaleDialog(FormDialog):
@@ -886,14 +908,16 @@ class SaleDialog(FormDialog):
             "quantity": int(self.quantity.value()),
             "unit_price": float(self.price.value()),
         }
-        if self.sale:
-            self.api.put(f"/sales/{self.sale['id']}", payload)
-        else:
+        self.set_busy(True)
+
+        def task() -> Any:
+            if self.sale:
+                return self.api.put(f"/sales/{self.sale['id']}", payload)
             payload["transaction_code"] = self.code.text().strip()
-            self.api.post("/sales", payload)
-        if self.on_saved:
-            self.on_saved()
-        return True
+            return self.api.post("/sales", payload)
+
+        self._submit_async(task, lambda _result: self.on_saved() if self.on_saved else None)
+        return False
 
 
 class WeatherDialog(FormDialog):
@@ -940,14 +964,16 @@ class WeatherDialog(FormDialog):
             "rainfall": float(self.rainfall.value()),
             "humidity": float(self.humidity.value()),
         }
-        if self.weather:
-            self.api.put(f"/weather/{self.weather['id']}", payload)
-        else:
+        self.set_busy(True)
+
+        def task() -> Any:
+            if self.weather:
+                return self.api.put(f"/weather/{self.weather['id']}", payload)
             payload["weather_date"] = from_qdate(self.date.date())
-            self.api.post("/weather", payload)
-        if self.on_saved:
-            self.on_saved()
-        return True
+            return self.api.post("/weather", payload)
+
+        self._submit_async(task, lambda _result: self.on_saved() if self.on_saved else None)
+        return False
 
 
 class StockAdjustDialog(FormDialog):
@@ -991,19 +1017,19 @@ class StockAdjustDialog(FormDialog):
         if len(note) < 3:
             self.show_error("Catatan penyesuaian wajib diisi (minimal 3 karakter).")
             return False
-        self.api.post(
-            f"/inventory/{self.medicine['id']}/adjust",
-            {
-                "system_stock": int(self.system_stock.value()),
-                "physical_stock": int(self.physical_stock.value()),
-                "change_type": self.change_type.currentData(),
-                "note": note,
-                "last_opname_date": from_qdate(QDate.currentDate()) if self.change_type.currentData() == "opname" else None,
-            },
+        payload = {
+            "system_stock": int(self.system_stock.value()),
+            "physical_stock": int(self.physical_stock.value()),
+            "change_type": self.change_type.currentData(),
+            "note": note,
+            "last_opname_date": from_qdate(QDate.currentDate()) if self.change_type.currentData() == "opname" else None,
+        }
+        self.set_busy(True)
+        self._submit_async(
+            lambda: self.api.post(f"/inventory/{self.medicine['id']}/adjust", payload),
+            lambda _result: self.on_saved() if self.on_saved else None,
         )
-        if self.on_saved:
-            self.on_saved()
-        return True
+        return False
 
 
 class ProcurementEditDialog(FormDialog):
@@ -1035,13 +1061,13 @@ class ProcurementEditDialog(FormDialog):
         if len(reason) < 3:
             self.show_error("Alasan perubahan wajib diisi (minimal 3 karakter).")
             return False
-        self.api.patch(
-            f"/procurement/{self.recommendation_id}/items/{self.item['id']}",
-            {"final_qty": int(self.quantity.value()), "reason": reason},
+        payload = {"final_qty": int(self.quantity.value()), "reason": reason}
+        self.set_busy(True)
+        self._submit_async(
+            lambda: self.api.patch(f"/procurement/{self.recommendation_id}/items/{self.item['id']}", payload),
+            lambda _result: self.on_saved() if self.on_saved else None,
         )
-        if self.on_saved:
-            self.on_saved()
-        return True
+        return False
 
 
 class ChangePasswordDialog(FormDialog):
@@ -1073,11 +1099,10 @@ class ChangePasswordDialog(FormDialog):
         if self.new.text() != self.confirm.text():
             self.show_error("Konfirmasi password tidak sama.")
             return False
-        self.api.post(
-            "/auth/change-password",
-            {"old_password": self.old.text(), "new_password": self.new.text()},
-        )
-        return True
+        payload = {"old_password": self.old.text(), "new_password": self.new.text()}
+        self.set_busy(True)
+        self._submit_async(lambda: self.api.post("/auth/change-password", payload))
+        return False
 
 
 class UserDialog(FormDialog):
@@ -1122,20 +1147,20 @@ class UserDialog(FormDialog):
         }
         if self.password.text():
             payload["password"] = self.password.text()
-        if self.user:
-            self.api.put(f"/users/{self.user['id']}", payload)
-        else:
-            if len(self.password.text()) < 8:
-                self.show_error("Password minimal 8 karakter.")
-                return False
+        if not self.user and len(self.password.text()) < 8:
+            self.show_error("Password minimal 8 karakter.")
+            return False
+        if not self.user:
             payload.update({
                 "username": self.username.text().strip(),
                 "password": self.password.text(),
             })
-            self.api.post("/users", payload)
-        if self.on_saved:
-            self.on_saved()
-        return True
+        self.set_busy(True)
+        if self.user:
+            self._submit_async(lambda: self.api.put(f"/users/{self.user['id']}", payload), lambda _result: self.on_saved() if self.on_saved else None)
+        else:
+            self._submit_async(lambda: self.api.post("/users", payload), lambda _result: self.on_saved() if self.on_saved else None)
+        return False
 
 
 class ServerDialog(FormDialog):
@@ -1164,13 +1189,25 @@ class ServerDialog(FormDialog):
             return False
         old = self.api.base_url
         self.api.set_base_url(url)
-        try:
-            health = self.api.health()
-        except ApiError as exc:
+        self.set_busy(True)
+
+        def task() -> Any:
+            return self.api.health(timeout=5)
+
+        def ok(health: dict[str, Any]) -> None:
+            self.set_busy(False)
+            self.status.set_message(
+                f"Terhubung. Versi {health.get('version', '-')} · {health.get('medicines', 0)} obat.",
+                "success",
+            )
+            if self.on_saved:
+                self.on_saved()
+            self.accept()
+
+        def bad(message: str, _status: int) -> None:
             self.api.set_base_url(old)
-            self.status.set_message(exc.message, "danger")
-            return False
-        self.status.set_message(f"Terhubung. Versi {health.get('version', '-')} · {health.get('medicines', 0)} obat.", "success")
-        if self.on_saved:
-            self.on_saved()
-        return True
+            self.set_busy(False)
+            self.status.set_message(message, "danger")
+
+        self._runner.submit(task, ok, bad)
+        return False

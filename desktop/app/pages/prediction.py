@@ -521,7 +521,7 @@ class PredictionPage(PageBase):
             item.setToolTip(MODEL_LABELS.get(name, name))
             self.comparison_table.add_item(index, 1, number(values.get("mae"), 2), Qt.AlignmentFlag.AlignRight)
             self.comparison_table.add_item(index, 2, number(values.get("rmse"), 2), Qt.AlignmentFlag.AlignRight)
-            self.comparison_table.add_item(index, 3, percent(wape, 2), Qt.AlignmentFlag.AlignRight, color=tone, bold=wape == best)
+            self.comparison_table.add_item(index, 3, percent(wape, 2), Qt.AlignmentFlag.AlignRight, color=tone, bold=wape is not None and wape == best)
 
     def _render_history(self, rows: list[dict]) -> None:
         self.history_table.setRowCount(len(rows))

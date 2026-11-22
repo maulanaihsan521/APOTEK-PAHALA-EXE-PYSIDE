@@ -258,7 +258,7 @@ class DashboardPage(PageBase):
             SectionHeader(
                 "Obat dengan Permintaan Tertinggi",
                 "Berdasarkan estimasi permintaan pada periode aktif.",
-                "trophy" if False else "chart-column",
+                "chart-column",
                 top_action,
             )
         )

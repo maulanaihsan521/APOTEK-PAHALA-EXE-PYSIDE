@@ -404,9 +404,9 @@ class WeatherPage(PageBase):
             return self.api.post("/weather/bmkg/banjar", timeout=90)
 
         def done(result: dict) -> None:
+            self._bmkg_busy = False
             if serial != self._serial:
                 return
-            self._bmkg_busy = False
             if self.is_admin and hasattr(self, "bmkg_button"):
                 self.bmkg_button.setEnabled(True)
             self.toast(
@@ -416,8 +416,8 @@ class WeatherPage(PageBase):
             self.load()
 
         def failed(message: str, _status: int) -> None:
+            self._bmkg_busy = False
             if serial == self._serial:
-                self._bmkg_busy = False
                 if self.is_admin and hasattr(self, "bmkg_button"):
                     self.bmkg_button.setEnabled(True)
                 self.notice.show_message(message, "danger")

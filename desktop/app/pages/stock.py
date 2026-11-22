@@ -516,8 +516,11 @@ class StockPage(PageBase):
             self.toast("Pilih obat pada tabel terlebih dahulu.", "warning")
             return
         start = (self.page - 1) * self.page_size
-        item = self._stock_rows[start + row]
-        self._adjust(item)
+        index = start + row
+        if not 0 <= index < len(self._stock_rows):
+            self.toast("Data obat tidak tersedia. Muat ulang tabel.", "warning")
+            return
+        self._adjust(self._stock_rows[index])
 
     def _history(self, row: dict) -> None:
         dialog = StockHistoryDialog(self.api, row, self)
@@ -529,14 +532,18 @@ class StockPage(PageBase):
             self.toast("Obat baru ditambahkan.", "success")
 
     def _edit_medicine(self, row: dict) -> None:
-        try:
-            medicine = self.api.get(f"/medicines/{row['medicine_id']}", timeout=25)
-        except Exception as exc:  # noqa: BLE001
-            self.toast(str(exc), "error")
-            return
-        dialog = MedicineDialog(self.api, medicine, self, on_saved=self.load)
-        if dialog.exec() == dialog.DialogCode.Accepted:
-            self.toast("Master obat diperbarui.", "success")
+        def task() -> dict:
+            return self.api.get(f"/medicines/{row['medicine_id']}", timeout=25)
+
+        def ok(medicine: dict) -> None:
+            dialog = MedicineDialog(self.api, medicine, self, on_saved=self.load)
+            if dialog.exec() == dialog.DialogCode.Accepted:
+                self.toast("Master obat diperbarui.", "success")
+
+        def bad(message: str, _status: int) -> None:
+            self.toast(message, "error")
+
+        self.runner.submit(task, ok, bad)
 
     def _delete_medicine(self, row: dict) -> None:
         if not ConfirmDialog.ask(

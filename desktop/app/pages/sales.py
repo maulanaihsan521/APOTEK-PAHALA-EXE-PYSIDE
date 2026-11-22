@@ -33,7 +33,6 @@ from app.components.widgets import (
     StatTile,
     Table,
     ThemedButton,
-    set_variant,
 )
 from app.core.theme import theme
 from app.core.icons import icon
@@ -400,14 +399,18 @@ class SalesPage(PageBase):
         self._edit_by_code(transaction_code)
 
     def _edit_by_code(self, transaction_code: str) -> None:
-        try:
-            data = self.api.get("/sales", params={"q": transaction_code, "page_size": 5}, timeout=20)
+        def task() -> dict:
+            return self.api.get("/sales", params={"q": transaction_code, "page_size": 5}, timeout=20)
+
+        def ok(data: dict) -> None:
             item = next((sale for sale in data.get("items", []) if sale.get("transaction_code") == transaction_code), None)
-        except Exception as exc:  # noqa: BLE001
-            self.toast(str(exc), "error")
-            return
-        if item:
-            self._edit_sale(item)
+            if item:
+                self._edit_sale(item)
+
+        def bad(message: str, _status: int) -> None:
+            self.toast(message, "error")
+
+        self.runner.submit(task, ok, bad)
 
     def _edit_sale(self, sale: dict) -> None:
         dialog = SaleDialog(self.api, self._medicines, sale, self, on_saved=self.load)

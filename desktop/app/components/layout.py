@@ -1,7 +1,7 @@
 """Kerangka jendela desktop: title bar, sidebar, top bar, dan halaman bergulir."""
 from __future__ import annotations
 
-from typing import Callable
+from typing import Any, Callable
 
 from PySide6.QtCore import QPoint, QPointF, QRectF, QSize, Qt, Signal
 from PySide6.QtGui import QColor, QFont, QLinearGradient, QPainter, QPainterPath, QPixmap
@@ -31,6 +31,7 @@ from app.components.widgets import (
     fit_dialog_to_screen,
     refresh_style,
 )
+from app.core.async_worker import AsyncRunner
 from app.core.config import APP_NAME, APP_SUBTITLE, APP_VERSION, APP_YEAR
 from app.core.icons import icon, logo_pixmap, pixmap, stateful_icon
 from app.core.theme import theme
@@ -535,6 +536,7 @@ class NotificationDialog(QDialog):
     def __init__(self, api, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.api = api
+        self._runner = AsyncRunner(self)
         self.setWindowTitle("Notifikasi")
         self.setModal(True)
         self.setMinimumSize(520, 560)
@@ -582,20 +584,24 @@ class NotificationDialog(QDialog):
         fit_dialog_to_screen(self)
 
     def refresh(self) -> None:
-        try:
-            payload = self.api.get("/notifications", params={"limit": 50}, timeout=15)
-        except Exception as exc:  # noqa: BLE001
-            self.empty.setText(str(exc))
+        def task() -> dict:
+            return self.api.get("/notifications", params={"limit": 50}, timeout=15)
+
+        def ok(payload: dict) -> None:
+            self._items = payload.get("items", [])
+            for index in reversed(range(self.list_layout.count())):
+                item = self.list_layout.takeAt(index)
+                if item.widget():
+                    item.widget().deleteLater()
+            self.empty.setVisible(not self._items)
+            for item in self._items:
+                self.list_layout.addWidget(self._item_card(item))
+
+        def bad(message: str, _status: int) -> None:
+            self.empty.setText(message)
             self.empty.show()
-            return
-        self._items = payload.get("items", [])
-        for index in reversed(range(self.list_layout.count())):
-            item = self.list_layout.takeAt(index)
-            if item.widget():
-                item.widget().deleteLater()
-        self.empty.setVisible(not self._items)
-        for item in self._items:
-            self.list_layout.addWidget(self._item_card(item))
+
+        self._runner.submit(task, ok, bad)
 
     def _item_card(self, item: dict) -> QWidget:
         card = QFrame()
@@ -639,21 +645,29 @@ class NotificationDialog(QDialog):
         return card
 
     def _mark_read(self, notification_id: int) -> None:
-        try:
-            self.api.post(f"/notifications/{notification_id}/read", timeout=15)
-        except Exception as exc:  # noqa: BLE001
-            self.empty.setText(str(exc))
+        def task() -> Any:
+            return self.api.post(f"/notifications/{notification_id}/read", timeout=15)
+
+        def ok(_result: Any) -> None:
+            self.refresh()
+            self.changed.emit()
+
+        def bad(message: str, _status: int) -> None:
+            self.empty.setText(message)
             self.empty.show()
-            return
-        self.refresh()
-        self.changed.emit()
+
+        self._runner.submit(task, ok, bad)
 
     def _mark_all(self) -> None:
-        try:
-            self.api.post("/notifications/read-all", timeout=20)
-        except Exception as exc:  # noqa: BLE001
-            self.empty.setText(str(exc))
+        def task() -> Any:
+            return self.api.post("/notifications/read-all", timeout=20)
+
+        def ok(_result: Any) -> None:
+            self.refresh()
+            self.changed.emit()
+
+        def bad(message: str, _status: int) -> None:
+            self.empty.setText(message)
             self.empty.show()
-            return
-        self.refresh()
-        self.changed.emit()
+
+        self._runner.submit(task, ok, bad)

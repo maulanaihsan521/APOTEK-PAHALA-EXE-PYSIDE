@@ -78,10 +78,17 @@ class GenerateDialog(FormDialog):
             "period_weeks": int(self.period.currentData() or 4),
             "notes": self.notes.toPlainText().strip() or None,
         }
-        result = self.api.post("/procurement/generate", payload, timeout=180)
-        if self.on_saved:
-            self.on_saved(result)
-        return True
+        self.set_busy(True)
+
+        def task() -> Any:
+            return self.api.post("/procurement/generate", payload, timeout=180)
+
+        def ok(result: Any) -> None:
+            if self.on_saved:
+                self.on_saved(result)
+
+        self._submit_async(task, ok)
+        return False
 
 
 class ItemDetailDialog(QDialog):
