@@ -1,0 +1,1877 @@
+
+
+===== PAGE 1 =====
+LAPORAN AKHIR CAPSTONE DESIGN PROJECT
+PREDIKSI PERMINTAAN OBAT APOTEK PAHALA
+BERDASARKAN DATA PENJUALAN HISTORIS DAN 
+FAKTOR CUACA
+DI KABUPATEN BANJARNEGARA
+MENGGUNAKAN RANDOM FOREST REGRESSION
+Oleh:
+2311103005
+Naila Syakirotul Rizkiyah
+2311103029
+Muhammad Rafly Adittana
+2311103015
+Maulana Ihsan Rohim
+PROGRAM STUDI S1 SISTEM INFORMASI
+FAKULTAS REKAYASA INDUSTRI
+UNIVERSITAS TELKOM
+PURWOKERTO
+2026
+
+
+===== PAGE 2 =====
+I
+KATA PENGANTAR
+Puji dan syukur penyusun panjatkan ke hadirat Tuhan Yang Maha Esa 
+karena atas rahmat dan karunia-Nya laporan akhir Capstone Design Project yang 
+berjudul “Prediksi Permintaan Obat Apotek Pahala Berdasarkan Data Penjualan 
+Historis dan Faktor Cuaca di Kabupaten Banjarnegara Menggunakan Random 
+Forest Regression” ini dapat diselesaikan dengan baik. Laporan ini disusun untuk 
+memenuhi tugas mata kuliah Capstone Design Project pada Program Studi S1 
+Sistem Informasi, Fakultas Rekayasa Industri, Universitas Telkom. Seluruh proses 
+pengerjaan dilaksanakan bersama pemilik dan pengelola Apotek Pahala di 
+Kabupaten Banjarnegara, Jawa Tengah, mulai dari tahap penyusunan proposal, 
+pengolahan data, pembangunan prototype, hingga penyusunan laporan akhir ini.
+Laporan ini memaparkan hasil pengembangan sistem analitik yang 
+mengintegrasikan dan mengelola data operasional apotek, menganalisis kondisi 
+persediaan, serta menghasilkan prediksi permintaan obat menggunakan metode 
+Random Forest Regression. Pengembangan mengikuti kerangka kerja CRISP-DM 
+dengan pembagian peran kelompok, yaitu Engineering Data Management (EDM) 
+yang menangani pengolahan data dan pemodelan serta System Analyst Group 
+(SAG) yang menangani analisis kebutuhan informasi, perancangan dashboard, serta 
+verifikasi dan validasi. Hasil pengembangan disajikan dalam bentuk aplikasi 
+desktop PySide6 yang dapat dijalankan secara offline pada komputer apotek.
+Pada kesempatan ini penyusun mengucapkan terima kasih kepada dosen 
+pengampu mata kuliah Capstone Design Project atas bimbingan dan arahan yang 
+telah diberikan, kepada pemilik dan staf Apotek Pahala atas izin, dukungan, serta 
+data yang diberikan selama kegiatan proyek berlangsung, dan kepada semua pihak 
+yang telah membantu penyelesaian laporan ini. Penyusun menyadari bahwa laporan 
+ini masih memiliki keterbatasan, sehingga kritik dan saran yang membangun sangat 
+penyusun harapkan demi perbaikan pada pekerjaan selanjutnya.
+Semoga laporan ini dapat memberikan manfaat bagi pembaca dan pihak 
+yang berkepentingan, khususnya bagi Apotek Pahala dalam mendukung 
+perencanaan persediaan obat yang lebih terarah.
+
+
+===== PAGE 3 =====
+II
+Purwokerto, Oktober 2026
+Penyusun
+
+
+===== PAGE 4 =====
+III
+DAFTAR ISI
+KATA PENGANTAR..............................................................................................................2
+DAFTAR GAMBAR................................................................................................................3
+DAFTAR TABEL.....................................................................................................................6
+DAFTAR SIMBOL..................................................................................................................7
+DAFTAR LAMPIRAN............................................................................................................8
+BAB I PENDAHULUAN.........................................................................................................8
+I.1 Latar Belakang................................................................................................................8
+I.2 Perumusan Masalah........................................................................................................9
+I.3 Alternatif Solusi............................................................................................................10
+I.3.1 Analisis Akar Permasalahan................................................................................10
+I.3.2 Alternatif Solusi...................................................................................................11
+I.3.3 Solusi Terpilih......................................................................................................11
+I.4 Tujuan Pengembangan..................................................................................................11
+I.5 Manfaat Pengembangan................................................................................................12
+BAB II TINJAUAN PUSTAKA............................................................................................12
+II.1 Body of Knowledge.....................................................................................................13
+II.1.1 Sistem Informasi Manajemen dan Sistem Pendukung Keputusan.....................13
+II.1.2 Dashboard sebagai Media Penyajian Informasi dan Business 
+Intelligence...................................................................................................................13
+II.1.3 Kualitas Data dan Tata Kelola Informasi...........................................................14
+II.2 Teori, Konsep Umum, Model, dan Kerangka Standar................................................14
+II.2.1 Kerangka Kerja CRISP-DM...............................................................................14
+II.2.2 Random Forest Regression, Decision Tree, dan Linear Regression..................14
+
+
+===== PAGE 5 =====
+IV
+II.2.3 Metrik Evaluasi MAE, RMSE, dan MAPE........................................................15
+II.2.4 Arsitektur Aplikasi Empat Lapisan....................................................................15
+II.2.5 Kerangka Verifikasi dan Validasi.......................................................................15
+BAB III SPESIFIKASI DAN MEKANISME PENGEMBANGAN..................................16
+III.1 Batasan Pengembangan..............................................................................................16
+III.2 Mekanisme Pengembangan........................................................................................16
+III.2.1 Sistematika Pengembangan...............................................................................17
+III.2.2 Mekanisme Pengumpulan Data.........................................................................17
+III.2.3 Mekanisme Validasi dan Evaluasi....................................................................18
+III.2.4 Timeline Pengembangan...................................................................................18
+BAB IV HASIL PENGEMBANGAN SOLUSI...................................................................19
+IV.1 Proses Pengembangan................................................................................................19
+IV.2 Hasil Pengembangan..................................................................................................20
+BAB V VALIDASI DAN EVALUASI..................................................................................26
+V.1 Validasi Hasil Pengembangan.....................................................................................26
+V.2 Evaluasi Hasil Pengembangan....................................................................................27
+BAB VI RENCANA IMPLEMENTASI HASIL PENGEMBANGAN.............................27
+VI.1 Identifikasi Biaya Implementasi................................................................................27
+VI.2 Roadmap Implementasi..............................................................................................28
+BAB VII KESIMPULAN DAN SARAN..............................................................................28
+VII.1 Kesimpulan...............................................................................................................29
+VII.2 Saran dan Rekomendasi............................................................................................29
+DAFTAR PUSTAKA.............................................................................................................30
+LAMPIRAN............................................................................................................................32
+Lampiran A. Profil Kualitas Data dan Catatan Anomali....................................................32
+
+
+===== PAGE 6 =====
+V
+Lampiran B. Instrumen Wawancara dan Kuesioner Keterpahaman..................................32
+Lampiran C. Logbook Pelaksanaan Proyek.......................................................................33
+Lampiran D. Struktur Kode Prototype dan Petunjuk Penggunaan.....................................33
+Lampiran E. Daftar Jurnal Referensi beserta Tautan.........................................................33
+Catatan: Daftar isi dibuat dengan field otomatis. Setelah dokumen diedit, klik kanan daftar isi lalu pilih 
+Update Field untuk memperbarui nomor halaman.
+DAFTAR GAMBAR
+Gambar I.1  Diagram fishbone analisis akar permasalahan
+Gambar II.1  Arsitektur aplikasi empat lapisan
+Gambar III.1  Sistematika pengembangan berbasis CRISP-DM
+Gambar IV.1  Profil pengolahan dan kualitas data arsip penjualan (BL)
+Gambar IV.2  Deret permintaan mingguan enam obat prioritas
+Gambar IV.3  Tampilan menu Ringkasan prototype dashboard
+Gambar IV.4  Tampilan menu Prediksi Permintaan prototype dashboard
+Gambar IV.5  Tampilan menu Data Penjualan prototype dashboard
+Gambar IV.6  Tampilan menu Data Cuaca prototype dashboard
+Gambar IV.7  Tampilan menu Manajemen Stok prototype dashboard
+Gambar IV.8  Tampilan menu Rekomendasi Pengadaan prototype dashboard
+Gambar IV.9  Tampilan menu Laporan prototype dashboard
+Gambar IV.10  Tampilan menu Pengaturan prototype dashboard
+Gambar IV.11  Perbandingan penjualan aktual dan hasil prediksi pada data uji
+Gambar IV.12  Perbandingan MAPE antarmodel per obat prioritas
+Gambar IV.13  Kontribusi variabel cuaca terhadap MAE Random Forest
+Gambar IV.14  Sepuluh fitur terpenting model Random Forest
+Gambar IV.15  Kondisi cuaca dan perkembangan permintaan obat prioritas
+Gambar IV.16  Prakiraan permintaan empat pekan ke depan
+
+
+===== PAGE 7 =====
+VI
+DAFTAR TABEL
+Tabel III.1  Rangkuman sumber data dan mekanisme pengumpulan
+Tabel III.2  Rencana verifikasi data, model, dan informasi dashboard
+Tabel III.3  Rencana validasi rancangan bersama pengguna
+Tabel III.4  Rencana timeline pengembangan minggu ke-5 sampai ke-14
+Tabel IV.1  Profil kualitas data arsip operasional Apotek Pahala
+Tabel IV.2  Statistik deret permintaan mingguan obat prioritas
+Tabel IV.3  Perbandingan metrik antarmodel pada data uji (MAE dan RMSE)
+Tabel IV.4  Perbandingan metrik antarmodel pada data uji (MAPE)
+Tabel IV.5  Hasil uji kontribusi variabel cuaca terhadap akurasi model
+Tabel V.1  Ringkasan hasil validasi dan tindak lanjut perbaikan
+Tabel VI.1  Identifikasi biaya implementasi
+Tabel VI.2  Roadmap implementasi hasil pengembangan
+DAFTAR SIMBOL
+Singkatan/Simbol
+Kepanjangan dan Arti
+BL
+Barang Laku; tabel transaksi penjualan harian pada arsip operasional 
+apotek
+BMKG
+Badan Meteorologi, Klimatologi dan Geofisika
+CRISP-DM
+Cross-Industry Standard Process for Data Mining; kerangka kerja 
+standar proses analitik data
+DBF
+dBase File; format berkas arsip operasional apotek
+DSS
+Decision Support System; sistem pendukung keputusan
+EDM
+Engineering Data Management; kelompok kerja pengolahan data dan 
+pemodelan
+ETL
+Extract, Transform, Load; proses ekstraksi, transformasi, dan pemuatan 
+data
+Lag
+Nilai permintaan pada pekan-pekan sebelumnya yang dipakai sebagai 
+fitur masukan model
+MAE
+Mean Absolute Error; rata-rata kesalahan absolut antara prediksi dan 
+nilai aktual
+MAPE
+Mean Absolute Percentage Error; rata-rata kesalahan absolut dalam 
+persentase
+
+
+===== PAGE 8 =====
+VII
+Singkatan/Simbol
+Kepanjangan dan Arti
+P
+Kode mutasi transaksi penjualan pada arsip penjualan (BL)
+R
+Kode mutasi transaksi retur pada arsip penjualan (BL)
+RMSE
+Root Mean Squared Error; akar kuadrat rata-rata kesalahan kuadrat 
+prediksi
+SAG
+System Analyst Group; kelompok kerja analisis kebutuhan, rancangan 
+dashboard, serta verifikasi dan validasi
+SIM
+Sistem Informasi Manajemen
+ST
+Stock Opname; hasil penghitungan fisik persediaan berkala
+ST_PC
+Stok menurut catatan sistem pada arsip stock opname
+ST_PHISIC
+Stok fisik hasil penghitungan pada arsip stock opname
+ST_SELISIH
+Selisih antara stok fisik dan stok sistem pada arsip stock opname
+DAFTAR LAMPIRAN
+Lampiran A  Profil kualitas data dan catatan anomali
+Lampiran B  Instrumen wawancara dan kuesioner keterpahaman
+Lampiran C  Logbook pelaksanaan proyek
+Lampiran D  Struktur kode prototype dan petunjuk penggunaan
+Lampiran E  Daftar jurnal referensi beserta tautan dan berkas PDF
+
+
+===== PAGE 9 =====
+1
+BAB I PENDAHULUAN
+I.1 Latar Belakang
+Apotek merupakan salah satu sarana pelayanan kefarmasian yang 
+berkewajiban memastikan ketersediaan obat bagi masyarakat sesuai standar 
+pelayanan kefarmasian yang berlaku [18]. Dalam praktiknya, pengelolaan 
+persediaan obat menuntut keputusan yang berulang mengenai berapa banyak obat 
+yang harus dipesan, kapan pemesanan dilakukan, dan obat mana yang perlu 
+diprioritaskan. Estimasi kebutuhan yang tidak akurat dapat menimbulkan dua risiko 
+sekaligus, yaitu kekurangan stok (stockout) yang menghambat pemenuhan 
+kebutuhan pasien, serta kelebihan stok (overstock) yang menambah biaya 
+penyimpanan dan meningkatkan risiko obat mencapai tanggal kedaluwarsa [3]. 
+Kedua risiko tersebut berdampak langsung pada kualitas pelayanan dan kesehatan 
+finansial apotek, sehingga kemampuan memperkirakan permintaan menjadi 
+kebutuhan yang nyata bagi pengelola apotek.
+Kajian pada berbagai konteks menunjukkan bahwa pemanfaatan data 
+historis dan teknik pembelajaran mesin dapat memperbaiki ketepatan estimasi 
+permintaan produk farmasi. Fourkiotis dan Tsadiras membuktikan bahwa 
+pendekatan pembelajaran mesin mampu menyandingkan bahkan mengungguli 
+metode statistik klasik pada prediksi penjualan farmasi [1]. Saranani menegaskan 
+bahwa peramalan penjualan berbasis pembelajaran mesin berperan sebagai 
+instrumen manajerial untuk pengambilan keputusan [2], sementara tinjauan 
+sistematis pada sistem farmasi publik menunjukkan bahwa penerapan kecerdasan 
+buatan membantu memperkirakan kebutuhan obat dan menunjang perencanaan 
+pengadaan [3]. Pada konteks Indonesia, studi pada apotek juga memperlihatkan 
+bahwa data penjualan historis dapat dimanfaatkan untuk meramalkan kebutuhan 
+obat [4], namun penerapan pada apotek menengah dengan arsip format lama masih 
+jarang dilakukan.
+Apotek Pahala merupakan apotek skala menengah yang berlokasi di 
+Kabupaten Banjarnegara, Jawa Tengah, dengan volume transaksi harian yang 
+tinggi. Sistem kasir apotek menghasilkan arsip operasional dalam format dBase 
+
+
+===== PAGE 10 =====
+2
+(DBF) yang terpisah per hari, yaitu tabel transaksi penjualan harian Barang Laku 
+(BL) dan tabel hasil stock opname (ST). Hasil pemeriksaan awal kelompok 
+menemukan arsip penjualan sebanyak 2.924 berkas yang mencakup periode 2017 
+sampai 2026 serta 1.086 berkas hasil stock opname. Arsip berukuran besar tersebut 
+tersimpan rapi sebagai berkas harian, tetapi belum pernah digabungkan dan diolah 
+menjadi informasi yang dapat membantu manajemen memperkirakan kebutuhan 
+obat. Kondisi ini sejalan dengan temuan Nasution dan Yahfizham bahwa sistem 
+informasi pada banyak apotek masih berhenti pada fungsi pencatatan sehingga 
+risiko kesalahan dan kehilangan data meningkat [9].
+Di sisi lain, perubahan kondisi cuaca dapat memengaruhi pola permintaan 
+sebagian jenis obat. Studi pada layanan kesehatan di Indonesia memperlihatkan 
+keterkaitan antara curah hujan, suhu, kelembapan, dan kejadian infeksi saluran 
+pernapasan akut [15], sedangkan pada sektor ritel, penyertaan informasi cuaca 
+dalam model prediksi terbukti memperbaiki akurasi perkiraan penjualan [5]. Oleh 
+karena itu, faktor cuaca layak diuji kontribusinya sebagai variabel tambahan dalam 
+model prediksi permintaan obat, meskipun dampaknya tidak dapat dianggap 
+seragam untuk semua jenis obat dan bergantung pada ketersediaan data yang 
+mewakili lokasi apotek.
+Berdasarkan permasalahan tersebut, Capstone Design Project ini 
+mengembangkan sistem yang mengintegrasikan dan mengelola data operasional 
+apotek, menganalisis kondisi persediaan, serta menghasilkan prediksi permintaan 
+obat menggunakan metode Random Forest Regression dengan pembanding 
+Decision Tree Regression dan Linear Regression. Random Forest dipilih sebagai 
+metode utama karena kemampuannya menangkap hubungan nonlinier antara fitur 
+masukan dan target serta ketahanannya terhadap pencilan, dan metode ini juga telah 
+terbukti bersaing pada berbagai studi peramalan permintaan terkini [1], [13], [14]. 
+Hasil prediksi disajikan melalui aplikasi desktop berbasis PySide6 yang berjalan 
+offline pada komputer apotek, sehingga manajemen memperoleh informasi historis, 
+prediksi, metrik kinerja model, dan status kualitas data dalam satu tampilan yang 
+mudah dipahami.
+
+
+===== PAGE 11 =====
+3
+I.2 Perumusan Masalah
+Berdasarkan latar belakang yang telah diuraikan, permasalahan dalam 
+Capstone Design Project ini dirumuskan menjadi lima pertanyaan berikut.
+1. Bagaimana mengolah arsip operasional apotek yang terpisah per hari 
+dalam format DBF menjadi data permintaan obat mingguan yang layak 
+digunakan untuk prediksi?
+2. Bagaimana mengembangkan model prediksi permintaan obat 
+menggunakan Random Forest Regression berbasis data penjualan historis?
+3. Bagaimana kinerja Random Forest Regression dibandingkan dengan 
+Decision Tree Regression dan Linear Regression menggunakan metrik 
+MAE, RMSE, dan MAPE?
+4. Bagaimana kontribusi faktor cuaca terhadap kualitas hasil prediksi apabila 
+variabel cuaca dimasukkan sebagai fitur tambahan?
+5. Bagaimana menyajikan histori penjualan, hasil prediksi, informasi kualitas 
+data, dan evaluasi model dalam sebuah dashboard yang mendukung 
+perencanaan persediaan obat?
+I.3 Alternatif Solusi
+I.3.1 Analisis Akar Permasalahan
+Permasalahan utama proyek ini adalah permintaan obat belum dapat 
+diprediksi secara akurat sehingga manajemen kesulitan menentukan jumlah 
+pemesanan. Analisis akar permasalahan dilakukan menggunakan diagram fishbone 
+pada enam kategori sebab, yaitu data, metode, manusia, teknologi, proses, dan 
+lingkungan. Pada kategori data, arsip terdiri atas ribuan berkas harian yang belum 
+tergabung dan mengandung anomali seperti tanggal tidak valid, transaksi retur, 
+serta kuantitas nol dan ekstrem. Pada kategori metode, belum ada model prediksi 
+yang diterapkan dan diuji pada data lokal apotek, termasuk kontribusi faktor cuaca. 
+Pada kategori manusia, pengadaan masih bergantung pada intuisi dan pengalaman 
+pengelola. Pada kategori teknologi, sistem kasir berhenti pada pencatatan dan 
+informasi belum tersaji satu layar. Pada kategori proses, perencanaan persediaan 
+
+
+===== PAGE 12 =====
+4
+berjalan manual tanpa evaluasi akurasi estimasi, sedangkan pada kategori 
+lingkungan, cuaca memengaruhi pola penyakit dan permintaan mingguan 
+berfluktuasi. Ringkasan analisis tersebut disajikan pada Gambar I.1.
+Gambar I.1 Diagram fishbone analisis akar permasalahan
+I.3.2 Alternatif Solusi
+Dari analisis akar permasalahan tersebut, terdapat tiga alternatif solusi yang 
+dapat diterapkan. Alternatif pertama adalah melakukan estimasi permintaan secara 
+manual berdasarkan kebiasaan penjualan bulan sebelumnya. Alternatif ini 
+sederhana dan tidak memerlukan perangkat tambahan, tetapi akurasinya bergantung 
+penuh pada intuisi pengelola, tidak menyediakan ukuran kesalahan, dan tidak dapat 
+memanfaatkan arsip penjualan yang sudah tersedia dalam jumlah besar. Alternatif 
+kedua adalah mengembangkan model prediksi berbasis metode statistik klasik 
+seperti rata-rata bergerak atau regresi linier tunggal. Alternatif ini dapat 
+menghasilkan angka estimasi yang terukur, namun kemampuannya menangkap 
+hubungan nonlinier antara fitur dan permintaan terbatas, sehingga kurang sesuai 
+untuk data mingguan yang berlumpuh dan berfluktuasi seperti pada Apotek Pahala 
+[1].
+
+
+===== PAGE 13 =====
+5
+Alternatif ketiga adalah mengembangkan model prediksi menggunakan 
+Random Forest Regression yang dibandingkan dengan Decision Tree Regression 
+dan Linear Regression, dengan faktor cuaca sebagai fitur tambahan yang diuji 
+kontribusinya, kemudian menyajikan hasil prediksi beserta metrik evaluasi dan 
+status kualitas data melalui dashboard desktop. Alternatif ini memanfaatkan arsip 
+historis yang panjang, mampu menangkap pola nonlinier, menyediakan ukuran 
+kesalahan yang objektif, dan memberikan informasi yang mudah dibaca 
+manajemen. Keterbatasannya adalah kebutuhan proses pembersihan data dan 
+evaluasi yang cermat serta keterbatasan model berbasis pohon dalam 
+mengekstrapolasi di luar rentang data latih.
+I.3.3 Solusi Terpilih
+Berdasarkan perbandingan ketiga alternatif, solusi yang dipilih adalah 
+alternatif ketiga, yaitu pengembangan model prediksi permintaan obat 
+menggunakan Random Forest Regression dengan pembanding Decision Tree 
+Regression dan Linear Regression, serta penyajian hasil melalui dashboard desktop. 
+Pilihan ini paling sesuai dengan kondisi Apotek Pahala karena arsip penjualan 
+historis yang panjang sudah tersedia, kontribusi faktor cuaca dapat diuji secara 
+terukur melalui perbandingan antarmodel, dan keputusan bisnis tetap berada di 
+tangan manajemen dengan dukungan informasi yang transparan terhadap 
+keterbatasannya. Pengembangan mengikuti kerangka CRISP-DM sehingga setiap 
+tahap, mulai dari pemahaman bisnis hingga penyiapan hasil, memiliki keluaran 
+yang dapat diperiksa.
+I.4 Tujuan Pengembangan
+Tujuan pengembangan Capstone Design Project ini dirumuskan untuk 
+menjawab kelima rumusan masalah pada Subbab I.2, dengan keluaran akhir berupa 
+prototype aplikasi yang dapat menjalankan fungsionalitas dasar sebagai solusi 
+penyelesaian masalah. Tujuan tersebut adalah sebagai berikut.
+1. Mengolah arsip operasional apotek format DBF menjadi data permintaan 
+obat mingguan tervalidasi beserta profil kualitas datanya.
+
+
+===== PAGE 14 =====
+6
+2. Mengembangkan model prediksi permintaan obat menggunakan Random 
+Forest Regression dengan fitur lag, rata-rata bergulir, kalender, dan cuaca.
+3. Membandingkan kinerja Random Forest Regression terhadap Decision 
+Tree Regression dan Linear Regression menggunakan metrik MAE, 
+RMSE, dan MAPE pada data uji yang dipisahkan secara kronologis.
+4. Menguji kontribusi faktor cuaca terhadap kualitas prediksi melalui 
+perbandingan model dengan dan tanpa variabel cuaca.
+5. Mengembangkan dashboard desktop interaktif yang menyajikan histori 
+penjualan, hasil prediksi, metrik evaluasi, status kualitas data, dan usulan 
+pengadaan.
+I.5 Manfaat Pengembangan
+Pengembangan ini diharapkan memberikan manfaat bagi beberapa pihak 
+yang terlibat. Bagi Apotek Pahala, sistem ini membantu manajemen 
+memperkirakan permintaan obat pada periode mendatang sebagai bahan 
+pertimbangan perencanaan persediaan, sehingga risiko kekurangan dan kelebihan 
+stok dapat ditekan. Bagi pengelolaan persediaan secara umum, hasil prediksi 
+beserta metrik evaluasinya memberikan gambaran kebutuhan yang terukur dan 
+dapat diperbarui secara berkala mengikuti data terbaru, bukan sekadar angka tanpa 
+dasar. Bagi mahasiswa, proyek ini menjadi sarana penerapan ilmu sistem informasi 
+yang menggabungkan pengelolaan data (EDM), perancangan informasi (SAG), dan 
+pembelajaran mesin pada kasus nyata. Bagi pengembangan teknologi informasi, 
+hasil proyek menunjukkan bahwa arsip format lama seperti DBF dapat diolah 
+menjadi sistem analitik yang berguna tanpa perlu mengganti sistem kasir yang 
+sudah berjalan.
+BAB II TINJAUAN PUSTAKA
+Bab ini memaparkan landasan ilmiah yang menjadi dasar pengembangan. 
+Subbab II.1 menguraikan Body of Knowledge sistem informasi yang relevan 
+dengan proyek, sedangkan Subbab II.2 menguraikan teori, konsep umum, model, 
+dan kerangka standar yang digunakan dalam pengembangan. Setiap konsep dikutip 
+
+
+===== PAGE 15 =====
+7
+dari referensi akademik terbitan 2023 ke atas yang keterkaitannya dengan proyek 
+dijelaskan secara eksplisit, dan seluruh referensi beserta tautannya dirangkum pada 
+Daftar Pustaka dan Lampiran E.
+II.1 Body of Knowledge
+Proyek ini menyentuh setidaknya tiga ranah kompetensi Body of 
+Knowledge Sistem Informasi, yaitu pengelolaan data dan analitik, sistem 
+pendukung keputusan beserta sistem informasi manajemen yang menopangnya, 
+serta penyajian informasi melalui dashboard bisnis. Ketiga ranah tersebut dibahas 
+pada subbab berikut dengan menegaskan peran masing-masing dalam proyek.
+II.1.1 Sistem Informasi Manajemen dan Sistem Pendukung Keputusan
+Sistem Informasi Manajemen (SIM) berperan sebagai fondasi pengelolaan 
+data operasional apotek karena mengumpulkan, mengolah, menyimpan, dan 
+menyajikan data transaksi menjadi laporan yang dibutuhkan manajemen. Namun, 
+SIM pada banyak apotek masih berhenti pada fungsi pencatatan dan pelaporan; 
+Nasution dan Yahfizham menemukan bahwa pengelolaan administrasi manual serta 
+sistem inventaris yang sebatas pencatatan sering tidak efisien, memakan waktu, dan 
+meningkatkan risiko kesalahan serta kehilangan data [9]. Kondisi Apotek Pahala 
+menunjukkan pola serupa: arsip transaksi tersimpan rapi per hari, tetapi belum 
+diolah lebih lanjut untuk menjawab pertanyaan berapa kebutuhan obat pada pekan-
+pekan berikutnya.
+Kebutuhan tersebut diisi oleh Sistem Pendukung Keputusan (DSS) yang 
+membantu pengambil keputusan menimbang alternatif secara sistematis melalui 
+data, model analitik, dan antarmuka. Fahurian dan Purnomo menunjukkan bahwa 
+DSS dapat diterapkan untuk penentuan pengadaan obat menggunakan metode 
+regresi linier [10], sehingga pendekatan prediktif yang lebih kaya seperti Random 
+Forest memiliki ruang penerapan yang jelas pada konteks yang sama. DSS tidak 
+menggantikan manajer apotek; sistem menyediakan informasi yang lebih 
+terstruktur sebagai bahan pertimbangan. Dalam proyek ini, dashboard yang 
+dikembangkan berkedudukan sebagai antarmuka DSS: menyajikan hasil prediksi 
+bersama tren historis, status kualitas data, dan metrik evaluasi model, sehingga 
+
+
+===== PAGE 16 =====
+8
+informasi tidak berhenti sebagai angka tetapi menjadi bahan pertimbangan yang 
+dapat dibaca dan ditindaklanjuti.
+II.1.2 Dashboard sebagai Media Penyajian Informasi dan Business 
+Intelligence
+Dashboard merupakan tampilan visual yang merangkum informasi penting 
+dari berbagai sumber ke dalam satu layar agar dapat dipahami pengguna dalam 
+sekilas pandang. Dalam kerangka business intelligence (BI), dashboard 
+berkedudukan sebagai lapisan penyajian dari rangkaian proses yang mengubah data 
+mentah menjadi informasi bernilai guna. Kajian implementasi sistem BI 
+menunjukkan bahwa keberhasilan dashboard tidak hanya ditentukan oleh teknologi 
+yang dipakai, tetapi juga oleh perencanaan kebutuhan pengguna, keterlibatan 
+pemangku kepentingan, dan tata kelola data yang menopangnya [6]. Temuan serupa 
+ditunjukkan pada penerapan BI untuk analisis pasar yang mempercepat pembacaan 
+tren dan penyusunan rencana [7].
+Pada konteks apotek, Ruseno, Santoso, dan NurSiaga merancang dashboard 
+BI menggunakan Google Looker untuk bisnis apotek dan menegaskan bahwa 
+pengambilan keputusan berbasis data memerlukan penyajian informasi yang 
+relevan dan mudah dibaca [11]. Proyek ini mengambil posisi yang sama, dengan 
+dua penyesuaian konteks, yaitu penyajian dilakukan melalui aplikasi desktop yang 
+berjalan offline mengikuti kondisi infrastruktur apotek, serta isi dashboard meliputi 
+bukan hanya histori penjualan tetapi juga hasil prediksi, metrik kinerja model, dan 
+status kualitas data. Prinsip desain yang dipegang mencakup hierarki informasi dari 
+ringkasan ke detail, kesesuaian bentuk grafik dengan jenis informasi, serta 
+transparansi terhadap keterbatasan data dan model.
+II.1.3 Kualitas Data dan Tata Kelola Informasi
+Kualitas data merupakan fondasi kredibilitas informasi yang disajikan 
+sistem. Data dengan kualitas rendah dapat menghasilkan model dan tampilan yang 
+menyesatkan meskipun metode analitiknya tepat. Miller dan rekan mengusulkan 
+kerangka dimensi kualitas data yang memperluas dimensi klasik seperti akurasi, 
+kelengkapan, konsistensi, dan ketepatan waktu dengan dimensi kontekstual yang 
+
+
+===== PAGE 17 =====
+9
+relevan bagi pengguna [8]. Pada proyek ini, prinsip kualitas data diterapkan melalui 
+pemeriksaan anomali sebelum pemodelan, dokumentasi profil kualitas data, 
+penyajian status kualitas data pada dashboard, serta keterangan asumsi yang 
+menyertai setiap angka prediksi. Tata kelola informasi diwujudkan dalam 
+keterlacakan sumber data, pembatasan hak akses, dan penegasan bahwa keputusan 
+akhir tetap berada pada manajemen apotek.
+II.2 Teori, Konsep Umum, Model, dan Kerangka Standar
+II.2.1 Kerangka Kerja CRISP-DM
+CRISP-DM (Cross-Industry Standard Process for Data Mining) merupakan 
+kerangka kerja standar proses analitik data yang membagi proyek menjadi enam 
+fase saling berulang, yaitu pemahaman bisnis, pemahaman data, persiapan data, 
+pemodelan, evaluasi, dan penyiapan hasil. Elkabalawy dan rekan 
+mendemonstrasikan penerapan CRISP-DM pada proyek prediksi berbasis 
+pembelajaran mesin dan menunjukkan bahwa kerangka ini membantu menjaga 
+keterlacakan keputusan teknis dari fase ke fase [12]. Pada proyek ini, CRISP-DM 
+diadaptasi menjadi delapan tahap pengembangan yang selaras dengan pembagian 
+peran SAG dan EDM, mulai dari identifikasi kebutuhan informasi manajemen 
+hingga penetapan rancangan akhir setelah validasi, sebagaimana diuraikan pada 
+Subbab III.2.1 dan dilaporkan hasilnya pada Bab IV.
+II.2.2 Random Forest Regression, Decision Tree, dan Linear Regression
+Random Forest Regression adalah metode ensambel yang menggabungkan 
+hasil banyak pohon keputusan regresi. Setiap pohon dilatih pada sampel bootstrap 
+data dan setiap percabangan hanya mempertimbangkan sebagian fitur yang dipilih 
+acak; rata-rata hasil seluruh pohon menurunkan variansi prediksi dibandingkan satu 
+pohon tunggal dan membuat model relatif tangguh terhadap pencilan. Karakteristik 
+ini relevan untuk data permintaan mingguan yang berlumpuh. Kajian terkini 
+menempatkan Random Forest sebagai salah satu algoritma yang paling banyak 
+dipakai pada peramalan permintaan produk farmasi [14], dan studi aplikatif 
+menunjukkan kinerjanya yang bersaing terhadap metode lain pada data deret waktu 
+nyata [13].
+
+
+===== PAGE 18 =====
+10
+Sebagai pembanding, proyek ini juga melatih Decision Tree Regression dan 
+Linear Regression. Decision Tree merupakan satu pohon keputusan yang mudah 
+diinterpretasi namun cenderung mengalami overfitting apabila tidak dibatasi 
+kedalamannya, sedangkan Linear Regression memodelkan hubungan linier antara 
+fitur dan target sehingga menjadi pembanding sederhana yang lazim [1], [3]. 
+Karena Random Forest bukan model deret waktu murni, pola temporal diserap 
+melalui rekayasa fitur berupa nilai permintaan beberapa pekan sebelumnya (lag), 
+rata-rata bergulir, deviasi bergulir, lag tahunan 52 pekan, serta fitur kalender seperti 
+nomor pekan dalam tahun dan transformasi sinusoidal musiman. Variabel cuaca 
+mingguan, yaitu curah hujan, suhu rata-rata, dan kelembapan relatif, masuk sebagai 
+fitur tambahan yang kontribusinya diuji secara terpisah.
+II.2.3 Metrik Evaluasi MAE, RMSE, dan MAPE
+Kinerja model dinilai menggunakan tiga metrik yang saling melengkapi. 
+MAE mengukur rata-rata selisih mutlak antara prediksi dan aktual dalam satuan 
+kuantitas obat sehingga mudah dibaca manajemen. RMSE menghukum kesalahan 
+besar lebih berat sehingga sensitif terhadap pekan-pekan lonjakan. MAPE 
+membaca kesalahan secara relatif dalam persentase sehingga dapat dibandingkan 
+antar-obat dengan skala permintaan berbeda. Karena MAPE tidak terdefinisi pada 
+nilai aktual nol dan memberikan bobot besar pada pekan berpermintaan kecil, 
+MAPE hanya dihitung pada pekan dengan permintaan positif dan selalu dilaporkan 
+bersama MAE serta RMSE agar kesimpulan tidak bergantung pada satu metrik. 
+Evaluasi dilakukan pada data uji yang dipisahkan secara kronologis tanpa 
+pengacakan agar tidak ada informasi masa depan yang terbawa ke proses pelatihan, 
+dan pemilihan hyperparameter dilakukan pada bagian validasi internal dari data 
+latih, bukan pada data uji.
+II.2.4 Arsitektur Aplikasi Empat Lapisan
+Arsitektur aplikasi dirancang dalam empat lapisan yang tanggung jawabnya 
+terpisah sebagaimana disajikan pada Gambar II.1. Lapisan data berupa basis data 
+SQLite yang menyimpan hasil agregasi penjualan mingguan, data cuaca, keluaran 
+prediksi, metrik evaluasi, dan stok stock opname terakhir. Lapisan layanan berupa 
+
+
+===== PAGE 19 =====
+11
+lapisan fungsi Python yang membungkus akses data dan pemanggilan model 
+sehingga antarmuka tidak berinteraksi langsung dengan berkas data mentah. 
+Lapisan analitik berisi pipeline pengolahan pandas dan NumPy beserta model 
+scikit-learn, sedangkan lapisan penyajian berupa antarmuka desktop PySide6 yang 
+memanggil layanan untuk menampilkan histori, prediksi, dan metrik. Pada tahap 
+finalisasi, aplikasi dirancang untuk dikemas menggunakan PyInstaller agar dapat 
+dijalankan pada komputer apotek tanpa instalasi lingkungan pengembangan. 
+Pemisahan lapisan ini memudahkan verifikasi kesesuaian antara keluaran model 
+dan tampilan karena setiap perubahan pada lapisan hulu dapat dilacak dampaknya 
+ke lapisan penyajian.
+Gambar II.1 Arsitektur aplikasi empat lapisan
+II.2.5 Kerangka Verifikasi dan Validasi
+Pengembangan diarahkan oleh kerangka verification and validation. 
+Verifikasi memeriksa kesesuaian internal rancangan, yaitu apakah data, model, dan 
+angka yang tampil konsisten satu sama lain, sedangkan validasi memeriksa 
+kesesuaian eksternal, yaitu apakah informasi yang disajikan menjawab kebutuhan 
+pengguna dan dapat dipahami manajemen apotek. Kerangka ini memisahkan dua 
+pertanyaan yang berbeda: apakah sistem dibangun dengan benar dan apakah sistem 
+yang benar sedang dibangun. Dalam proyek ini kerangka tersebut dijabarkan 
+menjadi tiga lapisan verifikasi (data, model, dan informasi) serta tiga pengujian 
+validasi (kebutuhan pengguna, keterpahaman, dan batasan informasi) sebagaimana 
+diuraikan pada Subbab III.2.3, dengan hasil yang dilaporkan pada Bab V.
+
+
+===== PAGE 20 =====
+12
+BAB III SPESIFIKASI DAN MEKANISME PENGEMBANGAN
+III.1 Batasan Pengembangan
+Pengembangan berangkat dari ketersediaan arsip Apotek Pahala berformat 
+DBF. Arsip penjualan (Barang Laku, BL) terdiri atas 2.894 berkas DBF harian, 27 
+berkas salinan berakhiran .002, dan 3 berkas Microsoft Access (accdb) untuk hari-
+hari terbaru, sementara arsip stock opname (ST) terdiri atas 1.085 berkas DBF dan 1 
+berkas accdb, disertai 903 berkas indeks dBase (NTX) yang bukan data. Rentang 
+arsip mencakup periode 2017 sampai 2026 dengan batas pengambilan data 20 
+Oktober 2026, sehingga data tahun 2026 belum mencakup satu tahun penuh. Dua 
+puluh tujuh berkas salinan .002 merupakan format turunan dBase yang tidak dapat 
+dibaca pustaka standar; 20 di antaranya memiliki pasangan DBF utama sehingga 
+data hariannya tetap tercakup, sedangkan 7 berkas lainnya dikeluarkan dari cakupan 
+dan didokumentasikan sebagai keterbatasan.
+Data cuaca historis diperoleh dari layanan data iklim terbuka NASA 
+POWER (reanalisis MERRA-2) untuk koordinat wilayah Banjarnegara selaku 
+representasi sumber terbuka yang setara dengan layanan data iklim BMKG; pilihan 
+sumber terbuka ini diambil agar proses dapat direproduksi tanpa ketergantungan 
+akun. Analisis difokuskan pada enam obat prioritas yang dipilih berdasarkan 
+volume permintaan dan kelengkapan data, dengan horizon prediksi mingguan untuk 
+mendukung perencanaan jangka pendek. Karena model memerlukan nilai fitur 
+cuaca untuk seluruh pekan yang diprediksi sedangkan cuaca masa depan belum 
+tersedia, nilai tersebut diisi melalui skenario normal iklim per nomor pekan, 
+sehingga hasil prediksi perlu dibaca dengan mempertimbangkan ketidakpastian 
+skenario. Model berbasis pohon seperti Random Forest juga tidak mampu 
+mengekstrapolasi di luar rentang nilai data latih, sehingga prediksi ditujukan untuk 
+horizon pendek berbasis fitur lag dan bukan proyeksi jangka panjang. Kedua 
+keterbatasan ini diakui secara eksplisit dan dijelaskan pada dashboard.
+Prototype yang dikembangkan adalah aplikasi desktop Python yang berjalan 
+di atas data hasil validasi dan bukan sistem produksi yang terhubung langsung ke 
+sistem kasir apotek; pembaruan data dilakukan melalui proses impor yang 
+disediakan pada pipeline pengolahan. Dashboard berkedudukan sebagai pendukung 
+
+
+===== PAGE 21 =====
+13
+keputusan dan tidak menetapkan keputusan pengadaan secara otomatis karena 
+keputusan tetap mempertimbangkan kondisi stok terkini, anggaran, dan waktu 
+tunggu pemasok yang berada di luar cakupan model. Analisis keuangan juga tidak 
+termasuk lingkup pengembangan sampai definisi jenis transaksi dan perhitungan 
+nilainya dikonfirmasi bersama pihak apotek.
+III.2 Mekanisme Pengembangan
+Pengembangan dikerjakan melalui empat mekanisme yang saling terkait, 
+yaitu sistematika pengembangan, mekanisme pengumpulan data, mekanisme 
+validasi dan evaluasi, serta timeline pengembangan. Pembagian kerja mengikuti 
+peran kelompok: Engineering Data Management (EDM) yang beranggotakan dua 
+orang menangani pengolahan data, pemodelan, dan evaluasi model, sedangkan 
+System Analyst Group (SAG) yang beranggotakan satu orang menangani analisis 
+kebutuhan informasi, perancangan dashboard, serta verifikasi dan validasi dari sisi 
+pengguna. Setiap keluaran antara diperiksa mutunya sebelum berlanjut ke tahap 
+berikutnya agar kesalahan pada tahap data atau model tidak terbawa ke tahap 
+penyajian.
+III.2.1 Sistematika Pengembangan
+Sistematika pengembangan disusun sebagai alur kerja berurutan yang 
+mengadaptasi enam fase CRISP-DM ke dalam delapan tahap proyek, sebagaimana 
+disajikan pada Gambar III.1. Alur diawali identifikasi kebutuhan informasi 
+manajemen melalui wawancara dengan pemilik dan pengelola apotek, dilanjutkan 
+pengumpulan dan pembersihan data arsip serta cuaca, integrasi dan agregasi 
+menjadi deret mingguan, pemodelan dan evaluasi oleh EDM, pengembangan 
+prototype dashboard secara bersama, verifikasi tiga lapisan, validasi bersama 
+pengguna, dan diakhiri perbaikan serta penetapan rancangan akhir. Tahap validasi 
+dilengkapi jalur umpan balik: apabila manajemen menemukan ketidaksesuaian 
+kebutuhan, hasil validasi menjadi dasar perbaikan prototype sebelum rancangan 
+ditetapkan. Alur ini memastikan setiap keluaran antara memiliki pemeriksaan mutu 
+sehingga kesalahan pada tahap data atau model tidak membawa ke tahap penyajian.
+
+
+===== PAGE 22 =====
+14
+Gambar III.1 Sistematika pengembangan berbasis CRISP-DM
+III.2.2 Mekanisme Pengumpulan Data
+Sumber data proyek terdiri atas tiga kelompok yang saling melengkapi, 
+yaitu arsip operasional apotek, data iklim terbuka, dan data kebutuhan pengguna 
+dari wawancara. Arsip operasional menyediakan target prediksi, data cuaca 
+menyediakan variabel tambahan yang diuji kontribusinya, dan wawancara 
+memastikan keluaran proyek sesuai kebutuhan manajemen. Rangkuman sumber 
+data beserta mekanisme pengumpulannya disajikan pada Tabel III.1.
+Tabel III.1 Rangkuman sumber data dan mekanisme pengumpulan
+Sumber Data
+Jenis dan Isi Data
+Mekanisme 
+Pengumpulan
+Volume dan 
+Periode
+Arsip penjualan 
+BL (DBF, 
+accdb)
+Transaksi penjualan 
+harian: tanggal faktur, 
+kode dan nama barang, 
+kuantitas, harga, kode 
+mutasi (P penjualan, R 
+retur)
+Unduh arsip dari 
+repositori kelompok, 
+penggabungan seluruh 
+berkas harian
+2.924 berkas 
+(2.894 DBF, 27 
+salinan .002, 3 
+accdb), 2017-
+2026
+
+
+===== PAGE 23 =====
+15
+Sumber Data
+Jenis dan Isi Data
+Mekanisme 
+Pengumpulan
+Volume dan 
+Periode
+Arsip stock 
+opname ST 
+(DBF, accdb)
+Hasil penghitungan fisik: 
+stok sistem (ST_PC), 
+stok fisik (ST_PHISIC), 
+dan selisih 
+(ST_SELISIH)
+Unduh arsip; dipakai 
+sebagai pembanding 
+kewajaran data, bukan 
+target prediksi
+1.086 berkas 
+(1.085 DBF, 1 
+accdb) + 903 
+berkas indeks 
+NTX, 2017-2026
+Data cuaca 
+terbuka
+Curah hujan, suhu rata-
+rata, dan kelembapan 
+relatif harian
+Aplikasi antarmuka 
+NASA POWER 
+(reanalisis MERRA-2) 
+untuk koordinat 
+Banjarnegara; agregasi 
+ke mingguan (hujan 
+dijumlahkan, suhu dan 
+kelembapan dirata-
+ratakan)
+3.580 hari, 1 Jan 
+2017 - 20 Okt 
+2026
+Wawancara 
+manajemen
+Kebutuhan informasi, 
+pertanyaan bisnis, istilah, 
+dan preferensi penyajian
+Wawancara semi-
+terstruktur oleh SAG 
+sesuai protokol pada 
+Lampiran B
+1-2 responden 
+dari pemilik dan 
+pengelola apotek
+Wawancara dilakukan secara semi-terstruktur terhadap pemilik atau 
+pengelola Apotek Pahala selaku pengguna utama hasil prediksi dan penentu 
+kebijakan pengadaan. Responden dipilih karena posisinya memahami proses 
+pengadaan, keterbatasan arsip, dan konteks bisnis apotek, sehingga masukannya 
+menentukan isi serta bentuk penyajian dashboard. Wawancara berdurasi sekitar 45 
+sampai 60 menit dengan kerangka pertanyaan mencakup tujuan penggunaan hasil 
+prediksi, pertanyaan bisnis yang ingin dijawab, istilah yang lazim digunakan, serta 
+bentuk tabel dan grafik yang paling mudah dipahami. Hasil wawancara 
+didokumentasikan dalam catatan tertulis dan dikonfirmasikan ulang kepada 
+responden sebelum ditetapkan sebagai dasar spesifikasi; instrumen lengkap 
+disajikan pada Lampiran B.
+Aturan pengolahan data ditetapkan secara eksplisit agar deret yang 
+dihasilkan dapat dipertanggungjawabkan. Identitas obat mengikuti kode barang 
+(BL_KODEBR) sehingga nama barang yang sama dengan kode berbeda tetap 
+diperlakukan sebagai item terpisah sampai ada konfirmasi dari pemilik data. 
+Transaksi yang diikutkan hanya kode mutasi P (penjualan) dan R (retur); kuantitas 
+retur pada arsip tercatat negatif sehingga permintaan neto dihitung sebagai 
+
+
+===== PAGE 24 =====
+16
+penjualan dikurangi nilai mutlak retur sehingga retur hanya memengaruhi hasil satu 
+kali. Pekan kalender didefinisikan Senin sampai Minggu dan pekan tanpa transaksi 
+diberi nilai nol. Berkas dengan tanggal di luar rentang layak atau melebihi batas data 
+dikeluarkan dari deret dan dicatat pada daftar anomali, kuantitas nol ditandai dan 
+tidak ikut ke deret, sedangkan kuantitas ekstrem di atas ambang persentil ke-99,9 
+ditandai untuk verifikasi ke berkas faktur. Kriteria pemilihan obat prioritas adalah 
+volume permintaan yang besar dan kelengkapan data mingguan yang memadai.
+III.2.3 Mekanisme Validasi dan Evaluasi
+Validasi ditujukan untuk memperoleh umpan balik pemangku kepentingan 
+terhadap hasil rancangan, sedangkan evaluasi model dilakukan EDM melalui 
+perbandingan metrik pada data uji yang dipisahkan secara kronologis. Pemangku 
+kepentingan yang dimintai umpan balik adalah pemilik apotek selaku penentu 
+kebijakan, pengelola apotek selaku pengguna utama dashboard, dan staf apoteker 
+selaku pengguna operasional yang memahami dinamika permintaan harian. 
+Instrumen yang digunakan meliputi lembar wawancara validasi kebutuhan, 
+skenario uji tugas terbimbing pada prototype, dan kuesioner keterpahaman 
+sederhana. Rencana verifikasi dan validasi dirangkum pada Tabel III.2 dan Tabel 
+III.3.
+Tabel III.2 Rencana verifikasi data, model, dan informasi dashboard
+Pengujian
+Objek yang Diperiksa
+Bukti atau Keluaran
+Verifikasi 
+data
+Kelengkapan kolom, rentang 
+tanggal, jenis transaksi, dan 
+anomali kuantitas pada data BL 
+dan ST
+Profil kualitas data; kriteria: kolom 
+wajib, rentang tanggal, kode 
+transaksi, dan anomali diperiksa 
+serta didokumentasikan
+Verifikasi 
+model
+Kesesuaian asumsi model, 
+stabilitas keluaran antarpercobaan, 
+dan konsistensi keluaran Random 
+Forest
+Catatan diagnosis model dan hasil 
+evaluasi; kriteria: keluaran sesuai 
+konfigurasi model dan metrik 
+dihitung dari data uji
+Verifikasi 
+informasi
+Angka prediksi pada dashboard 
+sama dengan keluaran model; 
+periode, nama obat, satuan, dan 
+rentang waktu disajikan benar
+Perbandingan keluaran model dan 
+tampilan; kriteria: nilai, satuan, kode 
+obat, dan periode sesuai keluaran 
+model
+
+
+===== PAGE 25 =====
+17
+Tabel III.3 Rencana validasi rancangan bersama pengguna
+Pengujian
+Objek yang Diperiksa
+Bukti atau Keluaran
+Validasi 
+kebutuhan 
+pengguna
+Informasi yang ditampilkan 
+sesuai kebutuhan manajemen 
+apotek
+Catatan masukan pengguna; kriteria: 
+masukan terdokumentasi dan 
+ditindaklanjuti pada perbaikan 
+rancangan
+Uji 
+keterpahaman
+Pengguna memahami arti nilai 
+prediksi, metrik evaluasi, dan 
+periode yang ditampilkan
+Hasil uji tugas terbimbing atau 
+kuesioner sederhana; kriteria: 
+pengguna sasaran menyelesaikan 
+tugas yang disiapkan
+Uji batasan 
+informasi
+Dashboard menjelaskan bahwa 
+prediksi merupakan estimasi 
+beserta keterbatasannya
+Pemeriksaan teks, label, dan 
+keterangan pada antarmuka; kriteria: 
+antarmuka menjelaskan prediksi 
+sebagai estimasi
+Setiap pengujian disertai kriteria keluaran yang dapat diperiksa pada kolom 
+bukti, dan tidak ada ambang keberhasilan yang ditetapkan tanpa dasar. Ambang 
+akurasi, apabila diperlukan, dibaca dari perbandingan antarmodel pada data yang 
+sama dan bukan angka sewaktu-waktu. Masukan dari validasi menjadi dasar 
+perbaikan rancangan, dan seluruh bukti pengujian didokumentasikan agar setiap 
+kesimpulan memiliki jejak bukti yang jelas.
+III.2.4 Timeline Pengembangan
+Timeline pengembangan disusun untuk rentang minggu ke-5 sampai 
+minggu ke-14, tidak termasuk waktu pengerjaan proposal, dan dapat menyesuaikan 
+kalender akademik. Aktivitas mengikuti sistematika pada Subbab III.2.1 dengan 
+tanggung jawab yang terdistribusi antara SAG dan EDM sebagaimana dirangkum 
+pada Tabel III.4. Kelebihan durasi pada rentang minggu ke-8 sampai ke-11 
+disiapkan sebagai cadangan untuk iterasi perbaikan prototype akibat temuan 
+verifikasi. Keluaran setiap aktivitas menjadi prasyarat aktivitas berikutnya sehingga 
+keterlambatan pada tahap data dapat segera terdeteksi dan dimitigasi.
+Tabel III.4 Rencana timeline pengembangan minggu ke-5 sampai ke-14
+Aktivitas
+Tanggung 
+Jawab
+Keluaran
+Rentang 
+Waktu
+Identifikasi kebutuhan informasi 
+manajemen
+SAG
+Daftar kebutuhan 
+informasi
+Minggu ke-5 
+s.d. ke-6
+
+
+===== PAGE 26 =====
+18
+Aktivitas
+Tanggung 
+Jawab
+Keluaran
+Rentang 
+Waktu
+Pembersihan dan agregasi data 
+penjualan serta cuaca
+EDM
+Dataset valid siap 
+pemodelan
+Minggu ke-6 
+s.d. ke-7
+Penyusunan spesifikasi 
+dashboard
+SAG
+Dokumen spesifikasi 
+rancangan
+Minggu ke-6 
+s.d. ke-7
+Pemodelan Random Forest, 
+Decision Tree, dan Linear 
+Regression beserta evaluasi
+EDM
+Model terlatih beserta 
+hasil evaluasi
+Minggu ke-7 
+s.d. ke-9
+Pengembangan prototype 
+dashboard (SQLite, lapisan 
+layanan, PySide6)
+SAG dan 
+EDM
+Prototype versi 
+pertama
+Minggu ke-8 
+s.d. ke-10
+Verifikasi data, model, dan 
+informasi dashboard
+SAG dan 
+EDM
+Hasil pemeriksaan 
+kesesuaian
+Minggu ke-10 
+s.d. ke-11
+Validasi dengan pengguna atau 
+manajemen
+SAG
+Catatan masukan dan 
+hasil pengujian
+Minggu ke-11 
+s.d. ke-12
+Perbaikan, dokumentasi, dan 
+finalisasi (pengemasan 
+PyInstaller)
+SAG dan 
+EDM
+Prototype akhir 
+beserta dokumentasi
+Minggu ke-12 
+s.d. ke-14
+BAB IV HASIL PENGEMBANGAN SOLUSI
+Bab ini menyajikan proses pengembangan yang dilaksanakan sesuai metode 
+pada Bab III serta hasil pengembangan untuk setiap fitur. Seluruh angka pada bab 
+ini merupakan keluaran nyata dari pipeline pengolahan dan pemodelan yang 
+dibangun kelompok, sehingga setiap pernyataan dapat ditelusuri kembali ke berkas 
+data dan kode yang menjadi buktinya.
+IV.1 Proses Pengembangan
+Tahap pemahaman bisnis dan data dilakukan melalui wawancara dengan 
+pemilik dan pengelola Apotek Pahala untuk memetakan kebutuhan informasi, 
+pertanyaan bisnis, dan bentuk penyajian yang mudah dipahami. Hasil wawancara 
+menegaskan bahwa informasi yang paling dibutuhkan adalah perkiraan kebutuhan 
+obat per pekan untuk obat-obat yang berputar cepat, disertai gambaran stok terakhir 
+dan status kualitas data di balik angka. Pada tahap yang sama, kelompok 
+mengumpulkan 4.913 berkas arsip operasional dari repositori kelompok, yaitu 
+
+
+===== PAGE 27 =====
+19
+2.924 berkas penjualan (2.894 DBF, 27 salinan .002, dan 3 accdb) serta 1.086 
+berkas stock opname (1.085 DBF dan 1 accdb) ditambah 903 berkas indeks dBase 
+(NTX) yang bukan data. Data cuaca harian periode 1 Januari 2017 sampai 20 
+Oktober 2026 (3.580 hari) diambil melalui antarmuka terbuka NASA POWER 
+untuk koordinat wilayah Banjarnegara.
+Tahap persiapan data dilakukan melalui proses ETL yang menggabungkan 
+seluruh berkas harian menjadi satu basis data terstruktur. Setiap record diperiksa 
+kelayakannya: hanya transaksi dengan kode mutasi P (penjualan) dan R (retur) yang 
+diikutkan, tanggal di luar rentang layak atau melebihi batas data dikeluarkan dan 
+dicatat, kuantitas nol ditandai, dan kuantitas ekstrem di atas ambang persentil 
+ke-99,9 ditandai untuk verifikasi. Permintaan neto dihitung per pekan Senin sampai 
+Minggu sebagai penjualan dikurangi nilai mutlak retur. Hasil pemeriksaan 
+dirangkum pada Tabel IV.1 dan divisualisasikan pada Gambar IV.1. Dari proses ini 
+diperoleh 141.074 record transaksi valid dari 3.737 obat unik pada rentang 
+pertengahan 2017 sampai September 2026.
+Tabel IV.1 Profil kualitas data arsip operasional Apotek Pahala
+Kategori
+Jumlah
+Keterangan
+Record transaksi valid
+141.074
+Kode mutasi P dan R, tanggal dalam rentang 
+2017-2026
+Record tanggal 
+bermasalah
+48
+Tanggal di luar rentang atau melebihi batas 
+data; dikeluarkan dari deret
+Kuantitas nol
+2.059
+Transaksi bermasalah atau salah masuk; tidak 
+masuk deret permintaan
+Kuantitas ekstrem
+130
+Di atas ambang P99,9 sebesar 1.200 unit; 
+ditandai untuk verifikasi faktur
+Transaksi penjualan (P)
+141.266
+Menambah permintaan
+Transaksi retur (R)
+1.835
+Dikurangkan dari permintaan neto satu kali per 
+pekan
+Obat unik
+3.737
+Mengikuti kode barang (BL_KODEBR)
+Berkas salinan .002
+27
+Format turunan tidak terbaca; 20 berkas punya 
+pasangan DBF utama, 7 berkas dikeluarkan
+
+
+===== PAGE 28 =====
+20
+Gambar IV.1 Profil pengolahan dan kualitas data arsip penjualan (BL)
+Enam obat prioritas dipilih berdasarkan volume permintaan neto terbesar 
+dengan kelengkapan data mingguan yang memadai, yaitu AMLODIPINE 5MG 
+30'S, VOLTADEX 50MG 50'S, DEXTEEM PLUS 100'S, AMLODIPINE 10MG 
+30'S, METFORMIN 500MG, dan METHYLPREDNISOLON 4MG. Statistik deret 
+mingguan keenam obat disajikan pada Tabel IV.2 dan pergerakannya pada Gambar 
+IV.2. Terlihat bahwa deret bersifat berlumpuh dengan lonjakan periodik, misalnya 
+pada VOLTADEX 50MG yang mempunyai simpangan baku mingguan lebih besar 
+dari rata-ratanya, sehingga pemilihan metode berbasis pohon yang tangguh 
+terhadap pencilan menjadi relevan. Data cuaca harian diagregasi menjadi 513 pekan 
+dengan curah hujan dijumlahkan serta suhu dan kelembapan dirata-ratakan.
+Tabel IV.2 Statistik deret permintaan mingguan obat prioritas
+Obat (kode)
+Total Neto 
+(unit)
+Rata-rata 
+(unit/pekan)
+Simpanga
+n Baku
+Pekan 
+Aktif
+Kelengk
+apan
+AMLODIPINE 5MG 
+30'S (40100)
+281.080
+734
+451
+383
+80%
+VOLTADEX 50MG 
+50'S (2640)
+255.620
+940
+1.034
+272
+57%
+DEXTEEM PLUS 
+100'S (695)
+224.100
+749
+351
+299
+62%
+AMLODIPINE 10MG 
+30'S (4576)
+204.790
+640
+377
+320
+67%
+METFORMIN 500MG 
+(7059)
+194.500
+671
+344
+290
+61%
+METHYLPREDNISO
+LON 4MG (2970)
+175.700
+567
+371
+310
+65%
+
+
+===== PAGE 29 =====
+21
+Gambar IV.2 Deret permintaan mingguan enam obat prioritas
+Tahap pemodelan dimulai dengan rekayasa fitur untuk menyerap pola 
+temporal: lag permintaan satu sampai delapan pekan, lag tahunan 52 pekan, rata-
+rata bergulir 4, 8, dan 12 pekan, deviasi bergulir 4 pekan, nomor pekan dalam tahun 
+beserta transformasi sinusoidal musiman, bulan, serta tiga variabel cuaca 
+mingguan. Deret dibagi secara kronologis tanpa pengacakan menjadi 341 pekan 
+data latih dan 86 pekan data uji per obat; data uji mencakup rentang 3 Februari 2025 
+sampai 21 September 2026. Pemilihan hyperparameter Random Forest (jumlah 
+fitur per percabangan dan minimum sampel per daun) serta kedalaman Decision 
+Tree dilakukan pada bagian validasi internal dari data latih agar data uji tetap murni 
+untuk evaluasi akhir. Random Forest dilatih dengan 400 pohon dan konfigurasi 
+terpilih berbeda antar-obat, misalnya minimum sampel daun 1 dengan seluruh fitur 
+untuk AMLODIPINE 5MG, dan minimum sampel daun 8 dengan 30% fitur untuk 
+METHYLPREDNISOLON 4MG.
+IV.2 Hasil Pengembangan
+Hasil pengembangan berupa prototype aplikasi desktop berbasis PySide6 
+dengan basis data SQLite yang menyimpan hasil ETL, prediksi, metrik, dan stok 
+terakhir. Aplikasi berjalan offline, memiliki delapan menu navigasi sesuai 
+
+
+===== PAGE 30 =====
+22
+spesifikasi, dan seluruh angka yang ditampilkan dibaca langsung dari basis data 
+sehingga konsisten dengan keluaran pipeline. Bagian berikut menyajikan 
+dokumentasi setiap menu diikuti hasil evaluasi model.
+Gambar IV.3 Tampilan menu Ringkasan prototype dashboard
+Menu Ringkasan menyajikan empat kartu indikator utama, yaitu total 
+prakiraan permintaan empat pekan ke depan sebesar 16.355 unit, total penjualan 
+aktual empat pekan terakhir sebesar 15.600 unit (turun 4,3% dibanding periode 
+sebelumnya), stok tersedia menurut stock opname terakhir sebesar 8.010 unit, dan 
+usulan pengadaan indikatif sebesar 8.345 unit. Menu ini juga menampilkan tabel 
+status kualitas data yang sama dengan Tabel IV.1 sehingga pengguna selalu 
+mengetahui dasar dari setiap angka, serta grafik perkembangan permintaan total 26 
+pekan terakhir.
+
+
+===== PAGE 31 =====
+23
+Gambar IV.4 Tampilan menu Prediksi Permintaan prototype dashboard
+Menu Prediksi Permintaan memungkinkan pengguna memilih obat melalui 
+filter, menampilkan grafik aktual versus prediksi Random Forest pada data uji, 
+prakiraan empat pekan ke depan, serta metrik kinerja model (MAE, RMSE, MAPE) 
+untuk obat terpilih. Keterangan skenario cuaca dan penegasan bahwa prakiraan 
+merupakan estimasi ditampilkan di bagian bawah menu sesuai prinsip transparansi 
+keterbatasan.
+Gambar IV.5 Tampilan menu Data Penjualan prototype dashboard
+
+
+===== PAGE 32 =====
+24
+Menu Data Penjualan menyajikan histori transaksi hasil agregasi per obat 
+dalam bentuk grafik tren lengkap dengan ringkasan rata-rata, maksimum, dan 
+persentase pekan aktif. Menu ini membantu manajemen membaca pola musiman 
+dan lonjakan permintaan sebelum membaca angka prediksi.
+Gambar IV.6 Tampilan menu Data Cuaca prototype dashboard
+Menu Data Cuaca menampilkan riwayat cuaca mingguan 30 pekan terakhir 
+berupa curah hujan, suhu rata-rata, dan kelembapan relatif, serta keterangan aturan 
+skenario pengisian nilai cuaca pada horizon prediksi. Menu ini menjelaskan dari 
+mana variabel eksogen yang digunakan model berasal.
+
+
+===== PAGE 33 =====
+25
+Gambar IV.7 Tampilan menu Manajemen Stok prototype dashboard
+Menu Manajemen Stok menyajikan stok menurut stock opname terakhir per 
+obat, termasuk stok sistem (ST_PC), stok fisik (ST_PHISIC), selisih keduanya, dan 
+tanggal pembaruan data. Penandaan tanggal ini penting agar stok tidak dibaca 
+sebagai posisi harian terkini, sesuai batasan data yang ada.
+Gambar IV.8 Tampilan menu Rekomendasi Pengadaan prototype dashboard
+Menu Rekomendasi Pengadaan menghitung usulan pembelian indikatif 
+sebagai selisih antara prakiraan permintaan empat pekan dan stok fisik terakhir. 
+Sesuai rancangan bersyarat, menu ini diberi label perhitungan belum lengkap 
+
+
+===== PAGE 34 =====
+26
+karena asumsi waktu tunggu pemasok, stok pengaman, dan satuan kemasan 
+menunggu konfirmasi manajemen melalui menu Pengaturan.
+Gambar IV.9 Tampilan menu Laporan prototype dashboard
+Menu Laporan merangkum perbandingan penjualan aktual empat pekan 
+terakhir dengan prakiraan empat pekan ke depan per obat beserta metrik model, dan 
+menyediakan tombol ekspor CSV yang berfungsi sehingga hasil dapat diproses 
+lebih lanjut di luar aplikasi.
+Gambar IV.10 Tampilan menu Pengaturan prototype dashboard
+
+
+===== PAGE 35 =====
+27
+Menu Pengaturan menampung parameter asumsi seperti skenario cuaca 
+horizon prediksi, asumsi waktu tunggu pemasok, stok pengaman, dan hak akses. 
+Seluruh parameter dinonaktifkan dan diberi status menunggu konfirmasi 
+manajemen untuk menjaga tata kelola informasi.
+Hasil evaluasi antarmodel pada data uji dirangkum pada Tabel IV.3 untuk 
+MAE dan RMSE serta Tabel IV.4 untuk MAPE. Random Forest mencatat rata-rata 
+MAE sebesar 392,6 unit dan MAPE rata-rata 42,5%, lebih baik dibandingkan 
+Decision Tree (MAE 432,4; MAPE 52,6%) dan sedikit di atas Linear Regression 
+pada MAE (381,4) namun lebih baik pada MAPE (42,9%). Ketiga model 
+mengungguli pembanding naif nilai pekan sebelumnya secara konsisten (MAE rata-
+rata 600,5; MAPE 71,0%), yang menunjukkan bahwa rekayasa fitur temporal dan 
+cuaca memberikan nilai tambah yang nyata dibandingkan pandangan sederhana 
+pekan sebelumnya.
+Tabel IV.3 Perbandingan metrik antarmodel pada data uji (MAE dan RMSE, dalam unit)
+Obat Prioritas
+RF 
+MAE
+LinReg 
+MAE
+DT 
+MAE
+Naif 
+MAE
+RF 
+RMSE
+LinReg 
+RMSE
+AMLODIPINE 
+10MG 30'S
+404,6
+383,7
+438,3
+566,5
+552,8
+522,5
+AMLODIPINE 5MG 
+30'S
+463,0
+468,1
+490,9
+692,1
+665,4
+672,8
+DEXTEEM PLUS 
+100'S
+414,9
+412,1
+416,3
+790,7
+510,6
+493,9
+METFORMIN 
+500MG
+285,3
+288,7
+313,8
+481,4
+367,2
+374,9
+METHYLPREDNIS
+OLON 4MG
+320,6
+300,6
+314,7
+530,2
+413,8
+392,4
+VOLTADEX 50MG 
+50'S
+467,2
+435,0
+620,0
+541,9
+640,0
+583,8
+Rata-rata
+392,6
+381,4
+432,4
+600,5
+525,0
+506,7
+Tabel IV.4 Perbandingan metrik antarmodel pada data uji (MAPE, %)
+Obat Prioritas
+Random 
+Forest
+Linear 
+Regression
+Decision 
+Tree
+Naif
+AMLODIPINE 10MG 
+30'S
+35,4
+34,7
+46,8
+56,8
+
+
+===== PAGE 36 =====
+28
+Obat Prioritas
+Random 
+Forest
+Linear 
+Regression
+Decision 
+Tree
+Naif
+AMLODIPINE 5MG 
+30'S
+34,5
+37,7
+39,1
+60,0
+DEXTEEM PLUS 
+100'S
+53,1
+49,4
+53,5
+76,0
+METFORMIN 500MG
+41,9
+42,4
+51,3
+85,2
+METHYLPREDNISO
+LON 4MG
+50,6
+54,5
+61,1
+106,6
+VOLTADEX 50MG 
+50'S
+39,3
+38,8
+63,8
+41,2
+Rata-rata
+42,5
+42,9
+52,6
+71,0
+Gambar IV.11 Perbandingan penjualan aktual dan hasil prediksi pada data uji (METFORMIN 
+500MG)
+Gambar IV.12 Perbandingan MAPE antarmodel per obat prioritas
+Gambar IV.11 memperlihatkan pola prediksi Random Forest pada 
+METFORMIN 500MG, obat dengan MAE terbaik, yang mengikuti arah pergerakan 
+aktual meskipun melebar pada pekan-pekan lonjakan. Gambar IV.12 menegaskan 
+
+
+===== PAGE 37 =====
+29
+bahwa keunggulan antarmodel bersifat beragam antar-obat: Random Forest terbaik 
+pada
+ 
+tiga
+ 
+obat
+ 
+(AMLODIPINE
+ 
+5MG,
+ 
+METFORMIN, 
+METHYLPREDNISOLON), Linear Regression terbaik pada tiga obat lainnya 
+secara tipis, sementara Decision Tree konsisten paling lemah karena mudah 
+menyesuaikan diri berlebihan terhadap data latih. Pola ini menjadi dasar 
+rekomendasi agar Random Forest tetap dipakai sebagai model utama dengan Linear 
+Regression sebagai pembanding berkala.
+Kontribusi variabel cuaca diuji dengan membandingkan Random Forest 
+yang menggunakan tiga fitur cuaca terhadap Random Forest yang sama tanpa fitur 
+cuaca. Hasil pada Tabel IV.5 dan Gambar IV.13 menunjukkan perubahan MAE 
+yang kecil dan beragam antar-obat, berkisar dari perbaikan 2,1% pada 
+METFORMIN 500MG hingga penurunan akurasi 3,2% pada AMLODIPINE 5MG. 
+Temuan ini menunjukkan bahwa pada level mingguan dan untuk enam obat 
+prioritas ini, variabel cuaca belum memberikan kontribusi yang konsisten, sekaligus 
+menegaskan pentingnya pengujian eksplisit seperti yang dirancang pada proposal 
+alih-alih mengasumsikan manfaat cuaca. Interpretasi lebih lanjut dibahas pada Bab 
+V.
+Tabel IV.5 Hasil uji kontribusi variabel cuaca terhadap akurasi model
+Obat Prioritas
+MAE dengan 
+Cuaca
+MAE tanpa 
+Cuaca
+Perubahan MAE
+AMLODIPINE 5MG 30'S
+463,0
+448,6
+-3,2%
+VOLTADEX 50MG 50'S
+467,2
+456,9
+-2,3%
+DEXTEEM PLUS 100'S
+414,9
+413,9
+-0,2%
+AMLODIPINE 10MG 30'S
+404,6
+401,1
+-0,9%
+METFORMIN 500MG
+285,3
+291,4
++2,1%
+METHYLPREDNISOLON 
+4MG
+320,6
+321,4
++0,2%
+
+
+===== PAGE 38 =====
+30
+Gambar IV.13 Kontribusi variabel cuaca terhadap MAE Random Forest
+Gambar IV.14 Sepuluh fitur terpenting model Random Forest (rata-rata antar-obat)
+Analisis kepentingan fitur pada Gambar IV.14 memperlihatkan bahwa rata-
+rata bergulir 8 dan 12 pekan serta lag satu pekan menjadi fitur terkuat, diikuti fitur 
+cuaca (suhu, curah hujan, kelembapan) dan komponen musiman. Tingginya 
+kepentingan fitur cuaca pada model namun kecilnya dampak pada akurasi 
+menunjukkan bahwa model menyerap variasi cuaca sebagai sinyal sekunder yang 
+belum stabil untuk ekstrapolasi, sehingga kehati-hatian dalam membaca fitur 
+kepentingan tetap diperlukan.
+
+
+===== PAGE 39 =====
+31
+Gambar IV.15 Kondisi cuaca dan perkembangan permintaan obat prioritas volume terbesar
+Gambar IV.16 Prakiraan permintaan empat pekan ke depan (AMLODIPINE 5MG 30'S)
+Sebagai keluaran akhir, model menghasilkan prakiraan empat pekan ke 
+depan per obat dengan skenario cuaca normal iklim. Untuk AMLODIPINE 5MG 
+30'S, prakiraan berkisar 1.008 sampai 1.218 unit per pekan, sementara total 
+prakiraan keenam obat mencapai 16.355 unit. Prakiraan ini yang ditampilkan pada 
+menu Ringkasan dan Prediksi Permintaan, lengkap dengan keterangan skenario dan 
+penegasan status estimasi, sehingga manajemen membacanya sebagai bahan 
+pertimbangan, bukan angka pasti.
+BAB V VALIDASI DAN EVALUASI
+V.1 Validasi Hasil Pengembangan
+Validasi dilaksanakan mengikuti rencana pada Subbab III.2.3 dengan tiga 
+lapisan verifikasi internal dan tiga pengujian validasi bersama pengguna. Pada 
+lapisan verifikasi data, profil kualitas pada Tabel IV.1 memastikan seluruh kolom 
+wajib arsip BL dan ST terbaca, rentang tanggal yang digunakan adalah rentang yang 
+
+
+===== PAGE 40 =====
+32
+valid, dan seluruh anomali terdokumentasi. Pada lapisan verifikasi model, 
+konfigurasi akhir setiap model dicatat pada keluaran pipeline dan metrik dihitung 
+ulang dari data uji yang sama sehingga angka pada Tabel IV.3 sampai IV.5 dapat 
+direproduksi. Pada lapisan verifikasi informasi, angka yang tampil pada dashboard 
+dibaca langsung dari basis data SQLite yang diisi oleh pipeline yang sama, sehingga 
+kartu indikator Ringkasan (16.355 unit prakiraan, 15.600 unit aktual empat pekan) 
+sama persis dengan keluaran model; perbandingan ini diperiksa menu demi menu 
+pada saat pengambilan tangkapan layar Gambar IV.3 sampai IV.10.
+Validasi kebutuhan dan keterpahaman dilakukan kepada pemilik dan 
+pengelola Apotek Pahala selaku pengguna sasaran menggunakan lembar 
+wawancara validasi dan skenario uji tugas terbimbing pada prototype, meliputi 
+tugas membaca prakiraan pada menu Prediksi Permintaan, mengidentifikasi status 
+kualitas data pada menu Ringkasan, dan membaca tanggal pembaruan stok pada 
+menu Manajemen Stok. Ringkasan masukan yang terdokumentasi beserta tindak 
+lanjutnya disajikan pada Tabel V.1; seluruh tindak lanjut telah diterapkan pada 
+prototype yang dilaporkan di Bab IV.
+Tabel V.1 Ringkasan hasil validasi dan tindak lanjut perbaikan
+Masukan Pengguna
+Tindak Lanjut pada Prototype
+Angka prediksi perlu disertai penegasan 
+bahwa nilainya estimasi agar tidak dibaca 
+sebagai angka pasti
+Keterangan estimasi dan skenario cuaca 
+ditampilkan pada menu Prediksi Permintaan 
+dan Ringkasan
+Stok jangan disajikan seperti stok harian 
+terkini karena hanya dihitung saat stock 
+opname
+Menu Manajemen Stok menampilkan tanggal 
+stock opname terakhir pada setiap baris
+Istilah teknis model terlalu sulit; cukup 
+tampilkan MAE, RMSE, MAPE dengan 
+penjelasan singkat
+Panel metrik disederhanakan dan penjelasan 
+istilah dimuat pada daftar simbol laporan
+Usulan pengadaan belum boleh dianggap 
+final karena waktu tunggu pemasok belum 
+dikonfirmasi
+Menu Rekomendasi Pengadaan diberi label 
+perhitungan belum lengkap; parameter diatur 
+di menu Pengaturan yang terkunci
+Rekap perlu bisa dibawa ke luar aplikasi 
+untuk diskusi dengan pemilik
+Menu Laporan dilengkapi fungsi ekspor CSV 
+yang berfungsi
+Uji batasan informasi dilakukan dengan memeriksa teks, label, dan 
+keterangan pada antarmuka. Hasilnya, setiap tampilan angka prediksi menyertakan 
+penegasan estimasi, panel cuaca menjelaskan sumber dan skenario data, dan menu 
+
+
+===== PAGE 41 =====
+33
+Rekomendasi Pengadaan memuat label keterbatasan. Dengan demikian ketiga 
+pengujian validasi menghasilkan bukti yang terdokumentasi, dan dashboard dapat 
+dinyatakan telah menjawab kebutuhan informasi manajemen pada lingkup data 
+yang tersedia.
+V.2 Evaluasi Hasil Pengembangan
+Dari sisi kinerja prediktif, Random Forest dengan rata-rata MAPE 42,5% 
+dan MAE 392,6 unit terbukti mengungguli pembanding naif secara besar (MAPE 
+71,0%) dan Decision Tree (MAPE 52,6%), serta unggul tipis atas Linear 
+Regression pada MAPE (42,9%) meskipun MAE Linear Regression sedikit lebih 
+baik (381,4). Untuk konteks perencanaan yang bekerja dalam satuan kemasan bulat, 
+kesalahan rata-rata sekitar 285 sampai 463 unit per pekan pada obat dengan 
+permintaan rata-rata 567 sampai 940 unit per pekan masih perlu ditoleransi dengan 
+stok pengaman; nilai ini merupakan karakter data mingguan berlumpuh dengan 
+lonjakan pesanan besar, bukan semata keterbatasan model. Temuan ini sejalan 
+dengan literatur bahwa peramalan permintaan farmasi dengan data mingguan 
+berlumpuh menantang bagi semua metode [13], [14].
+Dari sisi kontribusi faktor cuaca, hasil pengujian menunjukkan dampak 
+yang kecil dan tidak konsisten antar-obat (-3,2% sampai +2,1% terhadap MAE). 
+Kesimpulan yang proporsional adalah: variabel cuaca layak dipertahankan sebagai 
+fitur karena tidak merusak kinerja secara signifikan dan memberi perbaikan pada 
+sebagian obat, tetapi klaim manfaat cuaca perlu dibatasi sampai pengujian lanjutan 
+pada kategori obat yang lebih sensitif iklim (misalnya obat pernapasan) atau pada 
+resolusi data harian dilakukan. Sikap ini sesuai dengan pendekatan Chan dan 
+Wahab yang menilai nilai cuaca melalui perbandingan model dengan dan tanpa 
+cuaca pada data yang sama [5].
+Dari sisi kontribusi terhadap masalah, sistem menjawab akar permasalahan 
+pada Gambar I.1: arsip ribuan berkas kini tergabung dan tervalidasi dengan profil 
+kualitas terdokumentasi; model prediksi tersedia dengan ukuran kesalahan objektif; 
+kontribusi cuaca diuji terukur; dan informasi tersaji satu layar yang mendukung 
+keputusan pengadaan. Keterbatasan yang diakui meliputi: prediksi terbatas pada 
+horizon pendek karena model pohon tidak mengekstrapolasi; nilai cuaca horizon 
+
+
+===== PAGE 42 =====
+34
+memakai skenario normal iklim; data stok hanya dari stock opname; tujuh berkas 
+arsip .002 tidak terbaca; dan validasi pengguna baru melibatkan sedikit responden. 
+Keterbatasan tersebut menjadi dasar saran pada Bab VII.
+BAB VI RENCANA IMPLEMENTASI HASIL 
+PENGEMBANGAN
+VI.1 Identifikasi Biaya Implementasi
+Implementasi pada kondisi nyata tidak memerlukan investasi server karena 
+aplikasi dirancang berjalan offline di komputer apotek yang sudah ada. Biaya 
+implementasi terutama berasal dari pengembangan lanjutan, integrasi data, 
+pelatihan pengguna, dan pemeliharaan. Rangkuman estimasi biaya disajikan pada 
+Tabel VI.1 dengan nilai bersifat estimasi dan dapat menyesuaikan kondisi apotek.
+Tabel VI.1 Identifikasi biaya implementasi
+Komponen 
+Biaya
+Uraian
+Estimasi Biaya
+Perangkat keras
+Komputer desktop yang telah dimiliki 
+apotek; tanpa investasi server (aplikasi 
+offline)
+Rp0 (memakai aset 
+yang ada)
+Pengembangan 
+lanjutan
+Finalisasi pengemasan PyInstaller, 
+pengujian penerimaan, dan penyesuaian 
+antarmuka
+Rp2.000.000 - 
+Rp4.000.000 (sekali)
+Integrasi data
+Otomatisasi ekspor/impor arsip kasir harian 
+dan skrip pembaruan basis data
+Rp1.500.000 - 
+Rp3.000.000 (sekali)
+Pelatihan 
+pengguna
+Pelatihan pengelola dan staf apoteker serta 
+pendampingan awal
+Rp500.000 - 
+Rp1.000.000
+Pemeliharaan 
+berkala
+Pembaruan model perkuartal, pemeriksaan 
+kualitas data, dan dukungan teknis
+Rp1.200.000 per tahun
+Lisensi perangkat 
+lunak
+Seluruh komponen berbasis perangkat lunak 
+bebas (Python, PySide6, SQLite, scikit-
+learn)
+Rp0
+Estimasi total biaya tahun pertama berkisar Rp5,2 juta sampai Rp9,2 juta 
+dengan biaya berjalan tahun berikutnya sekitar Rp1,2 juta. Nilai manfaat yang 
+diharapkan berupa penekanan kehilangan penjualan akibat kekurangan stok serta 
+
+
+===== PAGE 43 =====
+35
+penekanan biaya penyimpanan dan risiko kedaluwarsa akibat kelebihan stok; bagi 
+apotek dengan perputaran obat prioritas lebih dari 700 unit per pekan, perbaikan 
+kecil pada ketepatan pengadaan sudah cukup untuk menutup biaya implementasi.
+VI.2 Roadmap Implementasi
+Roadmap implementasi disusun dalam empat milestone berurutan dengan 
+dependensi yang jelas agar apotek dapat mengadopsi sistem secara bertahap tanpa 
+mengganggu operasional. Rincian disajikan pada Tabel VI.2.
+Tabel VI.2 Roadmap implementasi hasil pengembangan
+Milestone
+Aktivitas Utama
+Dependen
+si
+Durasi
+Rentang 
+Waktu
+M1: Finalisasi 
+dan pengemasan
+Pengemasan PyInstaller, 
+pengujian penerimaan bersama 
+apotek, penandatanganan serah 
+terima
+Prototype 
+Bab IV 
+disetujui
+2 pekan
+Bulan ke-1
+M2: Integrasi data 
+rutin
+Otomatisasi ekspor arsip kasir, 
+prosedur impor mingguan, 
+pembaruan basis data
+M1
+3 pekan
+Bulan ke-1 
+s.d. ke-2
+M3: Pelatihan dan 
+penggunaan
+Pelatihan pengelola dan staf, 
+penggunaan harian dashboard, 
+pencatatan umpan balik
+M2
+2 pekan
+Bulan ke-2
+M4: Evaluasi dan 
+pembaruan model
+Evaluasi akurasi terhadap 
+aktual 3 bulan, pembaruan 
+model, peninjauan parameter 
+pengadaan
+M3
+2 pekan
+Bulan ke-4, 
+berulang 
+tiakuartal
+Setelah empat milestone tersebut, siklus pemeliharaan berjalan perkuartal 
+dengan pola yang sama seperti M4. Pengembangan lanjutan yang disarankan 
+setelah stabil meliputi perluasan cakupan obat melampaui enam prioritas, pengujian 
+variabel cuaca pada kategori obat pernapasan, penambahan sumber stok harian 
+apabila sistem kasir menyediakannya, dan evaluasi migrasi antarmuka desktop ke 
+aplikasi web internal apabila apotek membangun jaringan lokal.
+
+
+===== PAGE 44 =====
+36
+BAB VII KESIMPULAN DAN SARAN
+VII.1 Kesimpulan
+Berdasarkan hasil pengembangan dan evaluasi yang telah diuraikan, 
+terdapat lima kesimpulan yang masing-masing menjawab kelima rumusan masalah 
+pada Subbab I.2.
+1. Arsip operasional apotek yang terpisah per hari berhasil diolah menjadi 
+data permintaan mingguan yang layak prediksi. Proses ETL 
+menggabungkan 2.924 berkas penjualan dan 1.086 berkas stock opname 
+menjadi 141.074 record transaksi valid dari 3.737 obat pada rentang 2017-
+2026, dengan seluruh anomali (48 record tanggal bermasalah, 2.059 
+kuantitas nol, 130 kuantitas ekstrem, 1.835 transaksi retur) terdokumentasi 
+pada profil kualitas data.
+2. Model prediksi permintaan obat menggunakan Random Forest Regression 
+berhasil dikembangkan dengan rekayasa fitur lag, rata-rata bergulir, 
+kalender, dan cuaca pada enam obat prioritas, dengan pemilihan 
+hyperparameter melalui validasi internal dan evaluasi pada 86 pekan data 
+uji yang dipisahkan secara kronologis.
+3. Random Forest mencatat kinerja terbaik secara keseluruhan dibandingkan 
+pembanding: MAPE rata-rata 42,5% dan MAE rata-rata 392,6 unit, 
+mengungguli Decision Tree (52,6%; 432,4) dan pembanding naif (71,0%; 
+600,5), serta bersaing ketat dengan Linear Regression (42,9%; 381,4) yang 
+lebih baik pada sebagian obat; keunggulan antarmodel bersifat beragam 
+antar-obat sehingga pembanding tetap dipertahankan.
+4. Kontribusi faktor cuaca terbukti kecil dan tidak konsisten pada level 
+mingguan untuk enam obat prioritas, dengan perubahan MAE berkisar 
+-3,2% sampai +2,1% antara model dengan dan tanpa fitur cuaca; variabel 
+cuaca dipertahankan sebagai fitur karena tidak merugikan secara 
+signifikan, namun klaim manfaatnya dibatasi hingga pengujian lanjutan 
+pada kategori obat yang lebih sensitif iklim.
+
+
+===== PAGE 45 =====
+37
+5. Dashboard desktop PySide6 dengan basis data SQLite berhasil 
+dikembangkan dengan delapan menu yang menyajikan ringkasan 
+indikator, prediksi beserta metrik, histori penjualan, data cuaca, stok stock 
+opname, usulan pengadaan bersyarat, laporan ekspor CSV, dan 
+pengaturan; seluruh angka terverifikasi konsisten dengan keluaran model 
+dan kelengkapan keterangannya lolos uji batasan informasi.
+VII.2 Saran dan Rekomendasi
+Bagi Apotek Pahala, disarankan menggunakan hasil prakiraan sebagai 
+bahan pertimbangan pengadaan dengan menetapkan stok pengaman sesuai toleransi 
+kesalahan yang terukur, menjalankan pembaruan data dan model secara berkala 
+melalui prosedur impor, serta melengkapi data waktu tunggu pemasok agar menu 
+Rekomendasi Pengadaan dapat diaktifkan penuh. Bagi pengembangan sistem 
+selanjutnya, disarankan memperluas cakupan obat melampaui enam prioritas, 
+menguji variabel cuaca pada resolusi harian dan pada kategori obat pernapasan 
+yang lebih sensitif iklim, mengeksplorasi metode hibrider seperti penggabungan 
+model pohon dengan model statistik yang menunjukkan performa baik pada studi 
+terbaru [13], serta mempertimbangkan interval ketidakpastian berbasis kuantil 
+pohon agar ketidakpastian prakiraan tersaji lebih eksplisit. Bagi kelanjutan riset, 
+evaluasi dampak penggunaan sistem terhadap indikator persediaan nyata (tingkat 
+layanan, perputaran persediaan, dan kedaluwarsa) pada periode pemakaian yang 
+lebih panjang akan memperkuat bukti manfaat bisnis.
+DAFTAR PUSTAKA
+[1] K. P. Fourkiotis dan A. Tsadiras, “Applying Machine Learning and Statistical 
+Forecasting Methods for Enhancing Pharmaceutical Sales Predictions,” Forecasting, 
+vol. 6, no. 1, hlm. 170-186, 2024, doi: 10.3390/forecast6010010.
+[2] F. Saranani, R. Dahiya, S. D. T. Geeta, P. H. Khan, dan R. Nagina, “Pharmaceutical 
+Sales Forecasting with Machine Learning: A Strategic Management Tool for 
+Decision-Making,” International Journal of Intelligent Systems and Applications in 
+Engineering, vol. 12, no. 21s, hlm. 907-914, 2024.
+
+
+===== PAGE 46 =====
+38
+[3] T. N. Angula dan A. Dongo, “Assessing the impact of artificial intelligence and machine 
+learning on forecasting medication demand and supply in public pharmaceutical 
+systems: A systematic review,” GSC Biological and Pharmaceutical Sciences, vol. 
+26, no. 2, hlm. 140-150, 2024, doi: 10.30574/gscbps.2024.26.2.0071.
+[4] I. Izzati, I. K. Sriwana, dan S. Martini, “Drug forecasting and supply model design using 
+Artificial Neural Network (ANN) and Continuous Review (r, q) to minimize total 
+supply cost,” Sinergi, vol. 28, no. 2, hlm. 219-230, 2024, doi: 
+10.22441/sinergi.2024.2.002.
+[5] H. Chan dan M. I. M. Wahab, “A machine learning framework for predicting weather 
+impact on retail sales,” Supply Chain Analytics, vol. 5, Art. no. 100058, 2024, doi: 
+10.1016/j.sca.2024.100058.
+[6] R. Sequeira, A. Reis, P. Alves, dan F. Branco, “Roadmap for Implementing Business 
+Intelligence Systems in Higher Education Institutions: Systematic Literature 
+Review,” Information, vol. 15, no. 4, Art. no. 208, 2024, doi: 10.3390/info15040208.
+[7] T. Kongthanasuwan, N. Sriwiboon, B. Horbanluekit, W. Laesanklang, dan T. 
+Krityakierne, “Market Analysis with Business Intelligence System for Marketing 
+Planning,” Information, vol. 14, no. 2, Art. no. 116, 2023, doi: 
+10.3390/info14020116.
+[8] R. Miller, H. Whelan, M. Chrubasik, D. Whittaker, P. Duncan, dan J. Gregorio, “A 
+Framework for Current and New Data Quality Dimensions: An Overview,” Data, 
+vol. 9, no. 12, Art. no. 151, 2024, doi: 10.3390/data9120151.
+[9] N. R. Nasution dan Yahfizham, “Implementasi Manajemen Proyek Sistem Informasi 
+Inventaris Pada Toko Apotek,” ROUTERS: Jurnal Sistem dan Teknologi Informasi, 
+vol. 2, no. 2, hlm. 103-110, 2024, doi: 10.25181/rt.v2i2.3582.
+[10] F. Fahurian dan R. F. Purnomo, “Sistem Pendukung Keputusan Penentuan Pengadaan 
+Obat menggunakan Metode Algoritma Regresi Linier,” Explore: Jurnal Sistem 
+Informasi dan Telematika, vol. 15, no. 1, 2024, doi: 10.36448/jsit.v15i1.3564.
+[11] N. Ruseno, I. Santoso, dan R. NurSiaga, “Perancangan Dashboard Business 
+Intelligence Menggunakan Google Looker pada bisnis apotik dengan Metode 
+Waterfall,” Jurnal Informasi dan Komputer, vol. 12, no. 2, hlm. 48-55, 2024.
+[12] M. Elkabalawy, A. Al-Sakkaf, E. M. Abdelkader, dan G. Alfalah, “CRISP-DM-Based 
+Data-Driven Approach for Building Energy Prediction Utilizing Indoor and 
+Environmental Factors,” Sustainability, vol. 16, no. 17, Art. no. 7249, 2024, doi: 
+10.3390/su16177249.
+[13] K. Yahya, M. Safaei, dan S. Al Dawsari, “Hybrid machine learning forecasting for 
+resilient and sustainable pharmaceutical supply chains under regulatory and seasonal 
+
+
+===== PAGE 47 =====
+39
+disruption,” Frontiers in Artificial Intelligence, vol. 9, Art. no. 1803863, 2026, doi: 
+10.3389/frai.2026.1803863.
+[14] W. Ramadhan, E. Noersasongko, A. Syukur, dan M. A. Soeleman, “Machine Learning 
+Approaches for Pharmaceutical Demand Forecasting: A Bibliometric and 
+Systematic Review of Methods and Research Trends,” International Journal on 
+Informatics for Development, vol. 31, no. 1, hlm. 179-191, 2026, doi: 
+10.18280/isi.310117.
+[15] R. Hasibuan dan Y. K. Ashar, “Hubungan Iklim dengan Kejadian Infeksi Saluran 
+Pernapasan Akut (ISPA) di Wilayah Kerja Puskesmas Bandar Khalipah Kabupaten 
+Deli Serdang,” Jurnal Kesehatan Tambusai, vol. 7, no. 1, hlm. 3927-3938, 2026, doi: 
+10.31004/jkt.v7i1.54512.
+[16] Kementerian Kesehatan Republik Indonesia, “Peraturan Menteri Kesehatan Nomor 73 
+Tahun 2016 tentang Standar Pelayanan Kefarmasian di Apotek,” Kemenkes RI, 
+Jakarta, 2016.
+[17] NASA Langley Research Center, “POWER Data Access Viewer: Daily climate 
+parameters for Banjarnegara, Indonesia (MERRA-2 reanalysis),” 2026. [Daring]. 
+Tersedia: https://power.larc.nasa.gov/
+[18] Badan Meteorologi, Klimatologi, dan Geofisika (BMKG), “Data Online BMKG,” 
+2026. [Daring]. Tersedia: https://dataonline.bmkg.go.id/
+LAMPIRAN
+Lampiran A. Profil Kualitas Data dan Catatan Anomali
+Profil kualitas data merupakan keluaran verifikasi data yang dirangkum 
+pada Tabel IV.1. Catatan anomali rinci meliputi: (1) 48 record dengan tanggal di 
+luar rentang layak 2017-2026 atau melebihi batas data 20 Oktober 2026, termasuk 
+kesalahan ketik tahun dan tanggal masa depan, yang dikeluarkan dari deret dan 
+dicatat; (2) 2.059 record dengan kuantitas nol yang tidak masuk deret permintaan; 
+(3) 130 record dengan kuantitas di atas ambang persentil ke-99,9 sebesar 1.200 unit 
+yang ditandai untuk verifikasi ke berkas faktur; (4) 27 berkas salinan .002 dengan 
+format turunan dBase yang tidak terbaca pustaka standar, 20 di antaranya memiliki 
+pasangan DBF utama; (5) 903 berkas indeks dBase (NTX) yang bukan data; serta 
+(6) kode mutasi selain P dan R yang jumlahnya kecil (59 record) dan tidak 
+diikutkan. Seluruh keputusan penanganan mengikuti aturan pada Subbab III.2.2 dan 
+tidak ada penghapusan otomatis tanpa dasar.
+
+
+===== PAGE 48 =====
+40
+Lampiran B. Instrumen Wawancara dan Kuesioner Keterpahaman
+Instrumen wawancara kebutuhan (45-60 menit, semi-terstruktur) mencakup 
+lima kelompok pertanyaan: (1) profil perputaran obat dan kategori yang paling 
+sering kehabisan; (2) cara pengambilan keputusan pengadaan saat ini dan pihak 
+yang terlibat; (3) pertanyaan bisnis yang ingin dijawab oleh prediksi (obat apa, 
+periode berapa, bentuk angka apa); (4) istilah dan satuan yang lazim digunakan staf; 
+serta (5) preferensi bentuk tabel, grafik, dan urutan informasi pada dashboard. 
+Instrumen kuesioner keterpahaman (5 butir, skala paham/tidak paham) menguji: 
+pembacaan nilai prakiraan pada menu Prediksi, pengertian MAE dan MAPE dalam 
+bahasa sehari-hari, pembacaan tanggal stock opname pada menu Manajemen Stok, 
+pemahaman label perhitungan belum lengkap pada menu Rekomendasi Pengadaan, 
+dan penegasan status estimasi pada setiap angka prediksi.
+Lampiran C. Logbook Pelaksanaan Proyek
+Tabel L.1 Logbook pelaksanaan proyek
+Pekan
+Kegiatan
+Peran
+Keluaran
+5-6
+Wawancara kebutuhan informasi dan 
+analisis akar masalah
+SAG
+Daftar kebutuhan, 
+fishbone
+6-7
+Pengunduhan 4.913 berkas arsip, 
+ETL, profil kualitas data
+EDM
+Basis data tervalidasi
+6-7
+Spesifikasi dashboard dan struktur 
+menu
+SAG
+Dokumen spesifikasi
+7-9
+Rekayasa fitur, pelatihan tiga model, 
+tuning, evaluasi
+EDM
+Metrik dan grafik 
+evaluasi
+8-10
+Pembangunan SQLite, lapisan 
+layanan, antarmuka PySide6
+SAG dan 
+EDM
+Prototype versi pertama
+10-11
+Verifikasi tiga lapisan dan tangkapan 
+layar
+SAG dan 
+EDM
+Bukti kesesuaian
+11-12
+Validasi bersama pengguna dan 
+pencatatan masukan
+SAG
+Tabel V.1
+12-14
+Perbaikan, laporan akhir, 
+dokumentasi kode
+SAG dan 
+EDM
+Laporan akhir
+
+
+===== PAGE 49 =====
+41
+Lampiran D. Struktur Kode Prototype dan Petunjuk Penggunaan
+Pipeline dan prototype disusun dalam skrip Python yang terdokumentasi: 
+(1) skrip pengunduhan arsip dari repositori kelompok; (2) skrip ETL yang membaca 
+seluruh berkas DBF dan accdb, menerapkan aturan pembersihan, dan menghasilkan 
+deret mingguan, profil kualitas, dan ringkasan stock opname; (3) skrip agregasi 
+cuaca mingguan dari antarmuka NASA POWER; (4) skrip pelatihan dan evaluasi 
+tiga model beserta uji kontribusi cuaca dan prakiraan empat pekan; (5) skrip 
+pembangunan basis data SQLite; serta (6) aplikasi desktop PySide6 dengan delapan 
+menu. Aplikasi dijalankan dengan perintah python proto_app.py dan membutuhkan 
+pustaka PySide6, pandas, matplotlib, dan SQLite (bawaan Python); untuk 
+distribusi, aplikasi dikemas menggunakan PyInstaller menjadi berkas eksekusi 
+tunggal yang berjalan tanpa instalasi Python.
+Lampiran E. Daftar Jurnal Referensi beserta Tautan
+Seluruh referensi jurnal pada daftar pustaka berusia minimal 2023 kecuali 
+sumber regulasi dan layanan data. Tautan akses artikel dirangkum berikut ini; 
+empat artikel telah diunduh berkas PDF lengkapnya dan disertakan bersama laporan 
+pada folder jurnal.
+[1] Forecasting (MDPI) 6(1):170-186  https://www.mdpi.com/2571-9394/6/1/10
+[2] IJISAE 12(21s):907-914  https://ijisae.org/index.php/IJISAE/article/view/5488
+[3] GSCBPS 26(2):140-150  https://gscbps.gsconlinepress.com/node/1817
+[4] Sinergi 28(2):219-230  https://publikasi.mercubuana.ac.id/index.php/sinergi/article/view/
+21718
+[5] Supply Chain Analytics 5:100058  
+https://www.sciencedirect.com/science/article/pii/S2949863524000123
+[6] Information (MDPI) 15(4):208  https://www.mdpi.com/2078-2489/15/4/208
+[7] Information (MDPI) 14(2):116  https://www.mdpi.com/2078-2489/14/2/116
+[8] Data (MDPI) 9(12):151  https://www.mdpi.com/2306-5729/9/12/151
+[9] ROUTERS 2(2):103-110  https://jurnal.polinela.ac.id/routers/article/view/3582
+[10] Explore: JSIT 15(1)  https://jurnal.ubl.ac.id/index.php/explore/article/view/3564
+[12] Sustainability (MDPI) 16(17):7249  https://www.mdpi.com/2071-1050/16/17/7249
+[13] Frontiers in AI 9:1803863  
+https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/
+frai.2026.1803863/full
+[14] ISI (IIETA) 31(1):179-191  https://www.iieta.org/journals/isi/paper/10.18280/isi.310117
+
+
+===== PAGE 50 =====
+42
+[15] Jurnal Kesehatan Tambusai 7(1):3927-3938  
+https://journal.universitaspahlawan.ac.id/index.php/jkt/article/view/54512

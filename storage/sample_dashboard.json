@@ -1,0 +1,202 @@
+﻿{
+    "period":  {
+                   "start":  "2026-08-31",
+                   "end":  "2026-09-27",
+                   "label":  "31 Aug - 27 Sep 2026",
+                   "weeks":  4
+               },
+    "kpis":  {
+                 "revenue":  30389000.0,
+                 "revenue_delta":  -13.4,
+                 "demand":  3251,
+                 "demand_delta":  -15.0,
+                 "priority_count":  6,
+                 "mape":  7.59,
+                 "mape_label":  "Rata-rata model utama",
+                 "mape_medicine_count":  6
+             },
+    "trend":  {
+                  "labels":  [
+                                 "31 Aug",
+                                 "07 Sep",
+                                 "14 Sep",
+                                 "21 Sep"
+                             ],
+                  "weeks":  [
+                                "2026-08-31",
+                                "2026-09-07",
+                                "2026-09-14",
+                                "2026-09-21"
+                            ],
+                  "actual":  [
+                                 794,
+                                 810,
+                                 832,
+                                 815
+                             ],
+                  "predicted":  [
+                                    845.0,
+                                    823.0,
+                                    809.0,
+                                    801.0
+                                ]
+              },
+    "prediction_summary":  {
+                               "weeks":  [
+                                             {
+                                                 "label":  "Minggu 1",
+                                                 "value":  788
+                                             },
+                                             {
+                                                 "label":  "Minggu 2",
+                                                 "value":  800
+                                             },
+                                             {
+                                                 "label":  "Minggu 3",
+                                                 "value":  804
+                                             },
+                                             {
+                                                 "label":  "Minggu 4",
+                                                 "value":  806
+                                             }
+                                         ],
+                               "total":  3198,
+                               "insight":  "Prediksi menunjukkan tren peningkatan permintaan.",
+                               "insight_level":  "success",
+                               "horizon":  4
+                           },
+    "top_medicines":  [
+                          {
+                              "medicine_id":  8,
+                              "name":  "Amoxicillin 500mg",
+                              "unit":  "Strip",
+                              "sold":  549,
+                              "predicted":  517,
+                              "sparkline":  [
+                                                164,
+                                                163,
+                                                122,
+                                                166,
+                                                121,
+                                                133,
+                                                144,
+                                                151
+                                            ]
+                          },
+                          {
+                              "medicine_id":  7,
+                              "name":  "Paracetamol 500mg",
+                              "unit":  "Strip",
+                              "sold":  514,
+                              "predicted":  524,
+                              "sparkline":  [
+                                                186,
+                                                146,
+                                                163,
+                                                167,
+                                                137,
+                                                131,
+                                                130,
+                                                116
+                                            ]
+                          },
+                          {
+                              "medicine_id":  10,
+                              "name":  "Cetirizine 10mg",
+                              "unit":  "Strip",
+                              "sold":  396,
+                              "predicted":  402,
+                              "sparkline":  [
+                                                99,
+                                                120,
+                                                108,
+                                                114,
+                                                97,
+                                                100,
+                                                102,
+                                                97
+                                            ]
+                          },
+                          {
+                              "medicine_id":  9,
+                              "name":  "Vitamin C 500mg",
+                              "unit":  "Botol",
+                              "sold":  364,
+                              "predicted":  339,
+                              "sparkline":  [
+                                                118,
+                                                112,
+                                                103,
+                                                173,
+                                                94,
+                                                84,
+                                                97,
+                                                89
+                                            ]
+                          },
+                          {
+                              "medicine_id":  11,
+                              "name":  "Antasida DOEN",
+                              "unit":  "Strip",
+                              "sold":  273,
+                              "predicted":  306,
+                              "sparkline":  [
+                                                74,
+                                                67,
+                                                61,
+                                                113,
+                                                68,
+                                                65,
+                                                72,
+                                                68
+                                            ]
+                          }
+                      ],
+    "stock":  {
+                  "aman":  5,
+                  "perlu_perhatian":  6,
+                  "kritis":  2,
+                  "total":  13,
+                  "percent_aman":  38.5,
+                  "percent_perhatian":  46.2,
+                  "percent_kritis":  15.4
+              },
+    "activities":  [
+                       {
+                           "id":  5,
+                           "type":  "login",
+                           "description":  "Admin Apotek masuk ke aplikasi.",
+                           "user":  "Admin Apotek",
+                           "created_at":  "2026-11-20T17:12:42.293522"
+                       },
+                       {
+                           "id":  4,
+                           "type":  "procurement",
+                           "description":  "Rekomendasi pengadaan awal dibuat.",
+                           "user":  "Admin Apotek",
+                           "created_at":  "2026-11-20T16:28:56.505642"
+                       },
+                       {
+                           "id":  3,
+                           "type":  "prediction",
+                           "description":  "Model Random Forest dilatih untuk seluruh obat demonstrasi.",
+                           "user":  "Admin Apotek",
+                           "created_at":  "2026-11-20T16:28:56.505641"
+                       },
+                       {
+                           "id":  2,
+                           "type":  "system",
+                           "description":  "Database demonstrasi Apotek Pahala disiapkan.",
+                           "user":  "Admin Apotek",
+                           "created_at":  "2026-11-20T16:28:56.505636"
+                       },
+                       {
+                           "id":  1,
+                           "type":  "procurement",
+                           "description":  "Rekomendasi pengadaan PRC-20261120-001 dibuat.",
+                           "user":  "Admin Apotek",
+                           "created_at":  "2026-11-20T16:28:56.498537"
+                       }
+                   ],
+    "is_demo":  true
+}

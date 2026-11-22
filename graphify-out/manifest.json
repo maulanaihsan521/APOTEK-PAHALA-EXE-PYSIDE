@@ -1,0 +1,1408 @@
+{
+  "backend/app/__init__.py": {
+    "mtime": 1795192096.596521,
+    "seen": 1795250517.0192237,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/api/__init__.py": {
+    "mtime": 1795192096.6037326,
+    "seen": 1795250517.0195246,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/api/activity.py": {
+    "mtime": 1795194454.7780812,
+    "seen": 1795250517.0197368,
+    "ast_hash": "bfa684b2b71c9c33ff34ed4ae13776c7",
+    "semantic_hash": "bfa684b2b71c9c33ff34ed4ae13776c7"
+  },
+  "backend/app/api/auth.py": {
+    "mtime": 1795192240.514549,
+    "seen": 1795250517.0198953,
+    "ast_hash": "7f248c6678b768a2581e7e7f4df811ec",
+    "semantic_hash": "7f248c6678b768a2581e7e7f4df811ec"
+  },
+  "backend/app/api/dashboard.py": {
+    "mtime": 1795192240.5215487,
+    "seen": 1795250517.0200455,
+    "ast_hash": "08c80b5a2d58bf201eec50ab701202e4",
+    "semantic_hash": "08c80b5a2d58bf201eec50ab701202e4"
+  },
+  "backend/app/api/imports.py": {
+    "mtime": 1795207053.5058072,
+    "seen": 1795250517.0201938,
+    "ast_hash": "b53668e181901aad4f4e8e441b92fc66",
+    "semantic_hash": "b53668e181901aad4f4e8e441b92fc66"
+  },
+  "backend/app/api/inventory.py": {
+    "mtime": 1795236387.9473424,
+    "seen": 1795250517.0205386,
+    "ast_hash": "2e1a64b618a547cf0d87f56d634845fd",
+    "semantic_hash": "2e1a64b618a547cf0d87f56d634845fd"
+  },
+  "backend/app/api/medicines.py": {
+    "mtime": 1795245353.3199997,
+    "seen": 1795250517.021439,
+    "ast_hash": "54430dcf1d997e74cfd8c0144cc2e3b9",
+    "semantic_hash": "54430dcf1d997e74cfd8c0144cc2e3b9"
+  },
+  "backend/app/api/predictions.py": {
+    "mtime": 1795249888.9048152,
+    "seen": 1795250517.0218594,
+    "ast_hash": "3bef1bda638c0f99a27667f1c3c87e57",
+    "semantic_hash": "3bef1bda638c0f99a27667f1c3c87e57"
+  },
+  "backend/app/api/procurement.py": {
+    "mtime": 1795194338.9056466,
+    "seen": 1795250517.0220447,
+    "ast_hash": "630ebaed9fdb59dd483fc4cb5dde00d0",
+    "semantic_hash": "630ebaed9fdb59dd483fc4cb5dde00d0"
+  },
+  "backend/app/api/reports.py": {
+    "mtime": 1795247210.4391458,
+    "seen": 1795250517.0221965,
+    "ast_hash": "94819097f94f4d3a145012aa03c6f8f4",
+    "semantic_hash": "94819097f94f4d3a145012aa03c6f8f4"
+  },
+  "backend/app/api/sales.py": {
+    "mtime": 1795194252.3818724,
+    "seen": 1795250517.0223584,
+    "ast_hash": "82b23a267967d48cdaffe1640a546854",
+    "semantic_hash": "82b23a267967d48cdaffe1640a546854"
+  },
+  "backend/app/api/settings.py": {
+    "mtime": 1795257691.6374576,
+    "seen": 1795340129.2901769,
+    "ast_hash": "f60ff9319966e4f4a406ecc9bec7f171",
+    "semantic_hash": ""
+  },
+  "backend/app/api/users.py": {
+    "mtime": 1795192240.514549,
+    "seen": 1795250517.0226622,
+    "ast_hash": "8911a5df656c21256de65828c6563a20",
+    "semantic_hash": "8911a5df656c21256de65828c6563a20"
+  },
+  "backend/app/api/weather.py": {
+    "mtime": 1795194454.7780812,
+    "seen": 1795250517.022809,
+    "ast_hash": "cbf58c12f19f27e61e21baf169f95c19",
+    "semantic_hash": "cbf58c12f19f27e61e21baf169f95c19"
+  },
+  "backend/app/core/__init__.py": {
+    "mtime": 1795192096.6027284,
+    "seen": 1795250517.022958,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/core/config.py": {
+    "mtime": 1795249888.8764238,
+    "seen": 1795250517.0231314,
+    "ast_hash": "a694cdc484261a104b0d203c89cb7830",
+    "semantic_hash": "a694cdc484261a104b0d203c89cb7830"
+  },
+  "backend/app/core/deps.py": {
+    "mtime": 1795191850.0272377,
+    "seen": 1795250517.0232866,
+    "ast_hash": "67402f1a608ecf6b32ba1b9599b6008a",
+    "semantic_hash": "67402f1a608ecf6b32ba1b9599b6008a"
+  },
+  "backend/app/core/security.py": {
+    "mtime": 1795191850.0262403,
+    "seen": 1795250517.0234327,
+    "ast_hash": "fc4611aa17c61ae49c78960092f1d2b9",
+    "semantic_hash": "fc4611aa17c61ae49c78960092f1d2b9"
+  },
+  "backend/app/database/__init__.py": {
+    "mtime": 1795192096.6087315,
+    "seen": 1795250517.0235794,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/database/database.py": {
+    "mtime": 1795236967.9534512,
+    "seen": 1795250517.0237274,
+    "ast_hash": "ee8dec878734ab329f2a443c1e048a5c",
+    "semantic_hash": "ee8dec878734ab329f2a443c1e048a5c"
+  },
+  "backend/app/main.py": {
+    "mtime": 1795236967.9534512,
+    "seen": 1795250517.0238764,
+    "ast_hash": "4f3071f8e07b8288f831337fa9887376",
+    "semantic_hash": "4f3071f8e07b8288f831337fa9887376"
+  },
+  "backend/app/ml/__init__.py": {
+    "mtime": 1795192096.6077306,
+    "seen": 1795250517.0240233,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/ml/features.py": {
+    "mtime": 1795245353.3199997,
+    "seen": 1795250517.0241768,
+    "ast_hash": "85494bdf25ba4058945dbf9461035fb4",
+    "semantic_hash": "85494bdf25ba4058945dbf9461035fb4"
+  },
+  "backend/app/ml/service.py": {
+    "mtime": 1795249905.3380277,
+    "seen": 1795250517.0243309,
+    "ast_hash": "1a6dcc4f70a25c3a92a5875b104a5d30",
+    "semantic_hash": "1a6dcc4f70a25c3a92a5875b104a5d30"
+  },
+  "backend/app/ml/trainer.py": {
+    "mtime": 1795245158.17674,
+    "seen": 1795250517.0244808,
+    "ast_hash": "a213636f46ce8e1b246afb8335726356",
+    "semantic_hash": "a213636f46ce8e1b246afb8335726356"
+  },
+  "backend/app/models/__init__.py": {
+    "mtime": 1795192096.6047332,
+    "seen": 1795250517.0246296,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/models/models.py": {
+    "mtime": 1795249910.1812606,
+    "seen": 1795250517.0247757,
+    "ast_hash": "5be141c0256f5d81cf9a4d8dd20fb54d",
+    "semantic_hash": "5be141c0256f5d81cf9a4d8dd20fb54d"
+  },
+  "backend/app/schemas/__init__.py": {
+    "mtime": 1795192096.6057296,
+    "seen": 1795250517.0249488,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/schemas/schemas.py": {
+    "mtime": 1795245305.9817235,
+    "seen": 1795250517.0251098,
+    "ast_hash": "7e2c6281028594a0a20b30f5d890b448",
+    "semantic_hash": "7e2c6281028594a0a20b30f5d890b448"
+  },
+  "backend/app/seed/__init__.py": {
+    "mtime": 1795192096.609736,
+    "seen": 1795250517.0252614,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/seed/real_data.py": {
+    "mtime": 1795247269.7113495,
+    "seen": 1795250517.0254078,
+    "ast_hash": "5d8563eb664819a9585a9686215c1ecb",
+    "semantic_hash": "5d8563eb664819a9585a9686215c1ecb"
+  },
+  "backend/app/services/__init__.py": {
+    "mtime": 1795192096.606732,
+    "seen": 1795250517.025561,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/app/services/activity_service.py": {
+    "mtime": 1795191862.5667953,
+    "seen": 1795250517.025706,
+    "ast_hash": "bbb42e733cf4b3608d864f0f9af3e36e",
+    "semantic_hash": "bbb42e733cf4b3608d864f0f9af3e36e"
+  },
+  "backend/app/services/dashboard_service.py": {
+    "mtime": 1795249905.27957,
+    "seen": 1795250517.0258548,
+    "ast_hash": "09693aec6cd6ea12bafb8ef82e618eb1",
+    "semantic_hash": "09693aec6cd6ea12bafb8ef82e618eb1"
+  },
+  "backend/app/services/export_service.py": {
+    "mtime": 1795335720.5565631,
+    "seen": 1795340129.2902243,
+    "ast_hash": "01cf297198a41742b06e875fb694e6fc",
+    "semantic_hash": "01cf297198a41742b06e875fb694e6fc"
+  },
+  "backend/app/services/inventory_service.py": {
+    "mtime": 1795191862.5737903,
+    "seen": 1795250517.026155,
+    "ast_hash": "88fac3268194a9aa8e5e4aee9704a33b",
+    "semantic_hash": "88fac3268194a9aa8e5e4aee9704a33b"
+  },
+  "backend/app/services/procurement_service.py": {
+    "mtime": 1795244674.2221124,
+    "seen": 1795250517.0263052,
+    "ast_hash": "bfec32164f6895e89093c5c36c708f07",
+    "semantic_hash": "bfec32164f6895e89093c5c36c708f07"
+  },
+  "backend/app/services/reports_service.py": {
+    "mtime": 1795249888.9375894,
+    "seen": 1795250517.0264583,
+    "ast_hash": "31fcaac64bec4f9342ad223dbc2ca74c",
+    "semantic_hash": "31fcaac64bec4f9342ad223dbc2ca74c"
+  },
+  "backend/app/services/settings_service.py": {
+    "mtime": 1795191862.5667953,
+    "seen": 1795250517.0266657,
+    "ast_hash": "755cf6a6e4086bc5688f49cf4648b1b2",
+    "semantic_hash": "755cf6a6e4086bc5688f49cf4648b1b2"
+  },
+  "backend/run.py": {
+    "mtime": 1795194486.8585365,
+    "seen": 1795250517.0268223,
+    "ast_hash": "88fb0cf532b48ed9eeb24f0f770fddbe",
+    "semantic_hash": "88fb0cf532b48ed9eeb24f0f770fddbe"
+  },
+  "backend/tests/__init__.py": {
+    "mtime": 1795192096.6107292,
+    "seen": 1795250517.0269668,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "backend/tests/conftest.py": {
+    "mtime": 1795257840.9187212,
+    "seen": 1795340129.2902381,
+    "ast_hash": "27401b29201da0be39d06fce8b168bfc",
+    "semantic_hash": ""
+  },
+  "backend/tests/test_api.py": {
+    "mtime": 1795251456.661481,
+    "seen": 1795251582.4240272,
+    "ast_hash": "6ab03d5310f5f1746a847c1dceda3dc0",
+    "semantic_hash": ""
+  },
+  "datasets/real/metadata.json": {
+    "mtime": 1795237003.1530771,
+    "seen": 1795250517.0274086,
+    "ast_hash": "0154781a685d030e63f502aad5d8c054",
+    "semantic_hash": "0154781a685d030e63f502aad5d8c054",
+    "ast_empty": true
+  },
+  "desktop/app/__init__.py": {
+    "mtime": 1795197250.6790373,
+    "seen": 1795250517.027412,
+    "ast_hash": "f99c04ae7ac397da9d687b9fa7f537c6",
+    "semantic_hash": "f99c04ae7ac397da9d687b9fa7f537c6"
+  },
+  "desktop/app/components/__init__.py": {
+    "mtime": 1795197250.6907442,
+    "seen": 1795250517.0275595,
+    "ast_hash": "9eb50c0ce1ecdbe6afc89440f811564f",
+    "semantic_hash": "9eb50c0ce1ecdbe6afc89440f811564f"
+  },
+  "desktop/app/components/charts.py": {
+    "mtime": 1795348243.0870638,
+    "seen": 1795350157.7112665,
+    "ast_hash": "7679b0614e67b301b246c30cdfc56e22",
+    "semantic_hash": ""
+  },
+  "desktop/app/components/dialogs.py": {
+    "mtime": 1795342201.9148037,
+    "seen": 1795350157.7112691,
+    "ast_hash": "13ce1648f5a7d95aed8994368769a003",
+    "semantic_hash": ""
+  },
+  "desktop/app/components/layout.py": {
+    "mtime": 1795342145.9080784,
+    "seen": 1795350157.7112708,
+    "ast_hash": "ea784f1fd3478eca4bdc21822dfa5e50",
+    "semantic_hash": ""
+  },
+  "desktop/app/components/widgets.py": {
+    "mtime": 1795347982.0499253,
+    "seen": 1795350157.7112727,
+    "ast_hash": "f83146e153d3cacbc105c70dd6066038",
+    "semantic_hash": ""
+  },
+  "desktop/app/core/__init__.py": {
+    "mtime": 1795197250.6827102,
+    "seen": 1795250517.0283537,
+    "ast_hash": "6a8591ce228a6fc64fbea039575ec15c",
+    "semantic_hash": "6a8591ce228a6fc64fbea039575ec15c"
+  },
+  "desktop/app/core/api.py": {
+    "mtime": 1795195899.9374132,
+    "seen": 1795250517.0285072,
+    "ast_hash": "ed96eab4526c4060a0be07b5c44d56bc",
+    "semantic_hash": "ed96eab4526c4060a0be07b5c44d56bc"
+  },
+  "desktop/app/core/async_worker.py": {
+    "mtime": 1795195914.3698537,
+    "seen": 1795250517.028655,
+    "ast_hash": "28a19dac292121aacd5c6635344cf886",
+    "semantic_hash": "28a19dac292121aacd5c6635344cf886"
+  },
+  "desktop/app/core/backend.py": {
+    "mtime": 1795195928.2994027,
+    "seen": 1795250517.0288055,
+    "ast_hash": "cf91e0c113b54c3b0f7b391648882974",
+    "semantic_hash": "cf91e0c113b54c3b0f7b391648882974"
+  },
+  "desktop/app/core/config.py": {
+    "mtime": 1795195789.382303,
+    "seen": 1795250517.0289526,
+    "ast_hash": "f8d6395a6b60b3b3d5e5933268bd8ed9",
+    "semantic_hash": "f8d6395a6b60b3b3d5e5933268bd8ed9"
+  },
+  "desktop/app/core/icons.py": {
+    "mtime": 1795341963.7468693,
+    "seen": 1795350157.7112854,
+    "ast_hash": "3e2a61833e53e2582c306ae3eb4a745e",
+    "semantic_hash": ""
+  },
+  "desktop/app/core/theme.py": {
+    "mtime": 1795347982.0499253,
+    "seen": 1795350157.711287,
+    "ast_hash": "e633b7b79847ea8f85d4f0fe7406d5be",
+    "semantic_hash": ""
+  },
+  "desktop/app/core/utils.py": {
+    "mtime": 1795249888.9079816,
+    "seen": 1795250517.029403,
+    "ast_hash": "a77efc46efd7cce46408e53419e088b5",
+    "semantic_hash": "a77efc46efd7cce46408e53419e088b5"
+  },
+  "desktop/app/main.py": {
+    "mtime": 1795342163.4170983,
+    "seen": 1795350157.711291,
+    "ast_hash": "c77d421a90b2b3362866c8085e99d3ba",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/__init__.py": {
+    "mtime": 1795197250.693837,
+    "seen": 1795250517.0297036,
+    "ast_hash": "84cdf10745d9d85190d4de6e1af4fc3d",
+    "semantic_hash": "84cdf10745d9d85190d4de6e1af4fc3d"
+  },
+  "desktop/app/pages/common.py": {
+    "mtime": 1795342170.6143496,
+    "seen": 1795350157.711295,
+    "ast_hash": "3f30f0f47e4dfad40fd392b7632afc5b",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/dashboard.py": {
+    "mtime": 1795347982.0499253,
+    "seen": 1795350157.711297,
+    "ast_hash": "0489a0514d5d4543c53a7a5a4d845d78",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/login.py": {
+    "mtime": 1795342190.99696,
+    "seen": 1795350157.7112987,
+    "ast_hash": "fa3df19537897b7174fc462deae2d1e3",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/prediction.py": {
+    "mtime": 1795346894.3825593,
+    "seen": 1795350157.7113006,
+    "ast_hash": "6bf98918024022d883ef7b487c5c26e1",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/procurement.py": {
+    "mtime": 1795346894.3825593,
+    "seen": 1795350157.7113025,
+    "ast_hash": "fa5c6872ec8a602b6036b95fffc99a2b",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/reports.py": {
+    "mtime": 1795347982.0499253,
+    "seen": 1795350157.711304,
+    "ast_hash": "26f3f0ddb8b70acfe0d9c121003d2359",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/sales.py": {
+    "mtime": 1795346894.3825593,
+    "seen": 1795350157.711306,
+    "ast_hash": "551b43c6316d30ce29dccc0633409a15",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/settings.py": {
+    "mtime": 1795342190.919503,
+    "seen": 1795350157.7113078,
+    "ast_hash": "852e2327ae838752c694f0748dbfed2d",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/stock.py": {
+    "mtime": 1795346894.3825593,
+    "seen": 1795350157.7113092,
+    "ast_hash": "5a00d4e0a0f4fa27cc831ef55598b363",
+    "semantic_hash": ""
+  },
+  "desktop/app/pages/weather.py": {
+    "mtime": 1795347982.0499253,
+    "seen": 1795350157.711311,
+    "ast_hash": "35a41368947a7e2642746d32d5b42b60",
+    "semantic_hash": ""
+  },
+  "desktop/run.py": {
+    "mtime": 1795335711.902563,
+    "seen": 1795340129.2903035,
+    "ast_hash": "993455cd4e76e38aa1ce675bfdcaac31",
+    "semantic_hash": ""
+  },
+  "mobile-web/package.json": {
+    "mtime": 1795194566.7615137,
+    "seen": 1795250517.031542,
+    "ast_hash": "c9fcbce0f4be7b77bcaf2aa4bd777cdb",
+    "semantic_hash": "c9fcbce0f4be7b77bcaf2aa4bd777cdb"
+  },
+  "mobile-web/postcss.config.js": {
+    "mtime": 1795194566.7939672,
+    "seen": 1795250517.031688,
+    "ast_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0",
+    "semantic_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0"
+  },
+  "mobile-web/public/sw.js": {
+    "mtime": 1795207418.7640772,
+    "seen": 1795250517.0318317,
+    "ast_hash": "8c0389fabe1ca230e589840c5050887e",
+    "semantic_hash": "8c0389fabe1ca230e589840c5050887e"
+  },
+  "mobile-web/src/App.tsx": {
+    "mtime": 1795195150.6990552,
+    "seen": 1795250517.031979,
+    "ast_hash": "c4ed665b9c074e1130d23d505ce0cbb1",
+    "semantic_hash": "c4ed665b9c074e1130d23d505ce0cbb1"
+  },
+  "mobile-web/src/components/Illustration.tsx": {
+    "mtime": 1795194841.3039606,
+    "seen": 1795250517.032151,
+    "ast_hash": "d08ad97a0c03f161a7ac9b878707f0f6",
+    "semantic_hash": "d08ad97a0c03f161a7ac9b878707f0f6"
+  },
+  "mobile-web/src/components/Layout.tsx": {
+    "mtime": 1795236809.4887712,
+    "seen": 1795250517.0323021,
+    "ast_hash": "c8edb3f0f8026a3a48c745720fbd97db",
+    "semantic_hash": "c8edb3f0f8026a3a48c745720fbd97db"
+  },
+  "mobile-web/src/components/charts.tsx": {
+    "mtime": 1795249026.7053266,
+    "seen": 1795250517.032449,
+    "ast_hash": "7435dd6dd7ad4f26c7c23041d3da44af",
+    "semantic_hash": "7435dd6dd7ad4f26c7c23041d3da44af"
+  },
+  "mobile-web/src/components/ui.tsx": {
+    "mtime": 1795195165.450466,
+    "seen": 1795250517.0326023,
+    "ast_hash": "db854a4e153c2dae973e0e761fb375f1",
+    "semantic_hash": "db854a4e153c2dae973e0e761fb375f1"
+  },
+  "mobile-web/src/context/AuthContext.tsx": {
+    "mtime": 1795206668.9131784,
+    "seen": 1795250517.0327506,
+    "ast_hash": "3469813d0529d76db461ee4cf4bebe68",
+    "semantic_hash": "3469813d0529d76db461ee4cf4bebe68"
+  },
+  "mobile-web/src/context/ToastContext.tsx": {
+    "mtime": 1795194700.452914,
+    "seen": 1795250517.0328991,
+    "ast_hash": "89c147d55cdda3b1c0a3a6f787379dcd",
+    "semantic_hash": "89c147d55cdda3b1c0a3a6f787379dcd"
+  },
+  "mobile-web/src/main.tsx": {
+    "mtime": 1795194675.0895524,
+    "seen": 1795250517.0330508,
+    "ast_hash": "42c0b1d9c2751a5e4e55876cee46fc57",
+    "semantic_hash": "42c0b1d9c2751a5e4e55876cee46fc57"
+  },
+  "mobile-web/src/pages/Activity.tsx": {
+    "mtime": 1795195137.8248894,
+    "seen": 1795250517.0332065,
+    "ast_hash": "adfae9a14adf94f706a7252579fb5797",
+    "semantic_hash": "adfae9a14adf94f706a7252579fb5797"
+  },
+  "mobile-web/src/pages/Dashboard.tsx": {
+    "mtime": 1795236890.4165728,
+    "seen": 1795250517.0333536,
+    "ast_hash": "47e757ccded5c2d3cdd289e71e1dc006",
+    "semantic_hash": "47e757ccded5c2d3cdd289e71e1dc006"
+  },
+  "mobile-web/src/pages/Login.tsx": {
+    "mtime": 1795236809.5428555,
+    "seen": 1795250517.0335004,
+    "ast_hash": "36244210f6b22839b61d4af6ed0c18d5",
+    "semantic_hash": "36244210f6b22839b61d4af6ed0c18d5"
+  },
+  "mobile-web/src/pages/More.tsx": {
+    "mtime": 1795247118.1618729,
+    "seen": 1795250517.0336485,
+    "ast_hash": "9fa1dafcd0fe4369ccbe84d171defd5f",
+    "semantic_hash": "9fa1dafcd0fe4369ccbe84d171defd5f"
+  },
+  "mobile-web/src/pages/Prediction.tsx": {
+    "mtime": 1795245658.335299,
+    "seen": 1795250517.0338013,
+    "ast_hash": "0763ec8815a62c4ca23e3ef06d9ad203",
+    "semantic_hash": "0763ec8815a62c4ca23e3ef06d9ad203"
+  },
+  "mobile-web/src/pages/Procurement.tsx": {
+    "mtime": 1795247486.1492138,
+    "seen": 1795250517.0339525,
+    "ast_hash": "a9a46fd79a4cd98a04919261b7867a6f",
+    "semantic_hash": "a9a46fd79a4cd98a04919261b7867a6f"
+  },
+  "mobile-web/src/pages/Reports.tsx": {
+    "mtime": 1795247242.5470197,
+    "seen": 1795250517.0341043,
+    "ast_hash": "ba87a3d6e73b8b144ceec418aca751b9",
+    "semantic_hash": "ba87a3d6e73b8b144ceec418aca751b9"
+  },
+  "mobile-web/src/pages/Sales.tsx": {
+    "mtime": 1795247167.375849,
+    "seen": 1795250517.034255,
+    "ast_hash": "56d9ab023538fb21ed2861d3938de25a",
+    "semantic_hash": "56d9ab023538fb21ed2861d3938de25a"
+  },
+  "mobile-web/src/pages/Settings.tsx": {
+    "mtime": 1795247149.2029417,
+    "seen": 1795250517.0344036,
+    "ast_hash": "40532381e25f78830f8bace17b0a2d8e",
+    "semantic_hash": "40532381e25f78830f8bace17b0a2d8e"
+  },
+  "mobile-web/src/pages/Stock.tsx": {
+    "mtime": 1795247100.2930236,
+    "seen": 1795250517.034553,
+    "ast_hash": "f0361eabb4d5ae8ff1a699473440336a",
+    "semantic_hash": "f0361eabb4d5ae8ff1a699473440336a"
+  },
+  "mobile-web/src/pages/Weather.tsx": {
+    "mtime": 1795249905.3380277,
+    "seen": 1795250517.034704,
+    "ast_hash": "0065cb3d666804fdb6b3b38922bb1aaf",
+    "semantic_hash": "0065cb3d666804fdb6b3b38922bb1aaf"
+  },
+  "mobile-web/src/router.ts": {
+    "mtime": 1795194841.3039606,
+    "seen": 1795250517.0348558,
+    "ast_hash": "f51e95f37b247db9df8e1740482d4b61",
+    "semantic_hash": "f51e95f37b247db9df8e1740482d4b61"
+  },
+  "mobile-web/src/services/api.ts": {
+    "mtime": 1795206769.0389106,
+    "seen": 1795250517.034999,
+    "ast_hash": "a53e4a8655802a2e713420acde904f88",
+    "semantic_hash": "a53e4a8655802a2e713420acde904f88"
+  },
+  "mobile-web/src/types.ts": {
+    "mtime": 1795236647.1254702,
+    "seen": 1795250517.035155,
+    "ast_hash": "1262406ec78b46be56a342a56dfd4156",
+    "semantic_hash": "1262406ec78b46be56a342a56dfd4156"
+  },
+  "mobile-web/src/utils.ts": {
+    "mtime": 1795208541.6075099,
+    "seen": 1795250517.0352988,
+    "ast_hash": "c66558fc556cb5680c59b5c15cf20eff",
+    "semantic_hash": "c66558fc556cb5680c59b5c15cf20eff"
+  },
+  "mobile-web/src/vite-env.d.ts": {
+    "mtime": 1795195165.447637,
+    "seen": 1795250517.0354483,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "mobile-web/tailwind.config.js": {
+    "mtime": 1795194566.7697108,
+    "seen": 1795250517.035601,
+    "ast_hash": "f8a15ca877eed9e4793ebf381fa570d3",
+    "semantic_hash": "f8a15ca877eed9e4793ebf381fa570d3"
+  },
+  "mobile-web/tsconfig.json": {
+    "mtime": 1795194566.7697108,
+    "seen": 1795250517.0357437,
+    "ast_hash": "c7dce2f65b1eda07ad1ed3126b07cd89",
+    "semantic_hash": "c7dce2f65b1eda07ad1ed3126b07cd89"
+  },
+  "mobile-web/vite.config.ts": {
+    "mtime": 1795194566.7780168,
+    "seen": 1795250517.0358856,
+    "ast_hash": "a421c1d85370a621ed5d7c65235bf978",
+    "semantic_hash": "a421c1d85370a621ed5d7c65235bf978"
+  },
+  "packaging/build_win7.ps1": {
+    "mtime": 1795251827.4985304,
+    "seen": 1795252226.1202757,
+    "ast_hash": "3ace3c75e5892fec6d91488e0839457e",
+    "semantic_hash": ""
+  },
+  "packaging/prepare_win7.py": {
+    "mtime": 1795349267.1615934,
+    "seen": 1795350157.7113783,
+    "ast_hash": "141c52b5f4bbb11bd0f3bc4f84665000",
+    "semantic_hash": ""
+  },
+  "scripts/export_icons.mjs": {
+    "mtime": 1795195686.1576443,
+    "seen": 1795250517.0363257,
+    "ast_hash": "27d95c29a91a8e0091e6c88619d7fddd",
+    "semantic_hash": "27d95c29a91a8e0091e6c88619d7fddd"
+  },
+  "scripts/render_assets.py": {
+    "mtime": 1795194594.1972997,
+    "seen": 1795250517.0364933,
+    "ast_hash": "8631910d94b3e4181657d28206b0870c",
+    "semantic_hash": "8631910d94b3e4181657d28206b0870c"
+  },
+  "storage/sample_dashboard.json": {
+    "mtime": 1795194762.9193206,
+    "seen": 1795250517.0366342,
+    "ast_hash": "8a947869657b2cffd022bda40a14bf15",
+    "semantic_hash": "8a947869657b2cffd022bda40a14bf15",
+    "ast_empty": true
+  },
+  "README.md": {
+    "mtime": 1795348853.6452284,
+    "seen": 1795350157.711387,
+    "ast_hash": "ff4799afcf9341de07d55a1217868b2a",
+    "semantic_hash": ""
+  },
+  "backend/requirements.txt": {
+    "mtime": 1795194486.8441236,
+    "seen": 1795251582.4241605,
+    "ast_hash": "b235ec471ae15e92cd49a78a65b8a133",
+    "semantic_hash": ""
+  },
+  "desktop/requirements.txt": {
+    "mtime": 1795207255.4340796,
+    "seen": 1795251582.4241621,
+    "ast_hash": "0350e0cd4f8bf6c70ac4f2e1a8359df1",
+    "semantic_hash": ""
+  },
+  "docs/ARSITEKTUR.md": {
+    "mtime": 1795249703.5547938,
+    "seen": 1795251582.4241638,
+    "ast_hash": "75c58b4b4a58b2297e104af7ae7ed702",
+    "semantic_hash": ""
+  },
+  "docs/PANDUAN_PENGGUNA.md": {
+    "mtime": 1795249731.4083865,
+    "seen": 1795251582.4241655,
+    "ast_hash": "ca81ba83c0dd272867b37737011f9539",
+    "semantic_hash": ""
+  },
+  "docs/PENGUJIAN.md": {
+    "mtime": 1795350114.0131261,
+    "seen": 1795350157.711397,
+    "ast_hash": "12fde7aca10879f4893540317c01c248",
+    "semantic_hash": ""
+  },
+  "docs/WINDOWS7.md": {
+    "mtime": 1795348853.6452284,
+    "seen": 1795350157.7113984,
+    "ast_hash": "bd2179de5d6d57a57a06cd8ffc63c926",
+    "semantic_hash": ""
+  },
+  "docs_laporan.txt": {
+    "mtime": 1795191592.4576054,
+    "seen": 1795251582.4241698,
+    "ast_hash": "f68e30ba179188a8fd3065f06687b5ab",
+    "semantic_hash": ""
+  },
+  "mobile-web/index.html": {
+    "mtime": 1795194566.795978,
+    "seen": 1795251582.4241714,
+    "ast_hash": "95db09c7a2d1dcf76c94473a6b9532c4",
+    "semantic_hash": ""
+  },
+  "packaging/requirements-win7.txt": {
+    "mtime": 1795213085.0608194,
+    "seen": 1795251582.4241729,
+    "ast_hash": "be95b9a0ee52f897e1c446cd8a48689a",
+    "semantic_hash": ""
+  },
+  "packaging/version_info.txt": {
+    "mtime": 1795211789.0603895,
+    "seen": 1795251582.4241743,
+    "ast_hash": "57f4a74659c9b0d2859dbe8aa561fcbf",
+    "semantic_hash": ""
+  },
+  "requirements.txt": {
+    "mtime": 1795207255.4300327,
+    "seen": 1795251582.4241762,
+    "ast_hash": "f7e06997e2e290989972cd218edbefeb",
+    "semantic_hash": ""
+  },
+  "LAPORAN_AKHIR_CAPSTONE.pdf": {
+    "mtime": 1795186713.756564,
+    "seen": 1795251582.4241774,
+    "ast_hash": "9cd57886f3e7c5213458cbe7efc8c5e1",
+    "semantic_hash": ""
+  },
+  "Dasbor Analitik Apotek Pahala.png": {
+    "mtime": 1795186747.2768378,
+    "seen": 1795251582.4241793,
+    "ast_hash": "e37e0b2f807401d9f4f78665efbf299d",
+    "semantic_hash": ""
+  },
+  "Dasbor Intelijen Apotek Pahala.png": {
+    "mtime": 1795186750.1611042,
+    "seen": 1795251582.4241807,
+    "ast_hash": "376e5e9ede3db2c833aca827ced805a9",
+    "semantic_hash": ""
+  },
+  "Mockup Aplikasi Analitik Apotek Pahala.png": {
+    "mtime": 1795186752.7189004,
+    "seen": 1795251582.4241822,
+    "ast_hash": "e8fb46dcc0acac8b61b742e91633704a",
+    "semantic_hash": ""
+  },
+  "assets/logo.png": {
+    "mtime": 1795194626.1802936,
+    "seen": 1795251582.4241838,
+    "ast_hash": "e2337bdaa4ca74f97ec45cc3fefd8500",
+    "semantic_hash": ""
+  },
+  "assets/logo.svg": {
+    "mtime": 1795194624.595208,
+    "seen": 1795251582.4241853,
+    "ast_hash": "152461a798019de831ec893b300c5478",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/activity.svg": {
+    "mtime": 1795195693.462653,
+    "seen": 1795251582.424187,
+    "ast_hash": "7b29f30ec7cf2e75e537512c67498470",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/arrow-down-right.svg": {
+    "mtime": 1795195693.4662263,
+    "seen": 1795251582.4241884,
+    "ast_hash": "d2d2d7a372fe714ffad095c2a63f5805",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/arrow-right.svg": {
+    "mtime": 1795195693.4662263,
+    "seen": 1795251582.4241898,
+    "ast_hash": "aa0c1187e8dfc854b6863e0be04c1414",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/arrow-up-right.svg": {
+    "mtime": 1795195693.4642107,
+    "seen": 1795251582.4241912,
+    "ast_hash": "796cb7d680f72abd3f6c5ee3defeabe9",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/badge-check.svg": {
+    "mtime": 1795195693.455538,
+    "seen": 1795251582.4241927,
+    "ast_hash": "620a31927bccdadeb49b78c6e77e0237",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/badge-info.svg": {
+    "mtime": 1795195693.4989045,
+    "seen": 1795251582.4241943,
+    "ast_hash": "cdd482982835b816f19c2a8bec793c4e",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/bell.svg": {
+    "mtime": 1795195693.412422,
+    "seen": 1795251582.4241958,
+    "ast_hash": "635da58b0d07c6319fa470e5ac56bd31",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/book-open.svg": {
+    "mtime": 1795195693.476341,
+    "seen": 1795251582.4241974,
+    "ast_hash": "ea9db1d052474b7ddd4ac41ad5d32a0c",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/boxes.svg": {
+    "mtime": 1795195693.5090978,
+    "seen": 1795251582.4241989,
+    "ast_hash": "32a04b8e9fb0de5ed3c1df378e10795e",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/brain.svg": {
+    "mtime": 1795195693.5090978,
+    "seen": 1795251582.4242003,
+    "ast_hash": "f541ce0f0ca5f25b40ef4099876507dc",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/building-2.svg": {
+    "mtime": 1795195693.476341,
+    "seen": 1795251582.4242017,
+    "ast_hash": "6c2548ac47efcb42c6bc316cf02cc852",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/calendar-clock.svg": {
+    "mtime": 1795195693.517121,
+    "seen": 1795251582.4242032,
+    "ast_hash": "3001408550deb8dd14930636b3319b44",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/calendar-days.svg": {
+    "mtime": 1795195693.4208233,
+    "seen": 1795251582.4242048,
+    "ast_hash": "a528d47f7fdbacba31719b0a6768abb8",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/calendar-range.svg": {
+    "mtime": 1795195693.424264,
+    "seen": 1795251582.424206,
+    "ast_hash": "d31f1ac76712724993f9a2dec88a1e96",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/chart-column.svg": {
+    "mtime": 1795195693.4948697,
+    "seen": 1795251582.4242077,
+    "ast_hash": "a2486b6a845e660982d8de43caa22c20",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/check-white.svg": {
+    "mtime": 1795197273.0337226,
+    "seen": 1795251582.4242089,
+    "ast_hash": "203254070c3a4c312d483e4d449c0f87",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/check.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4242105,
+    "ast_hash": "0618588d913893da4c26917cb5b86842",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/chevron-down-dark.svg": {
+    "mtime": 1795197273.0296814,
+    "seen": 1795251582.424212,
+    "ast_hash": "964151264e0928bbf5767b02b7df5a09",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/chevron-down-light.svg": {
+    "mtime": 1795197273.0272791,
+    "seen": 1795251582.4242134,
+    "ast_hash": "59baea8cdf5e9918a2468dc1e01590a4",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/chevron-down.svg": {
+    "mtime": 1795195693.424264,
+    "seen": 1795251582.4242148,
+    "ast_hash": "c96f16e0fc9f7ac827e0fb1a670c7d1b",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/chevron-left.svg": {
+    "mtime": 1795195693.424264,
+    "seen": 1795251582.4242163,
+    "ast_hash": "7706670f5ce98f51c0ea67abacf88f04",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/chevron-right.svg": {
+    "mtime": 1795195693.424264,
+    "seen": 1795251582.424218,
+    "ast_hash": "a011d94daaef045cda2d2937c654371b",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/chevrons-up-down.svg": {
+    "mtime": 1795195693.500924,
+    "seen": 1795251582.4242194,
+    "ast_hash": "8f24b41633e853843026eaf8c5ddc450",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/circle-alert.svg": {
+    "mtime": 1795195693.476341,
+    "seen": 1795251582.4242206,
+    "ast_hash": "0afe5a128300118d4998fa63cceb96ae",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/circle-check.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4242222,
+    "ast_hash": "7c0757712095fac9bd924bdba8b815af",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/circle-dot.svg": {
+    "mtime": 1795195693.5211475,
+    "seen": 1795251582.4242237,
+    "ast_hash": "2cdc3c10b67334fc64532577e1882876",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/circle-help.svg": {
+    "mtime": 1795195693.476341,
+    "seen": 1795251582.424225,
+    "ast_hash": "def623f96f94903075283c4f02828179",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/circle-user-round.svg": {
+    "mtime": 1795195693.505573,
+    "seen": 1795251582.4242265,
+    "ast_hash": "528b822d8e6cb83863475eb3512bbafe",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/circle-x.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4242282,
+    "ast_hash": "e898f957d339653272f00cfb428cd041",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/clipboard-check.svg": {
+    "mtime": 1795195693.4948697,
+    "seen": 1795251582.4242299,
+    "ast_hash": "c7ccd032146a0768144e70d7331d0ac3",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/clipboard-list.svg": {
+    "mtime": 1795195693.4104135,
+    "seen": 1795251582.424231,
+    "ast_hash": "262ca1dca196b1b7987465024c0a5f2e",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/clock.svg": {
+    "mtime": 1795195693.4968865,
+    "seen": 1795251582.4242327,
+    "ast_hash": "70ec2e55d9fe1bb5fd1884a13ffaf82c",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/cloud-rain.svg": {
+    "mtime": 1795195693.4084003,
+    "seen": 1795251582.4242344,
+    "ast_hash": "e0797574db6c723dbf79ec629ebf7481",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/cloud.svg": {
+    "mtime": 1795195693.4731524,
+    "seen": 1795251582.4242358,
+    "ast_hash": "ab9f6f1a31547766eae2812f055c422d",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/cpu.svg": {
+    "mtime": 1795195693.4711418,
+    "seen": 1795251582.4242373,
+    "ast_hash": "eaadc75a95dad8d62edaf9dafe00a8da",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/database-backup.svg": {
+    "mtime": 1795195693.5191345,
+    "seen": 1795251582.424239,
+    "ast_hash": "468cdc73bd0c3eb79b55f4248f8a822e",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/database.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4242404,
+    "ast_hash": "c386374f9dc3fe4072efe940c702002f",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/download.svg": {
+    "mtime": 1795195693.424264,
+    "seen": 1795251582.4242423,
+    "ast_hash": "ce9a8d840315be8f3a7c0f98ee1fb68f",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/droplets.svg": {
+    "mtime": 1795195693.4731524,
+    "seen": 1795251582.4242437,
+    "ast_hash": "9237eb19a8dbeb42118ae1f3c4ea4245",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/ellipsis.svg": {
+    "mtime": 1795195693.5029411,
+    "seen": 1795251582.4242449,
+    "ast_hash": "b350356e073766b1b83751b44c443a78",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/external-link.svg": {
+    "mtime": 1795195693.476341,
+    "seen": 1795251582.4242468,
+    "ast_hash": "4e54f8a9aaaffc4b648a5bf675351a82",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/eye-off.svg": {
+    "mtime": 1795195693.460122,
+    "seen": 1795251582.4242482,
+    "ast_hash": "d12947a0f604db115540a2113b152407",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/eye.svg": {
+    "mtime": 1795195693.4590943,
+    "seen": 1795251582.42425,
+    "ast_hash": "6ec2e1a6627c6d209e69bde3c10780f7",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/file-bar-chart.svg": {
+    "mtime": 1795195693.412422,
+    "seen": 1795251582.4242601,
+    "ast_hash": "c72f438c3dc9908d60f856084e9a413a",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/file-down.svg": {
+    "mtime": 1795195693.5090978,
+    "seen": 1795251582.4242616,
+    "ast_hash": "673ada691586336f5e3377e4f0dd9a7f",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/file-spreadsheet.svg": {
+    "mtime": 1795195693.4319556,
+    "seen": 1795251582.4242635,
+    "ast_hash": "7fc6e856404f9bdc044644078398c44a",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/file-text.svg": {
+    "mtime": 1795195693.433492,
+    "seen": 1795251582.4242666,
+    "ast_hash": "7472c542bcd9e74f839f00ffadb7dcde",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/filter.svg": {
+    "mtime": 1795195693.4682393,
+    "seen": 1795251582.4242682,
+    "ast_hash": "3693093efd5ad97a97ba6c3e1bcb88a6",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/flask-conical.svg": {
+    "mtime": 1795195693.5090978,
+    "seen": 1795251582.42427,
+    "ast_hash": "bf1f59fe9bae04bc494d9600a5f6b37a",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/gauge.svg": {
+    "mtime": 1795195693.462653,
+    "seen": 1795251582.424271,
+    "ast_hash": "b21c1bfc5b5a51e77ac4affb234e4e61",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/hard-drive-download.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.424273,
+    "ast_hash": "074bc01acd7d33fb19a17d70334c7863",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/hard-drive-upload.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4242742,
+    "ast_hash": "24a56f7b97f9ff90dda5541a93671bf8",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/history.svg": {
+    "mtime": 1795195693.455538,
+    "seen": 1795251582.4242756,
+    "ast_hash": "2765064e08a63f868e1fce20f5a64c90",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/house.svg": {
+    "mtime": 1795195693.4007375,
+    "seen": 1795251582.4242773,
+    "ast_hash": "b22f867fa916ca380817d76bee96c2f6",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/info.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4242787,
+    "ast_hash": "e0b0a9fab1cc7fa5bc0dcf57ddae5168",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/key-round.svg": {
+    "mtime": 1795195693.5211475,
+    "seen": 1795251582.4242804,
+    "ast_hash": "6464a8a113cfbd671552e16fc8096b60",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/layout-grid.svg": {
+    "mtime": 1795195693.5090978,
+    "seen": 1795251582.4242816,
+    "ast_hash": "4a5a1c4fa6ab4cee5c68164265048f84",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/leaf.svg": {
+    "mtime": 1795195693.4898338,
+    "seen": 1795251582.424283,
+    "ast_hash": "f65a3d5726ba39699ec2b6dc3079a7e5",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/list-filter.svg": {
+    "mtime": 1795195693.5090978,
+    "seen": 1795251582.4242847,
+    "ast_hash": "b706c3867385d3568593cd8f6729a84f",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/lock-keyhole.svg": {
+    "mtime": 1795195693.4621396,
+    "seen": 1795251582.424286,
+    "ast_hash": "23bbd3c9c1fbc7bb74050abc090f1d69",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/log-out.svg": {
+    "mtime": 1795195693.4208233,
+    "seen": 1795251582.4242876,
+    "ast_hash": "e3cadbb3f000a5af68eab25971f0f4a1",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/maximize.svg": {
+    "mtime": 1795195693.4846058,
+    "seen": 1795251582.424289,
+    "ast_hash": "f013c28a0c1657bffe3a230e9c5c011f",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/monitor.svg": {
+    "mtime": 1795195693.4989045,
+    "seen": 1795251582.4242904,
+    "ast_hash": "f067e3771dfb73f8f7f2f35224c84304",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/moon.svg": {
+    "mtime": 1795195693.412422,
+    "seen": 1795251582.4242918,
+    "ast_hash": "a8086d62f73be578609a27b77e018d36",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/package.svg": {
+    "mtime": 1795195693.4104135,
+    "seen": 1795251582.4242933,
+    "ast_hash": "5a174b0dd049e71fd52199d2a64a25a0",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/pencil-line.svg": {
+    "mtime": 1795195693.4580655,
+    "seen": 1795251582.424295,
+    "ast_hash": "9a21f5fe9d617337d22f3ad38efa25e7",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/pill.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4242964,
+    "ast_hash": "3ee41023f7b634e78391bebbbb77e1fe",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/play.svg": {
+    "mtime": 1795195693.4517488,
+    "seen": 1795251582.4242978,
+    "ast_hash": "1129caf122867f7f25989ee5557d8cfd",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/plug-zap.svg": {
+    "mtime": 1795195693.4898338,
+    "seen": 1795251582.4242995,
+    "ast_hash": "4aa9e46908704e03af3cd546d078d561",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/plus.svg": {
+    "mtime": 1795195693.433492,
+    "seen": 1795251582.424301,
+    "ast_hash": "b7944c32c6d37972c0639ddc58a3147e",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/printer.svg": {
+    "mtime": 1795195693.4682393,
+    "seen": 1795251582.4243023,
+    "ast_hash": "d3c9e79b1ddbdc54a9754d3f43ccf359",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/receipt-text.svg": {
+    "mtime": 1795195693.4060345,
+    "seen": 1795251582.4243042,
+    "ast_hash": "0a18f1a7fa49f1a96fa7d199f3782030",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/refresh-cw.svg": {
+    "mtime": 1795195693.433492,
+    "seen": 1795251582.4243057,
+    "ast_hash": "3d393a25a0636110a522061c29e056fc",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/rotate-ccw.svg": {
+    "mtime": 1795195693.4846058,
+    "seen": 1795251582.424307,
+    "ast_hash": "9a609122830268d4668346d6391d98de",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/save.svg": {
+    "mtime": 1795195693.5075817,
+    "seen": 1795251582.4243085,
+    "ast_hash": "7cc5881b4eb591b5fbf3a4cad020b26a",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/scan-line.svg": {
+    "mtime": 1795195693.5211475,
+    "seen": 1795251582.42431,
+    "ast_hash": "6699fdf2f4ee8ba22bf81b4a386bc89b",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/search.svg": {
+    "mtime": 1795195693.424264,
+    "seen": 1795251582.4243116,
+    "ast_hash": "5b0b990d5ba797351a2c918644dc25c2",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/server.svg": {
+    "mtime": 1795195693.4878,
+    "seen": 1795251582.424313,
+    "ast_hash": "6c3341ec12f4315e95d58faefdc986f4",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/settings.svg": {
+    "mtime": 1795195693.412422,
+    "seen": 1795251582.4243147,
+    "ast_hash": "a67118385152d5b08aba0bbf10fd09c6",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/shield-check.svg": {
+    "mtime": 1795195693.476341,
+    "seen": 1795251582.424316,
+    "ast_hash": "d139c3e9428f9770c92c20a414702cc3",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/shopping-bag.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4243174,
+    "ast_hash": "7eed8f45d90c12391cfeaddc8f757ac7",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/sliders-horizontal.svg": {
+    "mtime": 1795195693.4517488,
+    "seen": 1795251582.424319,
+    "ast_hash": "ea72878568ca2d7573efb590181b2481",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/sparkles.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4243205,
+    "ast_hash": "d70386b218e31b612301721ddadc3123",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/sun.svg": {
+    "mtime": 1795195693.412422,
+    "seen": 1795251582.4243221,
+    "ast_hash": "c1eba78a93fe8ba099bbc00d21c7b37b",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/target.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4243236,
+    "ast_hash": "8d2038aefd2feb888396124e2cd5c685",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/thermometer.svg": {
+    "mtime": 1795195693.4731524,
+    "seen": 1795251582.4243252,
+    "ast_hash": "38d89f4534d808d336624c3a173bd41f",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/trash-2.svg": {
+    "mtime": 1795195693.4580655,
+    "seen": 1795251582.4243267,
+    "ast_hash": "9fc8c692a7f7d80f7c046d2620af4cd7",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/trending-up.svg": {
+    "mtime": 1795195693.4027784,
+    "seen": 1795251582.424328,
+    "ast_hash": "e1f4752531963974ddee393273051fdc",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/triangle-alert.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4243298,
+    "ast_hash": "c13effd411064e1fed6743fd311a2f61",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/undo-2.svg": {
+    "mtime": 1795195693.5090978,
+    "seen": 1795251582.424331,
+    "ast_hash": "f725ec591e7fe25fa3776c5e29905604",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/upload.svg": {
+    "mtime": 1795195693.424264,
+    "seen": 1795251582.4243326,
+    "ast_hash": "f0bcecba53155d1027732671db12ad11",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/user-round.svg": {
+    "mtime": 1795195693.4208233,
+    "seen": 1795251582.424334,
+    "ast_hash": "cdc2d44c784ffef7c4e234bf7488a34b",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/wallet.svg": {
+    "mtime": 1795195693.437722,
+    "seen": 1795251582.4243357,
+    "ast_hash": "a9afa7ff91d47b5c7ccd2d5844709c15",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/wand-sparkles.svg": {
+    "mtime": 1795195693.4846058,
+    "seen": 1795251582.4243371,
+    "ast_hash": "57e9622ab3681db987ff41e90ca24526",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/x.svg": {
+    "mtime": 1795195693.476341,
+    "seen": 1795251582.4243386,
+    "ast_hash": "613f6e881105344acc26e2239645c446",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/logo.png": {
+    "mtime": 1795194626.2074268,
+    "seen": 1795251582.4243402,
+    "ast_hash": "aa15fafe4fcad842811720e6d5c50cb7",
+    "semantic_hash": ""
+  },
+  "mobile-web/public/apple-touch-icon.png": {
+    "mtime": 1795194626.2047439,
+    "seen": 1795251582.424342,
+    "ast_hash": "275138efe47c79ff5bce9f8daf5cd8ad",
+    "semantic_hash": ""
+  },
+  "mobile-web/public/icon-192.png": {
+    "mtime": 1795194626.1802936,
+    "seen": 1795251582.4243433,
+    "ast_hash": "1ba3827eac4f84c6cbc884528aa0568b",
+    "semantic_hash": ""
+  },
+  "mobile-web/public/icon-512.png": {
+    "mtime": 1795194626.201204,
+    "seen": 1795251582.4243448,
+    "ast_hash": "2607b853d6e3b6e500f85d222a318f12",
+    "semantic_hash": ""
+  },
+  "mobile-web/public/logo.svg": {
+    "mtime": 1795194624.595208,
+    "seen": 1795251582.4243464,
+    "ast_hash": "152461a798019de831ec893b300c5478",
+    "semantic_hash": ""
+  },
+  "docs/WORK_LOG.md": {
+    "mtime": 1795350293.939323,
+    "seen": 1795350490.3230023,
+    "ast_hash": "1476d01510dd5338dec73503292fc075",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/folder-open.svg": {
+    "mtime": 1795257522.2328637,
+    "seen": 1795340129.2905128,
+    "ast_hash": "35ad870c5a61df8aa9e6e063da2ec13a",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/palette.svg": {
+    "mtime": 1795257522.2343965,
+    "seen": 1795340129.2905462,
+    "ast_hash": "3c0cbb3eb3e92ff4955e0534a95fafef",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/table-2.svg": {
+    "mtime": 1795257522.2343965,
+    "seen": 1795340129.290586,
+    "ast_hash": "d414460627dea7871631a0de1331a80f",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/trophy.svg": {
+    "mtime": 1795257522.2354116,
+    "seen": 1795340129.2905977,
+    "ast_hash": "3e552f2657e61e41d4a411d79fac1349",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/user-plus.svg": {
+    "mtime": 1795257522.2364283,
+    "seen": 1795340129.2906032,
+    "ast_hash": "bed3eb686875fa55f569ce101db54125",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/user-x.svg": {
+    "mtime": 1795257522.2374263,
+    "seen": 1795340129.2906065,
+    "ast_hash": "feb4b90debdd7d082c18b179e7160e5d",
+    "semantic_hash": ""
+  },
+  "desktop/app/assets/icons/users.svg": {
+    "mtime": 1795257522.2384384,
+    "seen": 1795340129.2906084,
+    "ast_hash": "5d96c30e1105a5d033652d0eb45890de",
+    "semantic_hash": ""
+  },
+  "mobile-web/package-lock.json": {
+    "mtime": 1795194620.3963492,
+    "seen": 1795251582.4243479,
+    "ast_hash": "e2151c39a16de0b56ec218baee1fae31",
+    "semantic_hash": ""
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Apotek Pahala — Pharmacy Intelligence",
+  "short_name": "Apotek Pahala",
+  "description": "Solusi analitik untuk persediaan obat yang lebih tepat.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F8FA",
+  "theme_color": "#0B4F45",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["medical", "business", "productivity"]
+}

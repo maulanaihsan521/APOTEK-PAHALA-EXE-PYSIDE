@@ -1,0 +1,40 @@
+# ==== Rahasia dan data runtime ====
+.env
+*.db
+*.db-*
+storage/secret.key
+storage/uploads/
+storage/source_cache/
+backups/
+models/
+logs/
+*.log
+
+# ==== Python ====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# ==== Node / frontend ====
+node_modules/
+mobile-web/tsconfig.tsbuildinfo
+
+# ==== Build dan arsip ====
+build/
+*.spec.bak
+*.zip.tmp
+
+# ==== Graphify cache dan arsip lama ====
+graphify-out/cache/
+graphify-out/2026-*/
+
+# ==== OS / editor ====
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,2 @@
+code,name,category,unit,price,min_stock,safety_stock,is_priority
+OBT-100,Contoh Obat,Umum,Strip,5000,20,10,False
